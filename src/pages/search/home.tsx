@@ -1,11 +1,24 @@
-import React from 'react';
-import { Text, View, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Pressable,
+  TextInput,
+  View,
+  ImageBackground,
+  Text
+} from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import useStyles from "@pages/home/home.styles";
 import useHome from "@pages/home/home.hook";
 import CardData from "@/src/components/cards/cardData/cardData";
 import CardLeads from "@/src/components/cards/cardLeads/cardLeads";
+// import * as d3 from "d3";
+// import LinePlot from "./lineplot";
+
 import Template from "@components/layout/template/template";
+import { useQuery } from "react-query";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -14,17 +27,22 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const styles = useStyles();
-  const { userList, isLoading, getClientInfos } = useHome();
 
-  const handleRefresh = async () => {
-    await getClientInfos();
-  };
+const styles = useStyles()
+
+const {
+  userList,
+  isLoading
+} = useHome();
+
+// console.log(userList[0].name);
+
+// const [data, setData] = useState(() => d3.ticks(-2, 2, 200).map(Math.sin));
 
   return (
-    <Template onRefresh={handleRefresh}>
+    <Template>
       <Text style={[styles.title, styles.paddingLeft, styles.paddingRight]}>
-        Bonjour,
+        Bonjour,  
         <Text style={styles.titleMedium}> Marie-Laure</Text>
       </Text>
       <View style={[styles.section, styles.paddingLeft, styles.paddingRight]}>
@@ -42,28 +60,23 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, styles.paddingLeft, styles.paddingRight]}>Clients</Text>
-
-        <FlatList
-          data={userList}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <React.Fragment>
-              <CardLeads data={item} />
+        <ScrollView style={[styles.section, styles.paddingLeft, styles.paddingRight]} horizontal={true} showsHorizontalScrollIndicator={false}>
+        {isLoading ? (
+          <Text>Chargement...</Text>
+        ) : (
+          userList.map((user, key) => (
+            <React.Fragment key={key}>
+              <CardLeads data={user} />
               <View style={{ width: 10 }}></View>
             </React.Fragment>
-          )}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ListEmptyComponent={() => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-              {isLoading && <Text>Chargement...</Text> }
-              {userList.length < 1 && <Text>Aucun client trouvé</Text>}
-            </View>
-          )}
-        />
-      </View>
-    </Template>
-  );
-}
+          ))
+        )}
 
+        </ScrollView>
+      </View>
+      
+    </Template> 
+   );
+}
+// react query
 export default Home;
