@@ -18,23 +18,23 @@ export function useCustomersWithQueryClient() {
 
   const fetchCustomer = async (customerId: number) => {
     const data = await fetchCustomerAxios(customerId);
-    queryClient.setQueryData(['customer', customerId], data);
+    return queryClient.setQueryData(['customer', customerId], data);
   };
 
-  const createCustomer = async (customer: Omit<CustomersProps, 'id'>) => {
+  const createCustomer = async (customer: CustomersProps) => {
     await createCustomerAxios(customer);
-    queryClient.invalidateQueries(['customers']);
+    return queryClient.invalidateQueries(['customers']);
   };
 
   const updateCustomer = async (customerId: number, customer: CustomersProps) => {
     await updateCustomerAxios(customerId, customer);
     queryClient.invalidateQueries(['customers']);
-    queryClient.invalidateQueries(['customer', customerId]);
+    return queryClient.invalidateQueries(['customer', customerId]);
   };
 
   const deleteCustomer = async (customerId: number) => {
     await deleteCustomerAxios(customerId);
-    queryClient.invalidateQueries(['customers']);
+    return queryClient.invalidateQueries(['customers']);
   };
 
   // useEffect(() => {

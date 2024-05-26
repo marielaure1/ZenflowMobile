@@ -3,23 +3,49 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"],
-      "@api/*": ["./api/*"],
-      "@icons/*": ["./assets/icons/*"],
-      "@img/*": ["./assets/img/*"],
-      "@components/*": ["./components/*"],
-      "@config/*": ["./config/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@app/*": ["./app/*"],
-      "@stores/*": ["./stores/*"],
-      "@theme/*": ["./theme/*"],
-      "@interfaces/*": ["./common/interfaces/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@api/*": [
+        "./api/*"
+      ],
+      "@icons/*": [
+        "./assets/icons/*"
+      ],
+      "@img/*": [
+        "./assets/images/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@config/*": [
+        "./config/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@app/*": [
+        "./app/*"
+      ],
+      "@screens/*": [
+        "./screens/*"
+      ],
+      "@navigators/*": [
+        "./navigators/*"
+      ],
+      "@stores/*": [
+        "./stores/*"
+      ],
+      "@theme/*": [
+        "./theme/*"
+      ],
+      "@interfaces/*": [
+        "./common/interfaces/*"
+      ]
     }
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "**/*.tsx"
   ]
 }

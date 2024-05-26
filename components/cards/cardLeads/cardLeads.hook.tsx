@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import texts from '@theme/theme.texts';
+import texts from '@/theme/theme.texts';
 import ButtonSecondary from "@components/buttons/buttonSecondary";
 // import {Amplify, Auth} from 'aws-amplify';
 // import amplifyconfig from '@/amplifyconfiguration.js';

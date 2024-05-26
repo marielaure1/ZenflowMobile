@@ -1,0 +1,30 @@
+import React, { useState } from 'react';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import useLogin from '@screens/(auth)/login/login.hook';
+import styles from '@screens/(auth)/login/login.styles';
+import Button from "@components/buttons/button";
+import Field from "@components/fields/field";
+
+const LoginScreen = () => {
+ 
+  const {
+   email, setEmail, password, setPassword, error, handleLogin
+  } = useLogin();
+
+  return (
+    <View style={styles.container}>
+       <Text style={styles.title}>Connexion</Text>
+
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
+        <Field get={email} set={setEmail} name="Email"/>
+        <Field get={password} set={setPassword} name="Password" secureTextEntry/>
+
+        <Button text="Connexion" type="primary" action={handleLogin}/>
+        <Text style={styles.forgotPassword} onPress={() => navigation?.navigate("ForgetPasssword")}>Mot de passe oublié</Text>
+    </View>
+  );
+};
+
+export default LoginScreen;

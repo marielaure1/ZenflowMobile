@@ -1,12 +1,14 @@
 import { Reducer } from 'redux';
-import { AuthActionTypes } from '@stores/auth/auth.enum.ts';
+import { AuthActionTypes } from '@stores/auth/auth.enum';
 
 interface AuthState {
   isAuthenticated: boolean;
+  token: string | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
+  token: null,
 };
 
 const authReducer: Reducer<AuthState> = (state = initialState, action) => {
@@ -15,11 +17,13 @@ const authReducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        token: action.token,
       };
     case AuthActionTypes.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
+        token: null,
       };
     default:
       return state;

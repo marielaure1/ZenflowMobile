@@ -6,8 +6,8 @@ export async function fetchCustomerAxios(customerId: number) {
   return response.data;
 }
 
-export async function createCustomerAxios(customer: Omit<CustomersProps, 'id'>) {
-  const response = await apiClient.post<CustomersProps>('/customers', customer);
+export async function createCustomerAxios(customer: CustomersProps) {
+  const response = await apiClient.post('/auth', customer);
   return response.data;
 }
 
