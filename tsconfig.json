@@ -1,35 +1,25 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json",
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": "." ,
-    "paths": {
-      "@/*": [
-        "*"
-      ],
-      "@api/*": [
-        "src/api/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@theme/*": [
-        "src/theme/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
-    },
-    "target": "esnext",
-    "module": "ES2022",
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "paths": {
+      "@/*": ["./*"],
+      "@api/*": ["./api/*"],
+      "@icons/*": ["./assets/icons/*"],
+      "@img/*": ["./assets/img/*"],
+      "@components/*": ["./components/*"],
+      "@config/*": ["./config/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@app/*": ["./app/*"],
+      "@stores/*": ["./stores/*"],
+      "@theme/*": ["./theme/*"],
+      "@interfaces/*": ["./common/interfaces/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }
