@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text } from 'react-native';
-import styles from '@components/fields/field.styles';
+import styles from '@/components/fields/field.styles';
 
 const Field = ({ get, set, name, type = "input", placeholder = "", ...props }) => {
     return (

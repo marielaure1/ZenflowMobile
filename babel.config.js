@@ -15,7 +15,7 @@ module.exports = function(api) {
             '@img': './assets/images',
             '@components': './components',
             '@config': './config',
-            '@hooks': './hooks',
+            '@hooks': './common/hooks',
             '@app': './app',
             '@screens': './screens',
             '@navigators': './navigators',

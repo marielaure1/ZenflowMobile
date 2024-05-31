@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, RefreshControl } from 'react-native';
-import useStyles from "@components/layout/template/template.styles";
+import useStyles from "@/components/layout/template/template.styles";
 
 const Template = ({ children, onRefresh }) => {
   const styles = useStyles();
@@ -18,14 +18,14 @@ const Template = ({ children, onRefresh }) => {
     <ScrollView
       style={[styles.scrollView, styles.container]}
       contentInsetAdjustmentBehavior="automatic"
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={handleRefresh}
-          colors={['black']}
-          tintColor={'white'}
-        />
-      }
+      // refreshControl={
+      //   <RefreshControl
+      //     refreshing={refreshing}
+      //     onRefresh={handleRefresh}
+      //     colors={['black']}
+      //     tintColor={'white'}
+      //   />
+      // }
     >
       {children}
     </ScrollView>

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import getTheme from '@/src/theme/theme.colors';
-import getVariables from '@/src/theme/theme.variables';
+import getTheme from '@theme/theme.colors';
+import getVariables from '@theme/theme.variables';
 
 export default function useStyles(){
   const variables = getVariables();

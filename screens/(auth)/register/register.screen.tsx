@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import useRegister from '@screens/(auth)/register/register.hook';
 import styles from '@screens/(auth)/register/register.styles';
-import Button from "@components/buttons/button";
-import Field from "@components/fields/field";
+import Button from "@/components/buttons/button";
+import Field from "@/components/fields/field";
 
 const RegisterScreen = () => {
  

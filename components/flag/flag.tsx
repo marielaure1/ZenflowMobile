@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Pressable, StyleSheet, Text, ViewStyle, View } from 'react-native';
 // import texts from '@theme/theme.texts';
 // import ButtonSecondary from "@components/buttons/buttonSecondary";
-// import useHeader from "@/src/components/layout/header/header.hook";
-import useStyles from "@/src/components/flag/flag.styles";
+// import useHeader from "@components/layout/header/header.hook";
+import useStyles from "@/components/flag/flag.styles";
 import {colorsFlag} from '@theme/theme.colors';
 // import Menu from "@assets/icons/essentional/menu";
 

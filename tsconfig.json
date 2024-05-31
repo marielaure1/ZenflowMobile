@@ -21,9 +21,6 @@
       "@config/*": [
         "./config/*"
       ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
       "@app/*": [
         "./app/*"
       ],
@@ -39,8 +36,14 @@
       "@theme/*": [
         "./theme/*"
       ],
+      "@hooks/*": [
+        "./common/hooks/*"
+      ],
       "@interfaces/*": [
         "./common/interfaces/*"
+      ],
+      "@providers/*": [
+        "./common/providers/*"
       ]
     }
   },

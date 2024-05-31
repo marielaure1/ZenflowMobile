@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { auth } from '@config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import {useCustomersWithQueryClient} from "@api/customers/customers"
+// import {useCustomersWithQueryClient} from "@api/customers/customers"
 import useFetchData from '@hooks/useFetchData';
 
 const useRegister = () => {
@@ -14,13 +14,13 @@ const useRegister = () => {
     const [error, setError] = useState('');
 
     const navigation = useNavigation();
-    const { createCustomer } = useCustomersWithQueryClient();
+    // const { createCustomer } = useCustomersWithQueryClient();
   
     const handleRegister = async () => {
 
       try{
         
-        const customers =  await createCustomer({firstName, lastName, email, password, passwordConfirm});
+        // const customers =  await createCustomer({firstName, lastName, email, password, passwordConfirm});
 
         // console.log(customers);
         

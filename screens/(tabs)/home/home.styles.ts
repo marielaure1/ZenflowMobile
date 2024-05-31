@@ -1,51 +1,56 @@
 import { StyleSheet } from 'react-native';
-import variables from '@theme/theme.variables';
-  
-const styles = StyleSheet.create({
-    image: {
-        justifyContent: 'center',
-        width: variables.innerWidth,
-        height: variables.innerHeight,
-        padding: variables.paddingPrimary
+import getTheme from '@theme/theme.colors';
+
+export default function useStyles(){
+  const styles = StyleSheet.create({
+    title: {
+      fontFamily: 'Poppins-Regular',
+      fontSize:24,
+    //   color: getTheme("title")["color"],
+      marginBottom: 10
     },
-    container: {
-        padding: variables.paddingPrimary,
-        zIndex: 3
+    titleMedium: {
+      fontFamily: 'Poppins-Medium',
+      fontSize: 24
+    },
+    section: {
+      width: "100%",
+      marginBottom: 30
+    },
+    sectionTitle: {
+      fontFamily: 'Poppins-Medium',
+      fontSize: 16,
+      marginBottom: 10,
+    //   color: getTheme("title")["color"]
+    },
+    col2: {
+      width: "100%",
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
+      justifyContent: "space-between"
     },
     marginBottom: {
-        marginVertical: 20
+      marginBottom: 10
     },
-    inputField : {
-        paddingVertical:  variables.paddingTerciary,
-        paddingHorizontal:  variables.paddingPrimary,
-        backgroundColor:  variables.clWhite,
-        borderRadius:  variables.brTerciary,
-        marginBottom: 20,
-        color: variables.clBlack
+    paddingLeft: {
+      paddingLeft: 10
     },
-    containerOtp: {
+    paddingRight: {
+      paddingRight: 10
+    },
+    clientItem: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        display: "flex",
-        gap: 5,
-        marginTop: 20
-    },
-    inputOtp: {
-        width: '12%',
-        borderWidth: 1,
-        borderColor: variables.clWhite,
-        borderRadius: 5,
-        backgroundColor: "#FFFFFF16",
-        color: variables.clWhite,
-        textAlign: 'center',
-        fontSize: 20,
-        paddingVertical: 10
-    },
-    text: {
-        color: variables.clWhite,
-        marginTop: 20
-    }
-});
-  
-export default styles;
+        alignItems: 'center',
+        padding: 10,
+        marginRight: 10,
+      },
+      clientInfo: {
+        marginLeft: 10,
+      },
+      scrollHorizontal:{
+        rowGap: 20
+      }
+  });
+  return styles;
+}

@@ -1,54 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import {
-  fetchCustomerAxios,
-  createCustomerAxios,
-  updateCustomerAxios,
-  deleteCustomerAxios,
-} from '@api/customers/customers.axios';
-import CustomersProps from '@interfaces/customers.interface';
+import { QueryClient, InvalidateQueryFilters } from '@tanstack/react-query';
+import CustomerAxios from '@api/customers/customers.axios';
+import CustomersProps from '@/common/interfaces/customers.interface';
+import queryClient from '@api/config.react-query';
+import ApiReactQuery from '../api.react-query';
 
-export function useCustomersWithQueryClient() {
-  const queryClient = useQueryClient();
-  const [isFetchEnabled, setIsFetchEnabled] = useState(false);
+class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
+  protected apiAxios: CustomerAxios;
 
-  const getCustomers = () => {
-    return queryClient.getQueryState(['customers'])
-  };
+  constructor(
+    type: InvalidateQueryFilters,
+    dataInterface: CustomersProps,
+    path: string,
+    token?: string
+  ) {
+    super(type, dataInterface, path, token);
+    this.apiAxios = new CustomerAxios(dataInterface, path, token);
+  }
 
-  const fetchCustomer = async (customerId: number) => {
-    const data = await fetchCustomerAxios(customerId);
-    return queryClient.setQueryData(['customer', customerId], data);
-  };
-
-  const createCustomer = async (customer: CustomersProps) => {
-    await createCustomerAxios(customer);
-    return queryClient.invalidateQueries(['customers']);
-  };
-
-  const updateCustomer = async (customerId: number, customer: CustomersProps) => {
-    await updateCustomerAxios(customerId, customer);
-    queryClient.invalidateQueries(['customers']);
-    return queryClient.invalidateQueries(['customer', customerId]);
-  };
-
-  const deleteCustomer = async (customerId: number) => {
-    await deleteCustomerAxios(customerId);
-    return queryClient.invalidateQueries(['customers']);
-  };
-
-  // useEffect(() => {
-  //   if (isFetchEnabled) {
-  //     fetchCustomer();
-  //   }
-  // }, [isFetchEnabled, fetchCustomer]);
-
-  return {
-    getCustomers,
-    fetchCustomer,
-    createCustomer,
-    updateCustomer,
-    deleteCustomer,
-    setIsFetchEnabled,
-  };
+  async findMe() {
+    const response = await this.apiAxios.findMe();
+    queryClient.setQueryData([this.type], response); 
+    return response;
+  }
 }
+
+export default CustomersReactQuery;

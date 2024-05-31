@@ -15,15 +15,10 @@ interface ButtonPrimaryProps {
 }
 
 const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type, size, icon}) => {
-console.log(link);
 
     const navigation = useNavigation();
 
     const changeView = (url: string) => {
-        console.log(url);
-        console.log(navigation?.navigate(url));
-        
-        
         navigation?.navigate(url);
     };
 
@@ -35,6 +30,10 @@ console.log(link);
         secondary: {
             bg: buttons.buttonSecondary,
             txt: buttons.buttonSecondaryText
+        },
+        blue: {
+            bg: buttons.buttonBlue,
+            txt: buttons.buttonBlueText
         }
     }
 

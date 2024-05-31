@@ -1,21 +1,15 @@
-import { apiClient } from '@api/api.axios';
-import CustomersProps from "@interfaces/customers.interface"
+import ApiAxios from '@api/api.axios';
+import CustomersProps from '@/common/interfaces/customers.interface';
 
-export async function fetchCustomerAxios(customerId: number) {
-  const response = await apiClient.get<CustomersProps>(`/customers/${customerId}`);
-  return response.data;
+class CustomerAxios extends ApiAxios<CustomersProps> {
+  constructor(dataInterface: CustomersProps, path: string, token?: string) {
+    super(dataInterface, path, token);
+  }
+
+  async findMe() {
+    const response = await this.apiClient.get(`/${this.path}/me`);
+    return response.data;
+  }
 }
 
-export async function createCustomerAxios(customer: CustomersProps) {
-  const response = await apiClient.post('/auth', customer);
-  return response.data;
-}
-
-export async function updateCustomerAxios(customerId: number, customer: CustomersProps) {
-  const response = await apiClient.put<CustomersProps>(`/customers/${customerId}`, customer);
-  return response.data;
-}
-
-export async function deleteCustomerAxios(customerId: number) {
-  await apiClient.delete(`/customers/${customerId}`);
-}
+export default CustomerAxios;

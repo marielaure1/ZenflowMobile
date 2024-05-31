@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+// import React, {useContext} from 'react';
 import { Pressable, StyleSheet, Text, ViewStyle, View } from 'react-native';
 // import buttons from '@theme/theme.buttons';
 // import texts from '@theme/theme.texts';
 // import ButtonSecondary from "@components/buttons/buttonSecondary";
-// import useHeader from "@/src/components/layout/header/header.hook";
-import useStyles from "@/src/components/cards/cardLeads/cardLeads.styles";
-import Flag from "@/src/components/flag/flag";
+// import useHeader from "@components/layout/header/header.hook";
+import useStyles from "@/components/cards/cardLeads/cardLeads.styles";
+import Flag from "@/components/flag/flag";
 
 interface CardLeadsProps {
     data :object;
@@ -17,7 +17,7 @@ const CardLeads = ({data} : CardLeadsProps) => {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <Text style={styles.cardTitle}>{data?.name?.first} {data?.name?.last}</Text>
+                <Text style={styles.cardTitle}>{data?.firstName} {data?.lastName}</Text>
                 <View style={styles.cardFlags}>
                     <Flag text={"Maintenance"} color={"blue"}/>
                     <View style={{ width: 10 }}></View>

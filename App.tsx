@@ -7,15 +7,20 @@ import 'react-native-reanimated';
 import store from '@stores/store';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import AuthProvider from '@/common/providers/auth-provider';
-import { queryClient } from '@api/api';
+import queryClient from '@api/config.react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
+import StripeProvider from '@providers/stripe.provider';
 
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('./assets/fonts/SpaceMono-Regular.ttf'),
+    PoppinsBlack: require('./assets/fonts/Poppins-Black.ttf'),
+    PoppinsLight: require('./assets/fonts/Poppins-Light.ttf'),
+    PoppinsRegular: require('./assets/fonts/Poppins-Regular.ttf'),
+    PoppinsMedium: require('./assets/fonts/Poppins-Medium.ttf'),
+    PoppinsSemiBold: require('./assets/fonts/Poppins-SemiBold.ttf')
   });
 
   useEffect(() => {
@@ -30,11 +35,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      {/* <StripeProvider> */}
       <QueryClientProvider client={queryClient}>
       <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <AuthProvider />
       </NavigationContainer>
       </QueryClientProvider>
+      {/* </StripeProvider> */}
     </Provider>
   );
 };

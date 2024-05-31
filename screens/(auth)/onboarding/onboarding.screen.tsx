@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from '@screens/(auth)/onboarding/onboarding.styles';
 import useOnboardingScreen from '@screens/(auth)/onboarding/onboarding.hook';
-import Button from "@components/buttons/button"
+import Button from "@/components/buttons/button"
 
 const OnboardingScreen = () => {
  

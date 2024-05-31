@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import useLogin from '@screens/(auth)/login/login.hook';
 import styles from '@screens/(auth)/login/login.styles';
-import Button from "@components/buttons/button";
-import Field from "@components/fields/field";
+import Button from "@/components/buttons/button";
+import Field from "@/components/fields/field";
 
 const LoginScreen = () => {
  
@@ -14,7 +14,6 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
        <Text style={styles.title}>Connexion</Text>
-
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
 

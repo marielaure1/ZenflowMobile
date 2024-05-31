@@ -35,6 +35,33 @@ const styles = StyleSheet.create({
     buttonSecondaryText: {
         color: colors.colorZinc900,
     },
+    buttonWhite: {
+        backgroundColor: colors.colorBase000,
+        borderColor: colors.colorBase000
+    },
+    buttonWhiteText: {
+        color: colors.colorZinc900,
+    },
+    buttonBlue: {
+        backgroundColor: colors.colorBlue900,
+        borderColor: colors.colorBlue900
+    },
+    buttonBlueText: {
+        color: colors.colorBlue100,
+    },
+    buttonRounded: {
+        borderRadius: 20,
+        width: 32,
+        height: 32,
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5
+    },
+    buttonRoundedIcon: {
+        width: 16,
+        height: 16,
+    }
 });
   
 export default styles;
