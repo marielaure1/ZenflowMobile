@@ -30,14 +30,22 @@ export default function AccountScreen() {
         />
       }>
       <View>
-      <Button title="Générale" onPress={() => navigation.navigate("Generale")} />
+      <Button title="Générale" onPress={() => navigation.navigate("General")} />
       <Button title="Mon Abonnement" onPress={() => navigation.navigate("Plans")} />
+      <Button title="Notifications" onPress={() => navigation.navigate("Notifications")} />
+
+      <Button title="Aide" onPress={() => navigation.navigate("Help")} />
+      <Button title="A propos" onPress={() => navigation.navigate("About")} />
+      <Button title="Conditions générale" onPress={() => navigation.navigate("Terms")} />
+
       <Button title="Déconnexion" onPress={handleLogout} />
 
-      <View key={me.user.email}>
-            <Text>{me.customer.firstName} {me.customer.lastName}</Text>
-            <Text>{me.user.email}</Text>
-          </View>
+     {me && (
+       <View key={me.user.email}>
+       <Text>{me.customer.firstName} {me.customer.lastName}</Text>
+       <Text>{me.user.email}</Text>
+     </View>
+     )}
 
       {/* {customersList && customersList.length > 0 ? (
         customersList.map((customer) => (

@@ -5,28 +5,48 @@ import { auth } from '@config/firebase';
 import { login, logout } from '@stores/auth/auth.actions';
 import AuthNavigator from '@navigators/auth.navigator';
 import MainNavigator from '@navigators/main.navigator';
-import { useNavigation, StackActions, createNavigationContainerRef  } from '@react-navigation/native';
+import { createNavigationContainerRef } from '@react-navigation/native';
+import { useCustomersApi } from '@api/api';
+import { useQuery } from '@tanstack/react-query';
 
 export const navigationRef = createNavigationContainerRef();
 
 const AuthProvider = () => {
+  const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
- 
+
+  const fetchMe = async () => {
+    return customersApi.findMe();
+  };
+
+  const { data: response, isLoading: isLoadingMe, error: fetchError, refetch } = useQuery({
+    queryKey: ['me'],
+    queryFn: fetchMe,
+    enabled: false
+});
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        dispatch(login(user.stsTokenManager.accessToken));
+        const token = user?.stsTokenManager?.accessToken;
+        dispatch(login(token));
+        console.log(token);
+
+        const { data } = await refetch();
+        if (data) {
+          console.log(data?.datas?.me);
+          dispatch(login(token, data?.datas?.me));
+        }
       } else {
         dispatch(logout());
       }
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, refetch]);
 
-  console.log("auth: ",isAuthenticated);
-  
+  console.log("auth: ", isAuthenticated);
 
   return isAuthenticated ? <MainNavigator /> : <AuthNavigator />;
 };

@@ -1,15 +1,17 @@
 import ApiAxios from '@api/api.axios';
 import CustomersProps from '@interfaces/customers.interface';
 
-class CustomerAxios extends ApiAxios<CustomersProps> {
+class AuthAxios extends ApiAxios<CustomersProps> {
   constructor(dataInterface: CustomersProps, path: string, token?: string) {
     super(dataInterface, path, token);
   }
 
-  async findMe() {
-    const response = await this.apiClient.get(`/${this.path}/me`);
+  async register(data: CustomersProps) {
+    const response = await this.apiClient.post(`/${this.path}/register`, data);
+    // console.log();
+    
     return response.data;
   }
 }
 
-export default CustomerAxios;
+export default AuthAxios;

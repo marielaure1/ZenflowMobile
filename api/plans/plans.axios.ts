@@ -1,12 +1,10 @@
-import apiClient from '@api/api.axios';
-// import PlansProps from "@interfaces/plans.interface"
+import ApiAxios from '@api/api.axios';
+import PlansProps from '@interfaces/plans.interface';
 
-export async function fetchPlansAxios() {
-  const response = await apiClient.get(`/plans`);
-  return response.data;
+class PlansAxios extends ApiAxios<PlansProps> {
+  constructor(dataInterface: PlansProps, path: string, token?: string) {
+    super(dataInterface, path, token);
+  }
 }
 
-// export async function fetchMePlanAxios() {
-//   const response = await apiClient.get(`/plans/me`);
-//   return response.data;
-// }
+export default PlansAxios;

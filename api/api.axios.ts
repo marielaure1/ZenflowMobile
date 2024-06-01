@@ -50,8 +50,8 @@ class ApiAxios<DataInterface> {
     return response.data;
   }
 
-  async createAxios() {
-    const response = await this.apiClient.post(`/${this.path}`, this.dataInterface);
+  async createAxios(datas: DataInterface) {
+    const response = await this.apiClient.post(`/${this.path}`, datas);
     return response.data;
   }
 

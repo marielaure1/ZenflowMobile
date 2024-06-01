@@ -9,7 +9,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import AuthProvider from '@/common/providers/auth-provider';
 import queryClient from '@api/config.react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
-import StripeProvider from '@providers/stripe.provider';
+// import StripeProvider from '@providers/stripe.provider';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,13 +36,18 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      {/* <StripeProvider> */}
+      <StripeProvider
+      publishableKey="pk_test_51PIXSSBeBuYyYbKHcwP5cVEURIOhPgHfZKJClwMx89Zel4YWKEa4PWgI57c1J4Ny1ZTqx12RbM1S3wCktFUWwpNG00eDHtPVGy"
+    //   urlScheme="your-url-scheme" 
+    //   merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}"
+    >
+    
       <QueryClientProvider client={queryClient}>
       <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <AuthProvider />
       </NavigationContainer>
       </QueryClientProvider>
-      {/* </StripeProvider> */}
+      </StripeProvider>
     </Provider>
   );
 };

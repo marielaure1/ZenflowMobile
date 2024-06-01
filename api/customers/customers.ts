@@ -1,8 +1,8 @@
 import { QueryClient, InvalidateQueryFilters } from '@tanstack/react-query';
 import CustomerAxios from '@api/customers/customers.axios';
-import CustomersProps from '@/common/interfaces/customers.interface';
+import CustomersProps from '@interfaces/customers.interface';
 import queryClient from '@api/config.react-query';
-import ApiReactQuery from '../api.react-query';
+import ApiReactQuery from '@api/api.react-query';
 
 class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
   protected apiAxios: CustomerAxios;

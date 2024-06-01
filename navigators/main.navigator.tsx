@@ -9,7 +9,7 @@ import AccountScreen from '@/screens/(tabs)/account/account.screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ClientsScreen from '@screens/(clients)/clients/clients.screen';
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
-import PlansScreen from '@screens/(subscriptions)/plans/plans.screen';
+import PlansScreen from '@screens/(account)/plans/plans.screen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,8 +29,20 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={TabNavigator} />
-      <Stack.Screen name="Clients" component={ClientsScreen} />
+
+      {/*Account*/}
+      <Stack.Screen name="General" component={ClientsScreen} />
       <Stack.Screen name="Plans" component={PlansScreen} />
+      <Stack.Screen name="Notifications" component={ClientsScreen} />
+      <Stack.Screen name="Help" component={ClientsScreen} />
+      <Stack.Screen name="About" component={ClientsScreen} />
+      <Stack.Screen name="Terms" component={ClientsScreen} />
+
+
+
+
+      <Stack.Screen name="Clients" component={ClientsScreen} />
+      
       <Stack.Screen name="Projects" component={ProjectsScreen} />
     </Stack.Navigator>
   );

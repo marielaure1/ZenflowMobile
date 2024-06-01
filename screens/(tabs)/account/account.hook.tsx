@@ -7,9 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import CustomersProps from '@/common/interfaces/customers.interface';
 import useFetchData from '@/common/hooks/useFetchData';
 
-
-
-const useLogin = () => {
+const useAccount = () => {
   const customersApi = useCustomersApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -47,4 +45,4 @@ const useLogin = () => {
   return { navigation, error, me, handleLogout, customersList, refetch };
 };
 
-export default useLogin;
+export default useAccount;
