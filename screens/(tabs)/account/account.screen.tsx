@@ -1,10 +1,12 @@
-import { Image, StyleSheet, Platform, View, Text, Button} from 'react-native';
-
+import { ScrollView,Text, View, FlatList, Button } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useAccount from "@screens/(tabs)/account/account.hook";
+import Banner from "@/components/banner/banner";
+import ButtonAccount from "@components/buttons/button-account";
+import Card from "@components/cards/card/card";
 
 export default function AccountScreen() {
 
@@ -21,19 +23,15 @@ export default function AccountScreen() {
   }
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <View>
-      <Button title="Générale" onPress={() => navigation.navigate("General")} />
-      <Button title="Mon Abonnement" onPress={() => navigation.navigate("Plans")} />
-      <Button title="Notifications" onPress={() => navigation.navigate("Notifications")} />
+<ScrollView>
+    <Banner title={"Mon Compte"}/>
 
+      <Card>
+        <ButtonAccount text="Générale" link="General" icon={"ChemicalGlass"} />
+        <Button title="Mon Abonnement" onPress={() => navigation.navigate("Plans")} />
+        <Button title="Notifications" onPress={() => navigation.navigate("Notifications")} />
+      </Card>
+      
       <Button title="Aide" onPress={() => navigation.navigate("Help")} />
       <Button title="A propos" onPress={() => navigation.navigate("About")} />
       <Button title="Conditions générale" onPress={() => navigation.navigate("Terms")} />
@@ -47,37 +45,7 @@ export default function AccountScreen() {
      </View>
      )}
 
-      {/* {customersList && customersList.length > 0 ? (
-        customersList.map((customer) => (
-          <View key={customer.email}>
-            <Text>{customer.firstName} {customer.lastName}</Text>
-            <Text>{customer.email}</Text>
-          </View>
-        ))
-      ) : (
-        <Text>No customers found</Text>
-      )} */}
-        
-    </View>
-    </ParallaxScrollView>
+</ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

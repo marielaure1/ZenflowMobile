@@ -1,28 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from '@config/firebase';
 import { signOut } from 'firebase/auth';
 import { useSelector } from 'react-redux';
+import useFetchData from '@/common/hooks/useFetchData';
+import { useCustomersApi } from '@api/api';
 
 const useLogin = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const customersApi = useCustomersApi();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [me, setMe] = useState(null);
     const token = useSelector((state) => state.auth.token);
-  
+    const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
     
-    const handleLogout = () => {
-      signOut(auth)
-        .then(() => {
-          // Successfully registered
-          console.log("Successfully registered");
-          
-        })
-        .catch(err => {
-          setError(err.message);
-        });
-    };
+    useEffect(() => {
+      if (!isLoadingMe && response) {
+        setMe(response?.datas?.me);
+        setIsLoading(false);
+      }
+    }, [isLoadingMe, response]);
+  
+    useEffect(() => {
+      if (fetchError) {
+        setError(fetchError.message);
+        setIsLoading(false);
+      }
+    }, [fetchError]);
 
-    return { email, setEmail, password, setPassword, error, handleLogout}
+
+    return { me, error}
 }
 
 export default useLogin;

@@ -50,6 +50,20 @@ export default function useStyles(){
       },
       scrollHorizontal:{
         rowGap: 20
+      },
+      headerText: {
+        padding: 10
+      },
+      headerText1: {
+        fontSize: 20,
+        fontWeight: 400,
+      },
+      headerText2: {
+        fontSize: 20,
+        fontWeight: 600,
+      },
+      categoryList: {
+        paddingVertical: 30
       }
   });
   return styles;

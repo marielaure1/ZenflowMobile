@@ -16,6 +16,26 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 14
     },
+    buttonAccount: {
+        paddingVertical: 15,
+        paddingHorizontal: 10,
+        backgroundColor:'transparant',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent:'space-between'
+    },
+    buttonAccountIcon: {
+        color: colors.colorZinc900
+    },
+    buttonAccountLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10
+    },
+    buttonAccountText: {
+        fontSize: 14,
+        fontFamily: "Poppins-Medium"
+    }, 
     icon: {
         width: 24,
         height: 24,

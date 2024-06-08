@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ScrollView,Text, View, FlatList } from 'react-native';
+import { View, Text, Button, ScrollView } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import useStyles from "@screens/(tabs)/home/home.styles";
-import useHome from "@screens/(tabs)/home/home.hook";
-// import CardData from "@components/cards/cardData/cardData";
-import CardLeads from "@/components/cards/cardLeads/cardLeads";
-import Template from "@/components/layout/template/template";
-import { Appbar, Avatar, Button, Card, Title, Paragraph, Chip } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import io from 'socket.io-client';
+import useStyles from "@screens/(tabs)/home/home.styles";
+import useHome from "@screens/(tabs)/home/home.hook";
+import Template from '@/components/layout/template/template';
+import CardCatagory from '@/components/cards/card-category/card-category';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -21,8 +19,7 @@ Notifications.setNotificationHandler({
 });
 
 let LOCATION = "Maison";
-let IP = LOCATION === "Maison" ? 'http://192.168.1.185:3001/api' : 'http://10.0.2.2:3001/api';
-
+let IP = LOCATION === "Maison" ? 'http://192.168.1.185:3001' : 'http://10.0.2.2:3001';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -31,17 +28,14 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  // const [expoPushToken, setExpoPushToken] = useState('');
+  // const [notification, setNotification] = useState<Notifications.Notification | null>(null);
+  // const notificationListener = useRef<Notifications.Subscription>();
+  // const responseListener = useRef<Notifications.Subscription>();
 
   const styles = useStyles();
-  // const { userList, isLoading, getClientInfos } = useHome();
 
-  // const handleRefresh = async () => {
-  //   await getClientInfos();
-  // };
+  const { me } = useHome();
 
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -54,7 +48,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   //     console.log(response);
   //   });
 
-  //   const socket = io(IP); // Remplacez par l'URL de votre serveur
+  //   const socket = io(IP);
 
   //   socket.on('receiveNotification', (notification) => {
   //     schedulePushNotification(notification);
@@ -69,30 +63,18 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   return (
     <Template>
-      {/* <Text style={[styles.title, styles.paddingLeft, styles.paddingRight]}>
-        Bonjour,
-        <Text style={styles.titleMedium}> Marie-Laure</Text>
-      </Text>
-      <View style={[styles.section, styles.paddingLeft, styles.paddingRight]}>
-        <View style={[styles.col2, styles.marginBottom]}>
-          <CardData title="Data" number={"60"} evolution={16}/>
-          <View style={{ width: 10 }}></View>
-          <CardData title="Data" number={"200"} type={"€"} evolution={-16}/>
-        </View>
-        <View style={styles.col2}>
-          <CardData title="Data" number={"2"} type={"k"}  evolution={0}/>
-          <View style={{ width: 10 }}></View>
-          <CardData title="Data" number={"5"} evolution={16}/>
-        </View>
-      </View> */}
 
-      {/* <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}>
-      <Text>Your expo push token: {expoPushToken}</Text>
+      <View style={[styles.headerText]}>
+        <Text style={[styles.headerText1]}>Bonjour <Text style={[styles.headerText2]}>{me?.customer?.firstName}</Text></Text>
+      </View>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryList}>
+        <CardCatagory title="Client" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
+        <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
+        <CardCatagory title="Notes" link="Notes" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
+       
+      </ScrollView>
+      {/* <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {notification && notification.request.content.title} </Text>
         <Text>Body: {notification && notification.request.content.body}</Text>
@@ -101,67 +83,62 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          await schedulePushNotification();
+          await schedulePushNotification({
+            title: "You've got mail! 📬",
+            body: 'Here is the notification body',
+            data: { data: 'goes here' },
+          });
         }}
-      />
-    </View> */}
-
-      {/* <View style={[styles.section, styles.paddingLeft, styles.paddingRight]}>
-        <Text style={[styles.sectionTitle, styles.paddingLeft, styles.paddingRight]}>Clients</Text>
-        
-       <View style={[styles.scrollHorizontal]} >
-       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <CardLeads data={{ firstName: "Marie", lastName: "Edjour", email: "edjour@mail.com", phone: "451515454841"}}/>
-          <CardLeads data={{ firstName: "Marie", lastName: "Edjour", email: "edjour@mail.com", phone: "451515454841"}}/>
-          <CardLeads data={{ firstName: "Marie", lastName: "Edjour", email: "edjour@mail.com", phone: "451515454841"}}/>
-          
-          </ScrollView>
-       </View>
+      /> */}
+      {/* <View>
+        {notifications.map((notification, index) => (
+          <Text key={index}>{notification?.message}</Text>
+        ))}
       </View> */}
     </Template>
   );
-}
+};
 
 export default Home;
 
-async function schedulePushNotification(notification) {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: notification.title || "You've got mail! 📬",
-      body: notification.body || 'Here is the notification body',
-      data: notification.data || { data: 'goes here' },
-    },
-    trigger: { seconds: 2 },
-  });
-}
+// async function schedulePushNotification(notification) {
+//   await Notifications.scheduleNotificationAsync({
+//     content: {
+//       title: notification.title || "You've got mail! 📬",
+//       body: notification.body || 'Here is the notification body',
+//       data: notification.data || { data: 'goes here' },
+//     },
+//     trigger: { seconds: 2 },
+//   });
+// }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
+// async function registerForPushNotificationsAsync() {
+//   let token;
+//   if (Constants.isDevice) {
+//     const { status: existingStatus } = await Notifications.getPermissionsAsync();
+//     let finalStatus = existingStatus;
+//     if (existingStatus !== 'granted') {
+//       const { status } = await Notifications.requestPermissionsAsync();
+//       finalStatus = status;
+//     }
+//     if (finalStatus !== 'granted') {
+//       alert('Failed to get push token for push notification!');
+//       return;
+//     }
+//     token = (await Notifications.getExpoPushTokenAsync()).data;
+//     console.log(token);
+//   } else {
+//     alert('Must use physical device for Push Notifications');
+//   }
 
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
+//   if (Platform.OS === 'android') {
+//     Notifications.setNotificationChannelAsync('default', {
+//       name: 'default',
+//       importance: Notifications.AndroidImportance.MAX,
+//       vibrationPattern: [0, 250, 250, 250],
+//       lightColor: '#FF231F7C',
+//     });
+//   }
 
-  return token;
-}
+//   return token;
+// }
