@@ -52,7 +52,8 @@ export default function useStyles(){
         rowGap: 20
       },
       headerText: {
-        padding: 10
+        padding: 10,
+        paddingTop: 50
       },
       headerText1: {
         fontSize: 20,

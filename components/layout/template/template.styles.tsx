@@ -5,9 +5,6 @@ export default function useStyles(){
   const variables = getVariables();
   
   const styles = StyleSheet.create({
-    container: {
-      paddingVertical: 50
-    },
     scrollView: {
       height: variables.height
     }
