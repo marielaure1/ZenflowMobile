@@ -11,7 +11,8 @@ export default function useStyles(){
       paddingHorizontal: 10,
       paddingVertical: 5,
       borderRadius: 5,
-      textAlign: "center"
+      textAlign: "center",
+      marginRight: 5
     }
   });
   return styles;

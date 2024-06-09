@@ -9,14 +9,14 @@ import {colorsFlag} from '@theme/theme.colors';
 
 interface FlagProps {
     text :string;
-    color :string;
+    color :object;
 }
 
-const Header: React.FC<FlagProps> = ({text, color}) => {
+const Header: React.FC<FlagProps> = ({text, colors}) => {
     const styles = useStyles();
 
     return (
-        <Text style={[styles.flag, {backgroundColor: colorsFlag[color]["background"], color: colorsFlag[color]["color"]}]}> {text}</Text>
+        <Text style={[styles.flag, {backgroundColor: colors.background, color: colors.foreground}]}> {text}</Text>
     );
 };
 

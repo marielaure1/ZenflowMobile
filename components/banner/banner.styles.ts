@@ -4,7 +4,7 @@ import variables from '@theme/theme.variables';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 200,
+        height: 130,
         padding: 20,
         paddingTop: 80,
         justifyContent: "center",

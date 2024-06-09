@@ -4,6 +4,7 @@ import useStyles from "@screens/(tabs)/home/home.styles";
 import usePlans from "@screens/(account)/plans/plans.hook";
 import Banner from "@/components/banner/banner";
 import CardPlans from '@/components/cards/cardPlans/card-plans';
+import BackgroundBanner1 from "@img/banner/banner-1.jpg";
 
 const PlansScreen: React.FC = () => {
   const styles = useStyles();
@@ -21,7 +22,7 @@ const PlansScreen: React.FC = () => {
 
   return (
     <ScrollView>
-        <Banner title={"Abonnements"}/>
+        <Banner title={"Abonnements"} image={BackgroundBanner1}/>
 
         {response?.datas?.plans && response?.datas?.plans.map((plan, index) => (
           <CardPlans key={index} handleChangePlan={handleChangePlan} plan={plan} index={index}/>

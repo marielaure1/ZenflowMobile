@@ -21,7 +21,7 @@ const PlansScreen: React.FC = () => {
 
   return (
     <ScrollView>
-        <Banner title={"Abonnements"}/>
+        <Banner title={"Abonnements"} image={BackgroundBanner1}/>
 
         {response?.datas?.plans && response?.datas?.plans.map((plan, index) => (
           <CardPlans key={index} handleChangePlan={handleChangePlan} plan={plan} index={index}/>

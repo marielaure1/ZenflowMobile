@@ -8,6 +8,8 @@ import SubscriptionsReactQuery from '@api/subscriptions/subscriptions';
 import SubscriptionsProps from '@/common/interfaces/subscriptions.interface';
 import PaymentsReactQuery from '@api/payments/payments';
 import PaymentsProps from '@/common/interfaces/payments.interface';
+import ProjectsReactQuery from '@api/projects/projects';
+import ProjectsProps from '@/common/interfaces/projects.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 
@@ -80,7 +82,7 @@ const useSubscriptionsApi = () => {
 /**
  * Payments
  */
-const PaymentsData: PaymentsProps = {
+const paymentsData: PaymentsProps = {
   amount : 0,
   currency : "",
   customerId : ""
@@ -92,7 +94,29 @@ const invalidateQueryFiltersPayments: InvalidateQueryFilters = {
 
 const usePaymentsApi = () => {
   const token = useSelector((state) => state?.auth?.token);
-  return new PaymentsReactQuery(invalidateQueryFiltersPayments, subscriptionData, 'payments', token);
+  return new PaymentsReactQuery(invalidateQueryFiltersPayments, paymentsData, 'payments', token);
+};
+
+/**
+ * Projects
+ */
+const projectsData: ProjectsProps = {
+  name: "",
+  description: "",
+  ownerId: "",
+  clientId: "",
+  tasks: [],
+  categoryIds: [],
+  customFields: []
+};
+
+const invalidateQueryFiltersProjects: InvalidateQueryFilters = {
+  queryKey: ['projects']
+};
+
+const useProjectsApi = () => {
+  const token = useSelector((state) => state?.auth?.token);
+  return new ProjectsReactQuery(invalidateQueryFiltersProjects, projectsData, 'projects', token);
 };
 
 export {
@@ -100,5 +124,6 @@ export {
   usePlansApi,
   useSubscriptionsApi,
   useAuthApi,
-  usePaymentsApi
+  usePaymentsApi,
+  useProjectsApi
 };

@@ -12,6 +12,7 @@ import AccountScreen from '@/screens/(tabs)/account/account.screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ClientsScreen from '@screens/(clients)/clients/clients.screen';
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
+import ProjectScreen from '@screens/(projects)/project/project.screen';
 import PlansScreen from '@screens/(account)/plans/plans.screen';
 import { Home2, TaskSquare, NotificationBing, SearchNormal, Profile } from 'iconsax-react-native'
 
@@ -79,6 +80,7 @@ const MainNavigator = () => {
       <Stack.Screen name="Clients" component={ClientsScreen} />
       
       <Stack.Screen name="Projects" component={ProjectsScreen} />
+      <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>
   );
 };

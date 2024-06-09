@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, SectionList, RefreshControl } from 'react-native';
 import useStyles from "@/components/layout/template/template.styles";
 
 const Template = ({ children }) => {

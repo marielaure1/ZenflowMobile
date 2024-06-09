@@ -32,20 +32,20 @@ class ApiReactQuery<DataInterface> {
     return response;
   }
 
-  async findOne(customerId: string) {
-    const response = await this.apiAxios.findOneAxios(customerId);
-    queryClient.setQueryData([this.type], response); 
+  async findOne(id: string) {
+    const response = await this.apiAxios.findOneAxios(id);
+    queryClient.setQueryData([this.type, id], response); 
     return response;
   }
 
-  async update(customerId: string) {
-    const response = await this.apiAxios.updateAxios(customerId);
+  async update(id: string) {
+    const response = await this.apiAxios.updateAxios(id);
     this.queryClient.invalidateQueries(this.type);
     return response;
   }
 
-  async delete(customerId: string) {
-    const response = await this.apiAxios.deleteAxios(customerId);
+  async delete(id: string) {
+    const response = await this.apiAxios.deleteAxios(id);
     this.queryClient.invalidateQueries(this.type);
     return response;
   }

@@ -7,6 +7,7 @@ import useAccount from "@screens/(tabs)/account/account.hook";
 import Banner from "@/components/banner/banner";
 import ButtonAccount from "@components/buttons/button-account";
 import Card from "@components/cards/card/card";
+import BackgroundBanner1 from "@img/banner/banner-1.jpg";
 
 export default function AccountScreen() {
 
@@ -24,7 +25,7 @@ export default function AccountScreen() {
 
   return (
 <ScrollView>
-    <Banner title={"Mon Compte"}/>
+    <Banner title={"Mon Compte"} image={BackgroundBanner1}/>
 
       <Card>
         <ButtonAccount text="Générale" link="General" icon={"ChemicalGlass"} />

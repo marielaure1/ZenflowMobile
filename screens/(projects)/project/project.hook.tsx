@@ -5,20 +5,21 @@ import { useQuery } from '@tanstack/react-query';
 import ProjectsProps from '@interfaces/projects.interface';
 import useFetchData from '@hooks/useFetchData';
 
-const useProjects = () => {
+const useProject = ({id}) => {
   const projectsApi = useProjectsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
+  const [project, setProject] = useState<ProjectsProps[]>([]);
   const [tabs, setTabs] = useState("Analyse");
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findAll(), ["projects"]);
+  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findOne(id), ["projects", id]);
 
   const navigation = useNavigation();
 
   useEffect(() => {
     if (!fetchIsLoading && response) {
-      setProjectsList(response?.datas?.projects);
+      
+      setProject(response?.datas?.projects);
       setIsLoading(false);
     }
   }, [fetchIsLoading, response]);
@@ -30,7 +31,7 @@ const useProjects = () => {
     }
   }, [fetchError]);
 
-  return { navigation, error, projectsList, refetch, tabs, setTabs };
+  return { navigation, error, project, refetch, tabs, setTabs };
 };
 
-export default useProjects;
+export default useProject;
