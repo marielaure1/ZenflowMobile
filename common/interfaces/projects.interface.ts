@@ -6,7 +6,6 @@ interface ProjectsProps{
     clientId?: string;
     tasks?: string[]
     categoryIds?: string[];
-    customFields?: Array<T>;
 }
 
 export default ProjectsProps;

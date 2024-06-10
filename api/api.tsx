@@ -10,6 +10,10 @@ import PaymentsReactQuery from '@api/payments/payments';
 import PaymentsProps from '@/common/interfaces/payments.interface';
 import ProjectsReactQuery from '@api/projects/projects';
 import ProjectsProps from '@/common/interfaces/projects.interface';
+import TaskCategoryReactQuery from '@api/task-category/task-category';
+import TaskCategoryProps from '@/common/interfaces/task-category.interface';
+import TasksReactQuery from '@api/tasks/tasks';
+import TasksProps from '@/common/interfaces/tasks.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 
@@ -119,11 +123,60 @@ const useProjectsApi = () => {
   return new ProjectsReactQuery(invalidateQueryFiltersProjects, projectsData, 'projects', token);
 };
 
+/**
+ * TaskCategory
+ */
+const taskCategoryData: TaskCategoryProps = {
+  name: "",
+  description: "",
+  projectId: ""
+};
+
+const invalidateQueryFiltersTaskCategory: InvalidateQueryFilters = {
+  queryKey: ['tasks-categories']
+};
+
+const useTaskCategoryApi = () => {
+  // const token = useSelector((state) => state?.auth?.token);
+  return new TaskCategoryReactQuery(invalidateQueryFiltersTaskCategory, taskCategoryData, 'tasks-categories');
+};
+
+/**
+ * Tasks
+ */
+const tasksData: TasksProps = {
+  title: "",
+  description: "",
+  projectId: "",
+  assigneeId: "",
+  status: "",
+  dueDate: new Date(),
+  priority: "",
+  comments: [],
+  flags: [],
+  timeEntries: [],
+  parentTaskId: "",
+  subTasks: "",
+  taskCategoryIds: "",
+  order: 0,
+};
+
+const invalidateQueryFiltersTasks: InvalidateQueryFilters = {
+  queryKey: ['tasks']
+};
+
+const useTasksApi = () => {
+  // const token = useSelector((state) => state?.auth?.token);
+  return new TasksReactQuery(invalidateQueryFiltersTasks, tasksData, 'tasks');
+};
+
 export {
   useCustomersApi,
   usePlansApi,
   useSubscriptionsApi,
   useAuthApi,
   usePaymentsApi,
-  useProjectsApi
+  useProjectsApi,
+  useTaskCategoryApi,
+  useTasksApi
 };

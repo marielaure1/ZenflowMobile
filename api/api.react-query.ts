@@ -27,6 +27,8 @@ class ApiReactQuery<DataInterface> {
   }
 
   async create(datas: DataInterface) {
+    console.log(datas);
+    
     const response = await this.apiAxios.createAxios(datas);
     this.queryClient.invalidateQueries(this.type);
     return response;

@@ -7,16 +7,15 @@ import KanbanBoard from '@/components/kanban/kanban';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView, View, Text } from 'react-native';
 import CardProject from '@components/cards/card-project/card-project';
-import BackgroundBanner1 from "@img/banner/banner-1.jpg";
+import BackgroundBanner from "@img/banner/banner-2.png";
 
 export default function Projects() {
   const styles = useStyles();
   const { navigation, error, projectsList, refetch, tabs, setTabs } = useProjects();
-console.log(projectsList);
 
   return (
     <Template>
-      <Banner title={"Projets"} image={BackgroundBanner1}/>
+      <Banner title={"Projets"} image={BackgroundBanner}/>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
         {/* <TabsViewBasic view={tabs} setView={setTabs} text="Infos" colors={{"background": "#CEF0FF", "foreground": "#35BFFF"}}/> */}

@@ -1,27 +1,27 @@
 import { QueryClient, InvalidateQueryFilters } from '@tanstack/react-query';
-import PaymentAxios from '@api/payments/payments.axios';
-import PaymentsProps from '@interfaces/payments.interface';
+import ProjectAxios from '@api/projects/projects.axios';
+import ProjectsProps from '@interfaces/projects.interface';
 import queryClient from '@api/config.react-query';
 import ApiReactQuery from '@api/api.react-query';
 
-class PaymentsReactQuery extends ApiReactQuery<PaymentsProps> {
-  protected apiAxios: PaymentAxios;
+class ProjectsReactQuery extends ApiReactQuery<ProjectsProps> {
+  protected apiAxios: ProjectAxios;
 
   constructor(
     type: InvalidateQueryFilters,
-    dataInterface: PaymentsProps,
+    dataInterface: ProjectsProps,
     path: string,
     token?: string
   ) {
     super(type, dataInterface, path, token);
-    this.apiAxios = new PaymentAxios(dataInterface, path, token);
+    this.apiAxios = new ProjectAxios(dataInterface, path, token);
   }
 
-  async createCheckoutSession(datas: PaymentsProps){
-    return await this.apiAxios.createCheckoutSession(datas);
+  async findTasksCategories(id: string){
+    return await this.apiAxios.findTasksCategories(id);
   }
 
 
 }
 
-export default PaymentsReactQuery;
+export default ProjectsReactQuery;

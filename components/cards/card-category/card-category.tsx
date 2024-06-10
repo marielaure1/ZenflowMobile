@@ -8,8 +8,6 @@ const CardCategory = ({ title, icon, color, link}) => {
 
     const styles = useStyles();
     const navigation = useNavigation();
-
-    console.log(color);
     
 
     return (

@@ -12,6 +12,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    buttonIcon: {
+        width: 40,
+        height: 40,
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center"
+    },
     buttonText: {
         textAlign: "center",
         fontSize: 14
@@ -63,11 +72,11 @@ const styles = StyleSheet.create({
         color: colors.colorZinc900,
     },
     buttonBlue: {
-        backgroundColor: colors.colorBlue900,
+        backgroundColor: colors.colorBlue100,
         borderColor: colors.colorBlue900
     },
     buttonBlueText: {
-        color: colors.colorBlue100,
+        color: colors.colorBlue900,
     },
     buttonRounded: {
         borderRadius: 20,

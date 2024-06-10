@@ -6,7 +6,8 @@ export default function useStyles(){
   
   const styles = StyleSheet.create({
     scrollView: {
-      height: variables.height
+      height: variables.height,
+      backgroundColor: "#F4F7FE"
     }
   });
   

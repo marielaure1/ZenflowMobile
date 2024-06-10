@@ -4,7 +4,7 @@ import buttons from '@theme/theme.buttons';
 import { StyleProp } from 'react-native';
 import { Callback } from '@react-native-async-storage/async-storage/lib/typescript/types';
 import { useNavigation } from '@react-navigation/native';
-import { ChemicalGlass } from 'iconsax-react-native'
+import { Add, ChemicalGlass } from 'iconsax-react-native'
 
 interface ButtonAccountProps {
     navigation?: any; 
@@ -24,6 +24,9 @@ const ButtonAccount: React.FC<ButtonAccountProps> = ({ link, text, icon}) => {
     switch (icon){
       case "ChemicalGlass":
         iconTag = <ChemicalGlass color={'#181818'} variant="Linear" size={15} />;
+        break;
+      case "Add":
+        iconTag = <Add color={'#38BDF8'} variant="Linear" size={15} />;
         break;
       default:
         break;

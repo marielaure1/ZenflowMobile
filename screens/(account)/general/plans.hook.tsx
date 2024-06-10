@@ -19,12 +19,11 @@ const usePlans = () => {
     const navigation = useNavigation();
 
     const handleChangePlan = async (planId: string) => {
-        console.log("customer",customer);
+
         
         try {
           const subscription = await subscriptionsApi.create({ plan: planId, customer: customer.customer._id});
-          console.log(subscription.datas.subscriptions.subscription.stripeCustomerId);
-
+ 
           const response = await fetch('http://192.168.1.185:3001/api/payments/create-checkout-session', {
   method: 'POST',
   headers: {
@@ -39,10 +38,6 @@ const usePlans = () => {
 
 
           const jsonData = await response.json()
-
-          console.log(jsonData);
-          
-          
 
           const { error } = await initPaymentSheet({
             merchantDisplayName: "Example, Inc.",

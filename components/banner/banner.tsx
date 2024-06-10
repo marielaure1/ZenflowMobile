@@ -4,14 +4,25 @@ import { BannerProps } from "@/components/banner/banner.interface";
 import styles from "@/components/banner/banner.styles";
 import ButtonGoBack from "@/components/buttons/button-go-back";
 
-const Banner = ({title, image}: BannerProps) => {
+const Banner = ({title, image = null}: BannerProps) => {
     return (
-        <ImageBackground source={image} resizeMode="cover" style={[styles.container]}>
-            <View style={[styles.alignLeft]}>
-                <ButtonGoBack/>
-            </View>
-            <Text style={[styles.title]}>{title}</Text>
-        </ImageBackground>
+        <>
+            {image ? (
+                <ImageBackground source={image} resizeMode="cover" style={[styles.container]}>
+                    <View style={[styles.alignLeft]}>
+                        <ButtonGoBack/>
+                    </View>
+                    <Text style={[styles.title]}>{title}</Text>
+                </ImageBackground>
+            ):(
+                <View style={[styles.containerBasic]}>
+                    <View style={[styles.alignLeft]}>
+                        <ButtonGoBack/>
+                    </View>
+                    <Text style={[styles.containerBasicTitle]}>{title}</Text>
+                </View>
+            )}
+        </>
     )
 }
 

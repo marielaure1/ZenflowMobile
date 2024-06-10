@@ -31,11 +31,9 @@ const AuthProvider = () => {
       if (user) {
         const token = user?.stsTokenManager?.accessToken;
         dispatch(login(token));
-        console.log(token);
 
         const { data } = await refetch();
         if (data) {
-          console.log(data?.datas?.me);
           dispatch(login(token, data?.datas?.me));
         }
       } else {

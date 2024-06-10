@@ -13,6 +13,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ClientsScreen from '@screens/(clients)/clients/clients.screen';
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
 import ProjectScreen from '@screens/(projects)/project/project.screen';
+import TaskPostScreen from '@screens/(projects)/task-post/task-post.screen';
+import TaskCategoryPostScreen from '@screens/(projects)/task-category-post/task-category-post.screen';
 import PlansScreen from '@screens/(account)/plans/plans.screen';
 import { Home2, TaskSquare, NotificationBing, SearchNormal, Profile } from 'iconsax-react-native'
 
@@ -81,6 +83,9 @@ const MainNavigator = () => {
       
       <Stack.Screen name="Projects" component={ProjectsScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />
+      {/* <Stack.Screen name="Task" component={TaskScreen} /> */}
+      <Stack.Screen name="TaskPost" component={TaskPostScreen} />
+      <Stack.Screen name="TaskCategoryPost" component={TaskCategoryPostScreen} />
     </Stack.Navigator>
   );
 };

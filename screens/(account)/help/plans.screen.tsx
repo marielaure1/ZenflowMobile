@@ -9,8 +9,6 @@ import BackgroundBanner1 from "@img/banner/banner-1.jpg";
 const PlansScreen: React.FC = () => {
   const styles = useStyles();
   const { navigation, response, error, isLoading, handleChangePlan, openPaymentSheet} = usePlans();
-
-  console.log(response);
   
   if (isLoading) {
     return <Text>Loading...</Text>;
