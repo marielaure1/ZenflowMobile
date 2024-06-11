@@ -21,6 +21,9 @@ const useProject = ({id}) => {
 
   useEffect(() => {
     if (!fetchIsLoading && response) {
+
+      console.log("responseresponse", response);
+      
       
       setProject(response?.datas["projects/tasks"].data);
       setTaskCategories(response?.datas["projects/tasks"].taskCategories)

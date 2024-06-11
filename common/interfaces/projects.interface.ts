@@ -3,6 +3,7 @@ interface ProjectsProps{
     name: string;
     description: string;
     ownerId: string;
+    priority?: string;
     clientId?: string;
     tasks?: string[]
     categoryIds?: string[];

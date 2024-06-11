@@ -14,12 +14,12 @@ export default function useStyles(){
     blocTitle: {
       flexDirection: "row",
       alignItems: "center",
+      justifyContent: "space-between",
       width: "100%",
       marginBottom: 20
     },
     blocTitleLeft: {
-      flexDirection: "row",
-      width: 240
+      flexDirection: "row"
     },
     sectionTitle: {
       marginRight: 10,

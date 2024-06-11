@@ -22,7 +22,8 @@ interface Theme {
 
 const colors = {
   colorBase000: '#FFFFFF',
-  colorBase200: '#F5F7FA',
+  colorBase200: '#E4E7EC',
+  colorBase700: '#344051',
   colorZinc700: '#3F3F46',
   colorZinc800: '#27272A',
   colorZinc900: '#18181B',

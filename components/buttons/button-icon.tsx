@@ -4,7 +4,7 @@ import buttons from '@theme/theme.buttons';
 import { StyleProp } from 'react-native';
 import { Callback } from '@react-native-async-storage/async-storage/lib/typescript/types';
 import { useNavigation } from '@react-navigation/native';
-import { Add, ChemicalGlass } from 'iconsax-react-native'
+import { Add, Back, ChemicalGlass, Magicpen, Trash, TickSquare } from 'iconsax-react-native'
 
 interface ButtonIconProps {
     link?: string;
@@ -25,21 +25,37 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, 
     let btnStyle = {};
 
     switch (icon){
-      case "ChemicalGlass":
-        iconTag = <ChemicalGlass color={'#38BDF8'} variant="Linear" size={18} />;
-        btnStyle = buttons.buttonPrimary;
-        break;
-    case "Add":
-        iconTag = <Add color={'#38BDF8'} variant="Linear" size={18} />;
-        btnStyle = buttons.buttonBlue;
-        break;
-      default:
-        break;
+        case "ChemicalGlass":
+            iconTag = <ChemicalGlass color={'#38BDF8'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonPrimary;
+            break;
+        case "Add":
+            iconTag = <Add color={'#38BDF8'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonBlue;
+            break;
+        case "Magicpen":
+            iconTag = <Magicpen color={'#FDBA74'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonOrange;
+            break;
+        case "TickSquare":
+            iconTag = <TickSquare color={'#10B978'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonGreen;
+            break;
+        case "Trash":
+            iconTag = <Trash color={'#344051'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonGrey;
+            break;
+        case "Back":
+            iconTag = <Back color={'#344051'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonGrey;
+            break;
+        default:
+            break;
     }
       
 
     return (
-        <TouchableOpacity style={[buttons.buttonIcon, btnStyle]} onPress={() => link ? changeView(link, linkParams) : action}>
+        <TouchableOpacity style={[buttons.buttonIcon, btnStyle]} onPress={() => link ? changeView(link, linkParams) : action()}>
             {iconTag}
         </TouchableOpacity>
     );

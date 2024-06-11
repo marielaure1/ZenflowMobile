@@ -6,10 +6,13 @@ import { useNavigation } from '@react-navigation/native';
 import Flag from '@components/flag/flag';
 import ProgressBar from '@components/progress-bar/progress-bar';
 import { ScaleDecorator } from 'react-native-draggable-flatlist';
+import useDateFormatter from '@/common/hooks/useDateFormatter';
 
 export default function KanbanTask({ item, drag, isActive }) {
     const styles = useStyles();
     const navigation = useNavigation();
+
+    // const dueDate = 
 
     return (
       <ScaleDecorator>
@@ -22,9 +25,13 @@ export default function KanbanTask({ item, drag, isActive }) {
             styles.container,
             // { backgroundColor: isActive ? 'red' : item.backgroundColor },
           ]}>
-            <View style={[styles.full]}>
-                <Text style={[styles.textDate]}>{item.createdAt}</Text>
+
+            {item?.dueDate && (
+              <View style={[styles.full]}>
+                <Text style={[styles.textDate]}>{useDateFormatter(item?.dueDate, 'dd MMMM yyyy')}</Text>
             </View>
+            )}
+            
             <View style={[styles.full]}>
                 <Text style={[styles.textName]}>{item.title}</Text>
             </View>

@@ -24,6 +24,11 @@ export default function useStyles(){
     },
     sectionContent: {
       width: "90%"
+    },
+    textEmpty: {
+      fontSize: 14,
+      fontFamily: "PoppinsSemiBold",
+      textAlign: 'center',
     }
   });
   return styles;

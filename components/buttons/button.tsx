@@ -8,18 +8,19 @@ import { useNavigation } from '@react-navigation/native';
 interface ButtonPrimaryProps {
     navigation?: any; 
     link?: string;
+    linkParams?: object;
     text: string;
     action?: Callback;
     size?: string;
     type: string;
 }
 
-const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type, size, icon}) => {
+const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type, size, icon, linkParams = {}}) => {
 
     const navigation = useNavigation();
 
     const changeView = (url: string) => {
-        navigation?.navigate(url);
+        navigation?.navigate(url, linkParams);
     };
 
     const typeList = {

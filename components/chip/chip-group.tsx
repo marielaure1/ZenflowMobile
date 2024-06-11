@@ -9,32 +9,44 @@ interface ChipGroupProps {
 }
 
 const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChange }) => {
-  const [selectedChips, setSelectedChips] = useState<string[]>([]);
+  
+    const [selectedChips, setSelectedChips] = useState<string[]>([]);
 
-  const handlePress = (label: string) => {
-    if (multiple) {
-      if (selectedChips.includes(label)) {
-        setSelectedChips((prev) => prev.filter((chip) => chip !== label));
-      } else {
-        setSelectedChips((prev) => [...prev, label]);
+    const handlePressChips = (label: string) => {
+      if (multiple) {
+        if (selectedChips.includes(label)) {
+          setSelectedChips((prev) => prev.filter((chip) => chip !== label));
+        } else {
+          setSelectedChips((prev) => [...prev, label]);
+        }
       }
-    } else {
-      setSelectedChips([label]);
-    }
-    if (onChange) {
-      onChange(selectedChips);
-    }
-  };
+      if (onChange) {
+        onChange(selectedChips);
+      }
+    };
+    
+    const [selectedChip, setSelectedChip] = useState<string>("");
+
+    const handlePressChip = (label: string) => {
+      setSelectedChip(label)
+
+      console.log(label);
+      
+
+      if (onChange) {
+        onChange(selectedChip);
+      }
+    };
 
   return (
     <View style={styles.chipGroup}>
-      {options.map((option) => (
+      {options.map((option, key) => (
         <Chip
-          key={option}
+          key={key}
           text={option.text}
           colors={option.colors}
-          selected={selectedChips.includes(option.text)}
-          onPress={() => handlePress(option.text)}
+          selected={multiple ? selectedChips.includes(option.text) : selectedChip.includes(option.text)}
+          onPress={() => multiple ? handlePressChips(option.text) : handlePressChip(option.text)}
         />
       ))}
     </View>

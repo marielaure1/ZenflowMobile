@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     buttonAccountText: {
         fontSize: 14,
-        fontFamily: "Poppins-Medium"
+        fontFamily: "PoppinsMedium"
     }, 
     icon: {
         width: 24,
@@ -77,6 +77,27 @@ const styles = StyleSheet.create({
     },
     buttonBlueText: {
         color: colors.colorBlue900,
+    },
+    buttonGreen: {
+        backgroundColor: colors.colorGreen100,
+        borderColor: colors.colorGreen100
+    },
+    buttonGreenText: {
+        color: colors.colorBlue900,
+    },
+    buttonGrey: {
+        backgroundColor: colors.colorBase200,
+        borderColor: colors.colorBase200
+    },
+    buttonGreyText: {
+        color: colors.colorBase700,
+    },
+    buttonOrange: {
+        backgroundColor: colors.colorOrange100,
+        borderColor: colors.colorOrange100
+    },
+    buttonOrangeText: {
+        color: colors.colorOrange900,
     },
     buttonRounded: {
         borderRadius: 20,

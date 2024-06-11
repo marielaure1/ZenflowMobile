@@ -10,7 +10,7 @@ export default function useStyles(){
       marginBottom: 10
     },
     titleMedium: {
-      fontFamily: 'Poppins-Medium',
+      fontFamily: 'PoppinsMedium',
       fontSize: 24
     },
     section: {
@@ -18,7 +18,7 @@ export default function useStyles(){
       marginBottom: 30
     },
     sectionTitle: {
-      fontFamily: 'Poppins-Medium',
+      fontFamily: 'PoppinsMedium',
       fontSize: 16,
       marginBottom: 10,
     //   color: getTheme("title")["color"]

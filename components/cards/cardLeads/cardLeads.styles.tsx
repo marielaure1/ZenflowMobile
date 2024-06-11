@@ -45,7 +45,7 @@ export default function useStyles(){
       paddingTop: 5
     },
     cardLineText: {
-      fontFamily: 'Poppins-Medium',
+      fontFamily: 'PoppinsMedium',
       fontSize: 14,
       color: getTheme("card")["textColor"]
     }

@@ -109,6 +109,7 @@ const projectsData: ProjectsProps = {
   description: "",
   ownerId: "",
   clientId: "",
+  priority: "",
   tasks: [],
   categoryIds: [],
   customFields: []

@@ -9,6 +9,8 @@ import {
 import useStyles from "@components/kanban/kanban.styles";
 import KanbanTask from '@components/kanban/task/kanban-task';
 import KanbanSection from './section/kanban-section';
+import Card from '../cards/card/card';
+import ButtonPrimary from '../buttons/button';
 
 export default function Kanban({projectId, datas}) {
   const styles = useStyles();
@@ -22,20 +24,29 @@ export default function Kanban({projectId, datas}) {
   const keyExtractor = (item: Item) => item._id;
 
   return (
-    <NestableScrollContainer horizontal style={[styles.containerKanban]}>
+    <>
+      {datas.length > 0 && (
+        <NestableScrollContainer horizontal style={[styles.containerKanban]}>
 
-      {datas && datas.map((section, key) => (
-          <KanbanSection 
-          key={key}
-          title={section?.name}
-          data={section}
-          projectId={projectId}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-        />
-      ))}
-    
+          {datas && datas.map((section, key) => (
+              <KanbanSection 
+              key={key}
+              title={section?.name}
+              data={section}
+              projectId={projectId}
+              keyExtractor={keyExtractor}
+              renderItem={renderItem}
+            />
+          ))}
+        </NestableScrollContainer>
+      )}
 
-    </NestableScrollContainer>
+    {datas.length < 1 && (
+      <Card>
+        <Text style={styles.textEmpty}>Commencer a gérer votre projet</Text>
+        <ButtonPrimary type={"blue"} text="Ajouter une section" link={"TaskCategoryPost"} linkParams={{projectId: projectId}}/>
+      </Card>
+    )}
+  </>
   );
 }

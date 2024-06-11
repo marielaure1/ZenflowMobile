@@ -21,7 +21,7 @@ const Chip: React.FC<ChipProps> = ({ selected, onPress, text, colors }) => {
 
 const styles = StyleSheet.create({
   chip: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'PoppinsMedium',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,

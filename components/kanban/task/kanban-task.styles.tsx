@@ -13,7 +13,7 @@ export default function useStyles(){
       alignItems: 'center',
       justifyContent: "center",
       gap: 10,
-      borderRadius: 10,
+      borderRadius: 20,
       width: "95%",
       marginBottom: 15
     },

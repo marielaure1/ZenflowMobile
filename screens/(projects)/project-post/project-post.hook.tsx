@@ -12,7 +12,7 @@ const useProjectPost = ({ route }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tabs, setTabs] = useState("Infos");
-  const [form, setForm] = useState({ name: '', description: '' });
+  const [form, setForm] = useState({ name: '', description: '', priority: '' });
   
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
@@ -25,6 +25,8 @@ const useProjectPost = ({ route }) => {
   };
 
   const handleSubmit = async () => {
+    console.log(form);
+    
     try{
       const taskCategory = await projectsApi.create({ ...form, ownerId: me.customer._id });
       navigation.goBack();
