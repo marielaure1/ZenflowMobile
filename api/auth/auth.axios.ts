@@ -8,8 +8,6 @@ class AuthAxios extends ApiAxios<CustomersProps> {
 
   async register(data: CustomersProps) {
     const response = await this.apiClient.post(`/${this.path}/register`, data);
-    // console.log();
-    
     return response.data;
   }
 }

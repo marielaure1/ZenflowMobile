@@ -67,7 +67,11 @@ export default function useStyles(){
         paddingVertical: 30
       },
       grid: {
-        width: "100%"
+        width: "100%",
+        flexWrap: 'wrap',
+        flexDirection: "row",
+        gap: 10,
+        padding: 10
       }
   });
   return styles;

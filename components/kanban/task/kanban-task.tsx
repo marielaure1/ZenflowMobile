@@ -9,21 +9,20 @@ import { ScaleDecorator } from 'react-native-draggable-flatlist';
 
 export default function KanbanTask({ item, drag, isActive }) {
     const styles = useStyles();
-
-    console.log(item);
-    
+    const navigation = useNavigation();
 
     return (
       <ScaleDecorator>
         <TouchableOpacity
           activeOpacity={1}
           onLongPress={drag}
+          onPress={() => navigation.navigate("Task", {task: item})}
           disabled={isActive}
           style={[
             styles.container,
             // { backgroundColor: isActive ? 'red' : item.backgroundColor },
           ]}>
-          <View style={[styles.full]}>
+            <View style={[styles.full]}>
                 <Text style={[styles.textDate]}>{item.createdAt}</Text>
             </View>
             <View style={[styles.full]}>

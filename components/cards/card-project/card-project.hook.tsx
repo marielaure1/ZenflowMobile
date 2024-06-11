@@ -3,27 +3,30 @@ import { useNavigation } from '@react-navigation/native';
 import { useProjectsApi, useTaskCategoryApi } from '@api/api';
 import { useQuery } from '@tanstack/react-query';
 import ProjectsProps from '@interfaces/projects.interface';
-import TaskCategoryProps from '@interfaces/task-category.interface';
+import TasksProps from '@interfaces/tasks.interface';
 import useFetchData from '@hooks/useFetchData';
 
-const useProject = ({id}) => {
+const useCardProject = ({id}) => {
   const projectsApi = useProjectsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [project, setProject] = useState<ProjectsProps[]>([]);
-  const [taskCategories, setTaskCategories] = useState<TaskCategoryProps[]>([]);
+  const [taskPourcent, setTaskPourcent] = useState(0);
   const [tabs, setTabs] = useState("Infos");
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findTasksCategories(id), ["projects", id]);
-  // const { response, isLoading: fetchIsLoadingTasksCategories, error: fetchError, refetch } = useFetchData(() => taskCategoryApi.findAll(id), ["task-categories"]);
-
+  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findTasks(id), ["projects", id]);
   const navigation = useNavigation();
 
   useEffect(() => {
     if (!fetchIsLoading && response) {
-      
+
+        const totalTasks = response?.datas["projects/tasks"].tasks?.length;
+        const completedTasks = response?.datas["projects/tasks"].tasks?.filter(task => task.completed).length;
+        const completionPercentage = totalTasks > 0 ? completedTasks / totalTasks : 0;
+        
+    
       setProject(response?.datas["projects/tasks"].data);
-      setTaskCategories(response?.datas["projects/tasks"].taskCategories)
+      setTaskPourcent(completionPercentage)
       setIsLoading(false);
     }
   }, [fetchIsLoading, response]);
@@ -35,7 +38,7 @@ const useProject = ({id}) => {
     }
   }, [fetchError]);
 
-  return { navigation, error, project, refetch, tabs, setTabs, taskCategories, error, isLoading };
+  return { navigation, error, project, refetch, tabs, setTabs, taskPourcent };
 };
 
-export default useProject;
+export default useCardProject;

@@ -7,11 +7,12 @@ export default function useStyles(){
   
   const styles = StyleSheet.create({
     container: {
-      padding: variables.common.padding["10"],
-      backgroundColor: "#F4F4F4",
+      padding: 10,
+      backgroundColor: "#FFFFFF",
       flexDirection: 'column',
       gap: 10,
-      borderRadius: 10
+      borderRadius: 20,
+      width: "100%"
     },
     marginBottom: {
       marginVertical: 20

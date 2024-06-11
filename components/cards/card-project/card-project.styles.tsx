@@ -7,15 +7,15 @@ export default function useStyles(){
   
   const styles = StyleSheet.create({
     container: {
-      padding: 10,
+      padding: 15,
       backgroundColor: "#FFFFFF",
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: "center",
       gap: 10,
-      borderRadius: 10,
-      width: "50%",
-      marginHorizontal: 5,
+      borderRadius: 20,
+      width: "48%",
+      // marginHorizontal: 5,
     },
     full: {
       width: '100%',

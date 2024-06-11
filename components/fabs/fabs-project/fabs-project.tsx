@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-const FabsProjects = () => {
+const FabsProject = ({projectId}) => {
   const [state, setState] = React.useState({ open: false });
   const navigation = useNavigation();
   const onStateChange = ({ open }) => setState({ open });
@@ -20,9 +20,9 @@ const FabsProjects = () => {
             actions={[
               {
                 icon: () => <Add size="24" color="#38BDF8"/>,
-                label: 'Créer un projet',
+                label: 'Créer une section',
                 style: [styles.btnAction],
-                onPress: () =>  {console.log("ProjectPost"); navigation.navigate("ProjectPost");},
+                onPress: () =>  navigation.navigate("TaskCategoryPost", {projectId: projectId}),
                 
               },
               {
@@ -73,5 +73,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FabsProjects;
+export default FabsProject;
 

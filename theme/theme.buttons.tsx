@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     buttonIcon: {
-        width: 40,
-        height: 40,
+        width: 26,
+        height: 26,
         borderRadius: 8,
         borderWidth: 1,
         flexDirection: "row",

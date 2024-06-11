@@ -5,8 +5,6 @@ import TasksProps from '@interfaces/tasks.interface';
 import TaskCategoryProps from '@interfaces/task-category.interface';
 
 export default function KanbanSection({id}) {
-  console.log(id);
-  
   const taskCategoryApi = useTaskCategoryApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -16,9 +14,6 @@ export default function KanbanSection({id}) {
  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => taskCategoryApi.findTasks(id), ["tasks-categories", id]);
   useEffect(() => {
     if (!fetchIsLoading && response) {
-      console.log(response);
-      
-      
       setTaskCategories(response?.datas?.tasks?.data);
       setTasks(response?.datas?.tasks?.tasks)
       setIsLoading(false);

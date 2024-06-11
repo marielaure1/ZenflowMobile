@@ -12,6 +12,7 @@ export default function useStyles(){
       paddingVertical: 5,
       borderRadius: 5,
       textAlign: "center",
+      alignSelf: "flex-start",
       marginRight: 5
     }
   });

@@ -10,6 +10,11 @@ class ProjectsAxios extends ApiAxios<ProjectsProps> {
     const response = await this.apiClient.get(`${this.path}/${id}/tasks-categories`)
     return response.data
   }
+
+  async findTasks(id: string){
+    const response = await this.apiClient.get(`${this.path}/${id}/tasks`)
+    return response.data
+  }
 }
 
 export default ProjectsAxios;

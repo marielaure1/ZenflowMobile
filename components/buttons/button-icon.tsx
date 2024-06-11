@@ -26,11 +26,11 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, 
 
     switch (icon){
       case "ChemicalGlass":
-        iconTag = <ChemicalGlass color={'#38BDF8'} variant="Linear" size={15} />;
+        iconTag = <ChemicalGlass color={'#38BDF8'} variant="Linear" size={18} />;
         btnStyle = buttons.buttonPrimary;
         break;
     case "Add":
-        iconTag = <Add color={'#38BDF8'} variant="Linear" size={15} />;
+        iconTag = <Add color={'#38BDF8'} variant="Linear" size={18} />;
         btnStyle = buttons.buttonBlue;
         break;
       default:

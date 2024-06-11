@@ -8,27 +8,32 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView, View, Text } from 'react-native';
 import CardProject from '@components/cards/card-project/card-project';
 import BackgroundBanner from "@img/banner/banner-2.png";
+import FabsProjects from '@components/fabs/fabs-projects/fabs-projects';
 
 export default function Projects() {
   const styles = useStyles();
   const { navigation, error, projectsList, refetch, tabs, setTabs } = useProjects();
 
   return (
-    <Template>
-      <Banner title={"Projets"} image={BackgroundBanner}/>
+    <>
+      <Template>
+        <Banner title={"Projets"} image={BackgroundBanner}/>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
-        {/* <TabsViewBasic view={tabs} setView={setTabs} text="Infos" colors={{"background": "#CEF0FF", "foreground": "#35BFFF"}}/> */}
-        <TabsViewBasic view={tabs} setView={setTabs} text="Analyse" colors={{"background": "#FFF0D5", "foreground": "#FFC045"}}/>
-        <TabsViewBasic view={tabs} setView={setTabs} text="Liste des projets" colors={{"background": "#E2F9E8", "foreground": "#34A853"}}/>
-      </ScrollView>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
+          {/* <TabsViewBasic view={tabs} setView={setTabs} text="Infos" colors={{"background": "#CEF0FF", "foreground": "#35BFFF"}}/> */}
+          <TabsViewBasic view={tabs} setView={setTabs} text="Analyse" colors={{"background": "#FFF0D5", "foreground": "#FFC045"}}/>
+          <TabsViewBasic view={tabs} setView={setTabs} text="Liste des projets" colors={{"background": "#E2F9E8", "foreground": "#34A853"}}/>
+        </ScrollView>
 
-      <View style={styles.grid}>
-        {tabs == "Liste des projets" && projectsList && projectsList.map((project, key) => (
-          <CardProject key={key} data={project}/>
-        ))}
-      </View>
-     
-    </Template>
+        <View style={styles.grid}>
+          {tabs == "Liste des projets" && projectsList && projectsList.map((project, key) => (
+            <CardProject key={key} data={project}/>
+          ))}
+        </View>
+      
+      </Template>
+
+      <FabsProjects />
+    </>
   );
 }

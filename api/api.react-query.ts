@@ -27,8 +27,6 @@ class ApiReactQuery<DataInterface> {
   }
 
   async create(datas: DataInterface) {
-    console.log(datas);
-    
     const response = await this.apiAxios.createAxios(datas);
     this.queryClient.invalidateQueries(this.type);
     return response;
@@ -40,8 +38,8 @@ class ApiReactQuery<DataInterface> {
     return response;
   }
 
-  async update(id: string) {
-    const response = await this.apiAxios.updateAxios(id);
+  async update(id: string, datas: DataInterface ) {
+    const response = await this.apiAxios.updateAxios(id, datas);
     this.queryClient.invalidateQueries(this.type);
     return response;
   }

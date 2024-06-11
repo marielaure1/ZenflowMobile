@@ -13,8 +13,6 @@ export default function AccountScreen() {
 
   const { navigation, customersList,  me, error, handleLogout } = useAccount();
 
-  console.log(me);
-  
   // if (isLoading) {
   //   return <Text>Loading...</Text>;
   // }

@@ -7,7 +7,7 @@ import Banner from '@components/banner/banner';
 import TabsViewBasic from '@components/tabs-view/basic/tabs-view-basic';
 import KanbanBoard from '@components/kanban/kanban';
 import useStyles from "@screens/(projects)/project/project.styles";
-import FabsProjects from '@components/fabs/fabs-projects/fabs-projects';
+import FabsProject from '@/components/fabs/fabs-project/fabs-project';
 import BackgroundBanner from "@img/banner/banner-2.png";
 import BottomSheet from "@components/bottom-sheet/bottom-sheet";
 

@@ -13,8 +13,6 @@ export default function KanbanSection({projectId, title, data, keyExtractor, ren
  
  const { tasks, setTasks } = useKanbanSection({id: data._id})
 
-//  console.log(tasks);
- 
   return (
     <View style={[styles.container]}>
       <View style={[styles.blocTitle]}>

@@ -18,8 +18,6 @@ class TaskCategorysReactQuery extends ApiReactQuery<TaskCategorysProps> {
   }
 
   async findTasks(id: string){
-    console.log(id);
-    
     return await this.apiAxios.findTasks(id);
   }
 }

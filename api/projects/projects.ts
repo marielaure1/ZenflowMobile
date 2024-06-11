@@ -21,6 +21,10 @@ class ProjectsReactQuery extends ApiReactQuery<ProjectsProps> {
     return await this.apiAxios.findTasksCategories(id);
   }
 
+  async findTasks(id: string){
+    return await this.apiAxios.findTasks(id);
+  }
+
 
 }
 
