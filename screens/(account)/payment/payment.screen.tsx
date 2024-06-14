@@ -5,7 +5,7 @@ function PaymentScreen() {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
   const fetchCheckoutSession = async () => {
-    const response = await fetch('http://192.168.1.185:3001/api/payments/create-checkout-session', { 
+    const response = await fetch('http://192.168.1.80:3001/api/payments/create-checkout-session', { 
       method: 'POST',
       
     });
