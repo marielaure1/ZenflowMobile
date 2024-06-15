@@ -47,6 +47,8 @@ class ApiAxios<DataInterface> {
 
   async findAllAxios() {
     const response = await this.apiClient.get(`/${this.path}`);
+    console.log("ee", response.data);
+    
     return response.data;
   }
 

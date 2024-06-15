@@ -5,7 +5,7 @@ import styles from '@screens/(auth)/login/login.styles';
 import Button from "@/components/buttons/button";
 import Field from "@/components/fields/field";
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
  
   const {
    email, setEmail, password, setPassword, error, handleLogin

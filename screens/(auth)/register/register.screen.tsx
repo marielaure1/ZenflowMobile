@@ -1,31 +1,82 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import useRegister from '@screens/(auth)/register/register.hook';
 import styles from '@screens/(auth)/register/register.styles';
-import Button from "@/components/buttons/button";
-import Field from "@/components/fields/field";
+import Button from "@components/buttons/button";
+import FieldControl from "@components/fields/field-control";
+import Regex from "@constants/regex";
 
-const RegisterScreen = () => {
- 
-  const {
-    navigation, firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, passwordConfirm, setPasswordConfirm, error, handleRegister
-  } = useRegister();
+const RegisterScreen = ({ navigation }) => {
+  const { control, handleSubmit, handleRegister, errors, validatePasswordConfirm } = useRegister();
 
   return (
     <View style={styles.container}>
-       <Text style={styles.title}>Inscription</Text>
+      <Text style={styles.title}>Inscription</Text>
+      
+      <FieldControl 
+      control={control} 
+      name="lastName" 
+      label="Nom" 
+      error={errors.lastName} 
+      rules={{ 
+        required: 'Ce champ est requis'
+      }} />
 
+      <FieldControl 
+      control={control} 
+      name="firstName" 
+      label="Prénom" 
+      error={errors.firstName} 
+      rules={{ 
+        required: 'Ce champ est requis'
+      }} />
 
-        {error ? <Text style={styles.error}>{error}</Text> : null}
+      <FieldControl 
+      control={control} 
+      name="email" 
+      label="Email" 
+      error={errors.email} 
+      rules={{ 
+        required: 'Ce champ est requis',
+        pattern: {
+            value: Regex.email,
+            message: 'Veuillez saisir un email valide'
+        }
+      }} />
 
-        <Field get={firstName} set={setFirstName} name="Nom"/>
-        <Field get={lastName} set={setLastName} name="Prénom"/>
-        <Field get={email} set={setEmail} name="Email"/>
-        <Field get={password} set={setPassword} name="Password" secureTextEntry/>
-        <Field get={passwordConfirm} set={setPasswordConfirm} name="Confirmation du mot de passe" secureTextEntry/>
+      <FieldControl 
+      control={control} 
+      name="password" 
+      label="Mot de passe" 
+      error={errors.password} 
+      rules={{ 
+        required: 'Ce champ est requis', 
+        minLength: { 
+          value: 8,
+          message: 'Le mot de passe doit contenir au moins 8 caractères'
+        },
+        maxLength: {
+            value: 25,
+            message: 'Le mot de passe ne peut pas dépasser 25 caractères'
+        },
+        pattern: {
+            value: Regex.password,
+            message: 'Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un nombre et un symbole (@, $, !, %, *, ?, &)'
+        }
+      }} />
+      
+      <FieldControl 
+      control={control} 
+      name="passwordConfirm" 
+      label="Confirmer le mot de passe" 
+      error={errors.passwordConfirm} 
+      rules={{ 
+        required: 'Ce champ est requis',
+        validate: validatePasswordConfirm
+      }} />
 
-      <Button text="Connexion" type="primary" action={handleRegister}/>
-      <Text style={styles.forgotPassword} onPress={() => navigation?.navigate("ForgetPasssword")}>Mot de passe oublié</Text>
+      <Button text="Inscription" type="primary" action={handleSubmit(handleRegister)} />
+      <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgetPassword')}>Mot de passe oublié</Text>
     </View>
   );
 };

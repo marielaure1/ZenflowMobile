@@ -1,41 +1,68 @@
-import { useState } from 'react';
-import { auth } from '@config/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
-// import {useCustomersWithQueryClient} from "@api/customers/customers"
-import useFetchData from '@hooks/useFetchData';
 import { useAuthApi } from '@/api/api';
+import { auth } from '@config/firebase';
+import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
 
 const useRegister = () => {
   const customersApi = useAuthApi();
-    const [firstName, setFirstName] = useState('Marie-Laure');
-    const [lastName, setLastName] = useState('Edjour');
-    const [email, setEmail] = useState('edjour.marielaure@gmail.com');
-    const [password, setPassword] = useState('@Test123456');
-    const [passwordConfirm, setPasswordConfirm] = useState('@Test123456');
-    const [error, setError] = useState('');
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
-    // const { createCustomer } = useCustomersWithQueryClient();
-  
-    const handleRegister = async () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormData>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordConfirm: ''
+    }
+  });
 
-      try{
-        
-        const customers =  await customersApi.register({firstName, lastName, email, password, passwordConfirm});
+  const validatePasswordConfirm = (value: string) => {
+    const { password } = control._formValues;
+    return value === password || "Les mots de passe ne correspondent pas";
+  };
 
-        console.log(customers);
-        
-        const signIn = await signInWithEmailAndPassword(auth, email, password)
-        // console.log(signIn);
-        
-      } catch(error) {
-        console.log(error);
-        
-      }
-    };
+  const handleRegister = async (data: FormData) => {
+    try {
+      // Enregistrer l'utilisateur ou faire d'autres opérations nécessaires
+      const customers = await customersApi.register(data);
+      console.log(customers);
 
-    return { firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, passwordConfirm, setPasswordConfirm, error, handleRegister, navigation}
-}
+      // Envoyer un e-mail de vérification à l'utilisateur
+      // if (auth.currentUser) {
+      //   const sendEmail = await sendEmailVerification(customers.datas.auth.firestore);
+      //   console.log(sendEmail);
+      // }
+
+      // Connexion de l'utilisateur après l'inscription
+      const signIn = await signInWithEmailAndPassword(auth, data.email, data.password);
+      console.log(signIn);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { control, handleSubmit, handleRegister, errors, validatePasswordConfirm };
+};
 
 export default useRegister;
+
+    // const [firstName, setFirstName] = useState('Marie-Laure');
+    // const [lastName, setLastName] = useState('Edjour');
+    // const [email, setEmail] = useState('edjour.marielaure@gmail.com');
+    // const [password, setPassword] = useState('@Test123456');
+    // const [passwordConfirm, setPasswordConfirm] = useState('@Test123456');
+    // const [error, setError] = useState('');

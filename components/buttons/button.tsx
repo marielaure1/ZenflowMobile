@@ -5,18 +5,22 @@ import { StyleProp } from 'react-native';
 import { Callback } from '@react-native-async-storage/async-storage/lib/typescript/types';
 import { useNavigation } from '@react-navigation/native';
 
+type CallbackType = (e?: React.BaseSyntheticEvent) => void | Promise<void>;
+
 interface ButtonPrimaryProps {
     navigation?: any; 
     link?: string;
     linkParams?: object;
     text: string;
-    action?: Callback;
+    action?: CallbackType;
     size?: string;
     type: string;
 }
 
 const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type, size, icon, linkParams = {}}) => {
 
+    console.log(action);
+    
     const navigation = useNavigation();
 
     const changeView = (url: string) => {
@@ -41,7 +45,7 @@ const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type,
     
 
     return (
-        <TouchableOpacity style={[buttons.button, typeList[type]["bg"]]} onPress={() => link ? changeView(link) : action()}>
+        <TouchableOpacity style={[buttons.button, typeList[type]["bg"]]} onPress={() => link ? changeView(link) : (action ? action() : null)}>
             {icon && <Image source={icon} style={buttons.icon} />}
             <Text style={[buttons.buttonText, typeList[type]["txt"]]}>{text}</Text>
         </TouchableOpacity>

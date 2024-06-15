@@ -14,6 +14,8 @@ import TaskCategoryReactQuery from '@api/task-category/task-category';
 import TaskCategoryProps from '@/common/interfaces/task-category.interface';
 import TasksReactQuery from '@api/tasks/tasks';
 import TasksProps from '@/common/interfaces/tasks.interface';
+import ClientsReactQuery from '@api/clients/clients';
+import ClientsProps from '@/common/interfaces/clients.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 
@@ -148,7 +150,6 @@ const useTaskCategoryApi = () => {
 const tasksData: TasksProps = {
   title: "",
   description: "",
-  projectId: "",
   assigneeId: "",
   status: "",
   dueDate: new Date(),
@@ -171,6 +172,27 @@ const useTasksApi = () => {
   return new TasksReactQuery(invalidateQueryFiltersTasks, tasksData, 'tasks');
 };
 
+/**
+ * Clients
+ */
+const clientsData: ClientsProps = {
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  status: ""
+};
+
+const invalidateQueryFiltersClients: InvalidateQueryFilters = {
+  queryKey: ['clients']
+};
+
+const useClientsApi = () => {
+  // const token = useSelector((state) => state?.auth?.token);
+  return new ClientsReactQuery(invalidateQueryFiltersClients, clientsData, 'clients');
+};
+
+
 export {
   useCustomersApi,
   usePlansApi,
@@ -179,5 +201,6 @@ export {
   usePaymentsApi,
   useProjectsApi,
   useTaskCategoryApi,
-  useTasksApi
+  useTasksApi,
+  useClientsApi
 };

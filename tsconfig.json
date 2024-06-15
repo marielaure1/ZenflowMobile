@@ -45,6 +45,9 @@
       ],
       "@providers/*": [
         "./common/providers/*"
+      ],
+      "@constants/*": [
+        "./common/constants/*"
       ]
     }
   },
