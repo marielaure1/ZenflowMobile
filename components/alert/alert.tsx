@@ -12,6 +12,10 @@ const Alert = ({message = "Une erreur c'est produite", type ="error", error =""}
             backgroundColor = "#FFE1E1";
             color = "#FD4949";
             break;
+        case "Not Found":
+            backgroundColor = "#FFF9ED";
+            color = "#FFC045";
+            break;
     
         default:
             break;

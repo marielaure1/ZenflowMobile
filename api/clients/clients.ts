@@ -7,14 +7,15 @@ import ApiReactQuery from '@api/api.react-query';
 class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
   protected apiAxios: ClientAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: ClientsProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new ClientAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'clients';
+    const invalidateQueryFiltersClients: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersClients, path, token);
+    this.apiAxios = new ClientAxios(path, token);
+  }
+
+  async createCustomField(data: ClientsProps){
+    return await this.apiAxios.createCustomField(data);
   }
 }
 

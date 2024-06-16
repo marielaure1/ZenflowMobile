@@ -1,7 +1,7 @@
-interface TaskCategoryProps{
+interface TaskCategoriesProps{
    name: string;
    description: string;
    projectId: string;
 }
 
-export default TaskCategoryProps;
+export default TaskCategoriesProps;

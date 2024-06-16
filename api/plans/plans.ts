@@ -7,14 +7,11 @@ import ApiReactQuery from '../api.react-query';
 class PlansReactQuery extends ApiReactQuery<PlansProps> {
   protected apiAxios: PlanAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: PlansProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new PlanAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'plans';
+    const invalidateQueryFiltersPlans: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersPlans, path, token);
+    this.apiAxios = new PlanAxios(path, token);
   }
 }
 

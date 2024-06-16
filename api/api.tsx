@@ -10,7 +10,7 @@ import PaymentsReactQuery from '@api/payments/payments';
 import PaymentsProps from '@/common/interfaces/payments.interface';
 import ProjectsReactQuery from '@api/projects/projects';
 import ProjectsProps from '@/common/interfaces/projects.interface';
-import TaskCategoryReactQuery from '@api/task-category/task-category';
+import TaskCategoryReactQuery from '@/api/task-categories/task-categories';
 import TaskCategoryProps from '@/common/interfaces/task-category.interface';
 import TasksReactQuery from '@api/tasks/tasks';
 import TasksProps from '@/common/interfaces/tasks.interface';
@@ -18,189 +18,41 @@ import ClientsReactQuery from '@api/clients/clients';
 import ClientsProps from '@/common/interfaces/clients.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
-
-/**
- * Customers
- */
-const customerData: CustomersProps = {
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  firstName: '',
-  lastName: ''
+export const getToken = () => {
+  return useSelector((state) => state?.auth?.token);
+}
+export const useAuthApi = () => {
+  return new AuthReactQuery(getToken());
 };
 
-const invalidateQueryFiltersCustomers: InvalidateQueryFilters = {
-  queryKey: ['customers']
+export const useCustomersApi = () => {
+  return new CustomersReactQuery(getToken());
 };
 
-const useCustomersApi = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  return new CustomersReactQuery(invalidateQueryFiltersCustomers, customerData, 'customers', token);
+export const usePlansApi = () => {
+  return new PlansReactQuery(getToken());
 };
 
-const useAuthApi = () => {
-  return new AuthReactQuery(invalidateQueryFiltersCustomers, customerData, 'auth');
+export const useSubscriptionsApi = () => {
+  return new SubscriptionsReactQuery(getToken());
 };
 
-
-/**
- * Plans
- */
-
-const planData: PlansProps = {
-  name : "",
-  description : "",
-  amount : 0,
-  currency : "",
-  interval : "",
-  stripePlanId : "",
-  features : []
+export const usePaymentsApi = () => {
+  return new PaymentsReactQuery(getToken());
 };
 
-const invalidateQueryFiltersPlans: InvalidateQueryFilters = {
-  queryKey: ['plans']
+export const useProjectsApi = () => {
+  return new ProjectsReactQuery(getToken());
 };
 
-const usePlansApi = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  return new PlansReactQuery(invalidateQueryFiltersPlans, planData, 'plans', token);
+export const useTaskCategoriesApi = () => {
+  return new TaskCategoriesReactQuery(getToken());
 };
 
-
-/**
- * Subscriptions
- */
-const subscriptionData: SubscriptionsProps = {
-  plan : "",
-  customer : ""
+export const useTasksApi = () => {
+  return new TasksReactQuery(getToken());
 };
 
-const invalidateQueryFiltersSubscriptions: InvalidateQueryFilters = {
-  queryKey: ['subscriptions']
-};
-
-const useSubscriptionsApi = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  return new SubscriptionsReactQuery(invalidateQueryFiltersSubscriptions, subscriptionData, 'subscriptions', token);
-};
-
-/**
- * Payments
- */
-const paymentsData: PaymentsProps = {
-  amount : 0,
-  currency : "",
-  customerId : ""
-};
-
-const invalidateQueryFiltersPayments: InvalidateQueryFilters = {
-  queryKey: ['payments']
-};
-
-const usePaymentsApi = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  return new PaymentsReactQuery(invalidateQueryFiltersPayments, paymentsData, 'payments', token);
-};
-
-/**
- * Projects
- */
-const projectsData: ProjectsProps = {
-  name: "",
-  description: "",
-  ownerId: "",
-  clientId: "",
-  priority: "",
-  tasks: [],
-  categoryIds: [],
-  customFields: []
-};
-
-const invalidateQueryFiltersProjects: InvalidateQueryFilters = {
-  queryKey: ['projects']
-};
-
-const useProjectsApi = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  return new ProjectsReactQuery(invalidateQueryFiltersProjects, projectsData, 'projects', token);
-};
-
-/**
- * TaskCategory
- */
-const taskCategoryData: TaskCategoryProps = {
-  name: "",
-  description: "",
-  projectId: ""
-};
-
-const invalidateQueryFiltersTaskCategory: InvalidateQueryFilters = {
-  queryKey: ['tasks-categories']
-};
-
-const useTaskCategoryApi = () => {
-  // const token = useSelector((state) => state?.auth?.token);
-  return new TaskCategoryReactQuery(invalidateQueryFiltersTaskCategory, taskCategoryData, 'tasks-categories');
-};
-
-/**
- * Tasks
- */
-const tasksData: TasksProps = {
-  title: "",
-  description: "",
-  assigneeId: "",
-  status: "",
-  dueDate: new Date(),
-  priority: "",
-  comments: [],
-  flags: [],
-  timeEntries: [],
-  parentTaskId: "",
-  subTasks: "",
-  taskCategoryIds: "",
-  order: 0,
-};
-
-const invalidateQueryFiltersTasks: InvalidateQueryFilters = {
-  queryKey: ['tasks']
-};
-
-const useTasksApi = () => {
-  // const token = useSelector((state) => state?.auth?.token);
-  return new TasksReactQuery(invalidateQueryFiltersTasks, tasksData, 'tasks');
-};
-
-/**
- * Clients
- */
-const clientsData: ClientsProps = {
-  name: "",
-  email: "",
-  phone: "",
-  address: "",
-  status: ""
-};
-
-const invalidateQueryFiltersClients: InvalidateQueryFilters = {
-  queryKey: ['clients']
-};
-
-const useClientsApi = () => {
-  // const token = useSelector((state) => state?.auth?.token);
-  return new ClientsReactQuery(invalidateQueryFiltersClients, clientsData, 'clients');
-};
-
-
-export {
-  useCustomersApi,
-  usePlansApi,
-  useSubscriptionsApi,
-  useAuthApi,
-  usePaymentsApi,
-  useProjectsApi,
-  useTaskCategoryApi,
-  useTasksApi,
-  useClientsApi
+export const useClientsApi = () => {
+  return new ClientsReactQuery(getToken());
 };

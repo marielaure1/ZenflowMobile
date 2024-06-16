@@ -8,7 +8,7 @@ export default function useStyles(){
     card: {
       width: 300,
       height: 200,
-      backgroundColor: getTheme("card")["background"],
+      backgroundColor: "white",
       borderRadius: 8,
       padding: 20
     },
@@ -22,7 +22,7 @@ export default function useStyles(){
     cardTitle: {
       fontFamily: 'Poppins-SemiBold',
       fontSize: 16,
-      color: getTheme("card")["color"]
+      color: "black"
     },
     cardFlags: {
       flexDirection: 'row',
@@ -47,7 +47,15 @@ export default function useStyles(){
     cardLineText: {
       fontFamily: 'PoppinsMedium',
       fontSize: 14,
-      color: getTheme("card")["textColor"]
+      color: "red"
+    },
+    logo: {
+      height: 50,
+      width: 50
+    },
+    cardSubTitle: {
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 16,
     }
   });
   return styles;

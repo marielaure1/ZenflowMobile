@@ -8,21 +8,16 @@ class ApiReactQuery<DataInterface> {
 
   constructor(
     protected readonly type: InvalidateQueryFilters,
-    private readonly dataInterface: DataInterface,
     private readonly path: string,
     token?: string
   ) {
-    this.type = type;
-    this.dataInterface = dataInterface;
-    this.path = path;
-
     this.queryClient = queryClient;
-    this.apiAxios = new ApiAxios<DataInterface>(this.dataInterface, this.path, token);
+    this.apiAxios = new ApiAxios<DataInterface>(this.path, token);
   }
 
   async findAll() {
     const response = await this.apiAxios.findAllAxios();
-    queryClient.setQueryData([this.type], response); 
+    this.queryClient.setQueryData([this.type], response); 
     return response;
   }
 
@@ -34,13 +29,11 @@ class ApiReactQuery<DataInterface> {
 
   async findOne(id: string) {
     const response = await this.apiAxios.findOneAxios(id);
-    queryClient.setQueryData([this.type, id], response); 
+    this.queryClient.setQueryData([this.type, id], response); 
     return response;
   }
 
-  async update(id: string, datas: DataInterface ) {
-    console.log("datas", datas);
-    
+  async update(id: string, datas: DataInterface) {
     const response = await this.apiAxios.updateAxios(id, datas);
     this.queryClient.invalidateQueries(this.type);
     return response;

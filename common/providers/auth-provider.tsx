@@ -28,8 +28,6 @@ const AuthProvider = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-
-      console.log(auth);
       
       if (user) {
         const token = user?.stsTokenManager?.accessToken;

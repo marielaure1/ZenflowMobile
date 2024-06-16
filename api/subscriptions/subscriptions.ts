@@ -7,14 +7,11 @@ import ApiReactQuery from '../api.react-query';
 class SubscriptionsReactQuery extends ApiReactQuery<SubscriptionsProps> {
   protected apiAxios: SubscriptionAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: SubscriptionsProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new SubscriptionAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'subscriptions';
+    const invalidateQueryFiltersSubscriptions: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersSubscriptions, path, token);
+    this.apiAxios = new SubscriptionAxios(path, token);
   }
 }
 

@@ -7,14 +7,11 @@ import ApiReactQuery from '@api/api.react-query';
 class AuthReactQuery extends ApiReactQuery<CustomersProps> {
   protected apiAxios: AuthAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: CustomersProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new AuthAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'auth';
+    const invalidateQueryFiltersAuths: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersAuths, path, token);
+    this.apiAxios = new AuthAxios(path, token);
   }
 
   async register(data: CustomersProps) {

@@ -1,52 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Chip from '@components/chip/chip';
 
 interface ChipGroupProps {
-  options: string[];
+  options: { text: string, type: string, colors: string[] }[];
+  defaultSelected?: string[];
   multiple?: boolean;
   onChange?: (selected: string[]) => void;
 }
 
-const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChange }) => {
-  
-    const [selectedChips, setSelectedChips] = useState<string[]>([]);
+const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChange, defaultSelected = [] }) => {
+  const [selectedChips, setSelectedChips] = useState<string[]>(defaultSelected);
 
-    const handlePressChips = (label: string) => {
-      if (multiple) {
-        if (selectedChips.includes(label)) {
-          setSelectedChips((prev) => prev.filter((chip) => chip !== label));
-        } else {
-          setSelectedChips((prev) => [...prev, label]);
-        }
-      }
-      if (onChange) {
-        onChange(selectedChips);
-      }
-    };
-    
-    const [selectedChip, setSelectedChip] = useState<string>("");
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedChips);
+    }
+  }, [selectedChips]);
 
-    const handlePressChip = (label: string) => {
-      setSelectedChip(label)
-
-      console.log(label);
-      
-
-      if (onChange) {
-        onChange(selectedChip);
-      }
-    };
+  const handlePressChip = (label: string) => {
+    if (multiple) {
+      setSelectedChips((prev) => 
+        prev.includes(label) ? prev.filter((chip) => chip !== label) : [...prev, label]
+      );
+    } else {
+      setSelectedChips([label]);
+    }
+  };
 
   return (
     <View style={styles.chipGroup}>
-      {options.map((option, key) => (
+      {options.map((option, index) => (
         <Chip
-          key={key}
+          key={index}
           text={option.text}
           colors={option.colors}
-          selected={multiple ? selectedChips.includes(option.text) : selectedChip.includes(option.text)}
-          onPress={() => multiple ? handlePressChips(option.text) : handlePressChip(option.text)}
+          selected={selectedChips.includes(option.type)}
+          onPress={() => handlePressChip(option.type)}
         />
       ))}
     </View>
@@ -57,7 +47,7 @@ const styles = StyleSheet.create({
   chipGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10
+    gap: 10,
   },
 });
 

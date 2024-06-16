@@ -72,6 +72,12 @@ export default function useStyles(){
         flexDirection: "row",
         gap: 10,
         padding: 10
+      },
+      container: {
+        width: "100%",
+        gap: 20,
+        paddingVertical: 40,
+        paddingHorizontal: 10
       }
   });
   return styles;

@@ -20,16 +20,16 @@ const FabsClients = () => {
             actions={[
               {
                 icon: () => <Add size="24" color="#38BDF8"/>,
-                label: 'Créer un projet',
+                label: 'Créer un client',
                 style: [styles.btnAction],
-                onPress: () =>  {console.log("ClientPost"); navigation.navigate("ClientPost");},
+                onPress: () =>  navigation.navigate("ClientPost"),
                 
               },
               {
                 icon: () => <Add size="24" color="#38BDF8"/>,
-                label: 'Créer un champ',
+                label: 'Créer un champ personnalisé',
                 style: [styles.btnAction],
-                onPress: () => console.log('Pressed email'),
+                onPress: () =>  navigation.navigate("CustomFieldPost"),
               },
             ]}
             onStateChange={onStateChange}

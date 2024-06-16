@@ -7,14 +7,11 @@ import ApiReactQuery from '@api/api.react-query';
 class PaymentsReactQuery extends ApiReactQuery<PaymentsProps> {
   protected apiAxios: PaymentAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: PaymentsProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new PaymentAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'payments';
+    const invalidateQueryFiltersPayments: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersPayments, path, token);
+    this.apiAxios = new PaymentAxios(path, token);
   }
 
   async createCheckoutSession(datas: PaymentsProps){

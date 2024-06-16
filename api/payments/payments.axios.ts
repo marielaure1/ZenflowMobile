@@ -2,8 +2,8 @@ import ApiAxios from '@api/api.axios';
 import PaymentsProps from '@interfaces/payments.interface';
 
 class PaymentsAxios extends ApiAxios<PaymentsProps> {
-  constructor(dataInterface: PaymentsProps, path: string, token?: string) {
-    super(dataInterface, path, token);
+  constructor(path: string, token?: string) {
+    super(path, token);
   }
 
   async createCheckoutSession(datas: PaymentsProps){

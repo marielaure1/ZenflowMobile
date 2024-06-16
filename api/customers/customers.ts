@@ -7,19 +7,16 @@ import ApiReactQuery from '@api/api.react-query';
 class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
   protected apiAxios: CustomerAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: CustomersProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new CustomerAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'customers';
+    const invalidateQueryFiltersCustomers: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersCustomers, path, token);
+    this.apiAxios = new CustomerAxios(path, token);
   }
 
   async findMe() {
     const response = await this.apiAxios.findMe();
-    queryClient.setQueryData([this.type], response); 
+    queryClient.setQueryData([this.type], response);
     return response;
   }
 }

@@ -2,8 +2,8 @@ import ApiAxios from '@api/api.axios';
 import CustomersProps from '@interfaces/customers.interface';
 
 class AuthAxios extends ApiAxios<CustomersProps> {
-  constructor(dataInterface: CustomersProps, path: string, token?: string) {
-    super(dataInterface, path, token);
+  constructor(path: string, token?: string) {
+    super(path, token);
   }
 
   async register(data: CustomersProps) {

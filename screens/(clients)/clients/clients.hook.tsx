@@ -17,12 +17,17 @@ const useClients = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-
-    console.log(response);
     
     if (!fetchIsLoading && response) {
-      setClientsList(response?.datas?.clients);
+
+      if(response?.code == 404){
+        setError("Vous n'avez pas encore de client")
+      } else {
+        setClientsList(response?.datas?.clients);
+      }
+      
       setIsLoading(false);
+     
     }
   }, [fetchIsLoading, response]);
 

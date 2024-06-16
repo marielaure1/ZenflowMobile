@@ -12,7 +12,8 @@ import AccountScreen from '@/screens/(tabs)/account/account.screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ClientsScreen from '@screens/(clients)/clients/clients.screen';
 // import ClientScreen from '@screens/(clients)/client/client.screen';
-// import ClientPostScreen from '@screens/(clients)/client-post/client-post.screen';
+import ClientPostScreen from '@screens/(clients)/client-post/client-post.screen';
+import CustomFieldPostScreen from '@screens/(common)/custom-field-post/custom-field-post.screen';
 
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
 import ProjectScreen from '@screens/(projects)/project/project.screen';
@@ -85,8 +86,10 @@ const MainNavigator = () => {
 
       {/**Clients */}
       <Stack.Screen name="Clients" component={ClientsScreen} />
-      {/* <Stack.Screen name="Client" component={ClientScreen} />
-      <Stack.Screen name="ClientPost" component={ClientPostScreen} /> */}
+      {/* <Stack.Screen name="Client" component={ClientScreen} />*/}
+      <Stack.Screen name="ClientPost" component={ClientPostScreen} /> 
+
+      <Stack.Screen name="CustomFieldPost" component={CustomFieldPostScreen} /> 
       
       <Stack.Screen name="Projects" component={ProjectsScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />

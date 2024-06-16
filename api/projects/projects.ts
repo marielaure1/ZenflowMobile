@@ -7,14 +7,11 @@ import ApiReactQuery from '@api/api.react-query';
 class ProjectsReactQuery extends ApiReactQuery<ProjectsProps> {
   protected apiAxios: ProjectAxios;
 
-  constructor(
-    type: InvalidateQueryFilters,
-    dataInterface: ProjectsProps,
-    path: string,
-    token?: string
-  ) {
-    super(type, dataInterface, path, token);
-    this.apiAxios = new ProjectAxios(dataInterface, path, token);
+  constructor(token?: string) {
+    const path = 'projects';
+    const invalidateQueryFiltersProjects: InvalidateQueryFilters = { queryKey: [path] };
+    super(invalidateQueryFiltersProjects, path, token);
+    this.apiAxios = new ProjectAxios(path, token);
   }
 
   async findTasksCategories(id: string){

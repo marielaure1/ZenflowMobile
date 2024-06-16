@@ -6,12 +6,13 @@ import Alert from "@components/alert/alert";
 interface FetchPendingProps{
     isLoading: boolean;
     error: string;
+    type: string;
 }
-export default function FetchPending({isLoading, error} : FetchPendingProps){
+export default function FetchPending({isLoading, error, type} : FetchPendingProps){
     return(
         <>
             {isLoading &&  <Loading />}
-            {error && <Alert error={error} message="Une erreur c'est produite" type="error"/>}
+            {error && <Alert error={error} message={error} type={type}/>}
         </>
     )
 }

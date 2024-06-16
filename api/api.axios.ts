@@ -7,15 +7,8 @@ class ApiAxios<DataInterface> {
   protected apiClient: AxiosInstance;
   protected token: string | undefined;
 
-  constructor(
-    private readonly dataInterface: DataInterface,
-    public readonly path: string,
-    token?: string
-  ) {
-    this.dataInterface = dataInterface;
-    this.path = path;
+  constructor(public readonly path: string, token?: string) {
     this.token = token;
-
     this.apiClient = axios.create({
       baseURL: IP,
       timeout: 10000,
@@ -23,7 +16,6 @@ class ApiAxios<DataInterface> {
         'Content-Type': 'application/json',
       },
     });
-
     this.init();
   }
 
@@ -46,10 +38,12 @@ class ApiAxios<DataInterface> {
   }
 
   async findAllAxios() {
-    const response = await this.apiClient.get(`/${this.path}`);
-    console.log("ee", response.data);
-    
-    return response.data;
+    try {
+      const response = await this.apiClient.get(`/${this.path}`);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 
   async createAxios(datas: DataInterface) {
