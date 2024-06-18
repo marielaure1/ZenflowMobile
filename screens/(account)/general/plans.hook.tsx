@@ -24,7 +24,7 @@ const usePlans = () => {
         try {
           const subscription = await subscriptionsApi.create({ plan: planId, customer: customer.customer._id});
  
-          const response = await fetch('http://172.17.112.1:3001/api/payments/create-checkout-session', {
+          const response = await fetch('http://192.168.1.80:3001/api/payments/create-checkout-session', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json', // Spécifiez le type de contenu

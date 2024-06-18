@@ -4,6 +4,7 @@ import useStyles from '@/components/cards/card-category/card-category.styles';
 import { Home2 } from 'iconsax-react-native';
 import { useNavigation } from '@react-navigation/native';
 
+
 const CardCategory = ({ title, icon, color, link}) => {
 
     const styles = useStyles();

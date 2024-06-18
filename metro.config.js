@@ -1,6 +1,23 @@
+// metro.config.js
 const { getDefaultConfig } = require("expo/metro-config");
-const { withNativeWind } = require('nativewind/metro');
+const { withNativeWind } = require("nativewind/metro");
 
-const config = getDefaultConfig(__dirname)
+const defaultConfig = getDefaultConfig(__dirname, {
+    isCSSEnabled: true, 
+  });
 
-module.exports = withNativeWind(config, { input: './global.css' })
+const config = withNativeWind(defaultConfig, {
+  input: "./theme/global.css", 
+});
+
+module.exports = {
+  ...config,
+  transformer: {
+    ...config.transformer,
+    babelTransformerPath: require.resolve("react-native-sass-transformer"),
+  },
+  resolver: {
+    ...config.resolver,
+    sourceExts: [...defaultConfig.resolver.sourceExts, "scss", "sass"],
+  },
+};

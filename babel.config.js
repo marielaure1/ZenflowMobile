@@ -3,14 +3,14 @@ module.exports = function(api) {
   return {
     presets: [
       ["babel-preset-expo", { jsxImportSource: "nativewind" }],
-      "nativewind/babel",
+      ["nativewind/babel", { mode: "debug" }],
     ],
     plugins: [
       [
         'module-resolver',
         {
           root: ['./'],
-          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+          extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json', '.scss', '.sass'],
           alias: {
             '@': './',
             '@api': './api',
