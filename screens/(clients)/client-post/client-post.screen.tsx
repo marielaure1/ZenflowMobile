@@ -8,11 +8,15 @@ import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';
 import ChipGroup from '@components/chip/chip-group';
 import FieldControl from '@components/fields/field-control';
+import Regex from "@constants/regex";
 
 const ClientPostScreen = ({ route, navigation }) => {
   const styles = useStyles();
-  const { control, errors, tabs, setTabs, title, handleCreate, handleSubmit } = useTasks({ route });
+  const { control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
+
+  console.log(route?.params?.client);
+  
 
 const handleChipChange = (selected: string[]) => {
   console.log('Selected Chips:', selected);
@@ -54,7 +58,11 @@ const handleChipChange = (selected: string[]) => {
             label="Email" 
             error={errors.email} 
             rules={{ 
-              required: 'Ce champ est requis'
+              required: 'Ce champ est requis',
+              pattern: {
+                value: Regex.email,
+                message: 'Veuillez saisir un email valide'
+              }
             }} />
             
             <FieldControl 
@@ -101,7 +109,7 @@ const handleChipChange = (selected: string[]) => {
               </View>
           </View> */}
           
-          <Button text="Valider" type="primary" action={handleSubmit(handleCreate)} />
+          <Button text="Valider" type="primary" action={handleSubmit(route?.params?.client ? handleUpdate : handleCreate)} />
         </View>
       </Template>
     </>

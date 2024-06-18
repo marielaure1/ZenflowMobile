@@ -14,6 +14,9 @@ const useLogin = () => {
     const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
     
     useEffect(() => {
+
+      console.log(response?.datas?.me?.customer);
+      
       if (!isLoadingMe && response) {
         setMe(response?.datas?.me);
         setIsLoading(false);

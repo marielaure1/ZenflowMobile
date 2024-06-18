@@ -9,7 +9,7 @@ import useCardClient from "@components/cards/card-client/card-client.hook";
 import Flag from "@/components/flag/flag";
 import React from 'react';
 import BackgroundBanner from "@img/banner/banner-2.png";
-import Card from '../card/card';
+import Card from '@components/cards/card/card';
 
 interface CardClientsProps {
     data :object;
@@ -27,7 +27,7 @@ const CardClients = ({data} : CardClientsProps) => {
     
     return (
         <Card>  
-        <TouchableOpacity  onPress={() => navigation.navigate("Project", { id: data._id })}>
+        <TouchableOpacity  onPress={() => navigation.navigate("Client", { id: data._id })}>
             <View style={styles.cardHeader}>
                 <View style={styles.cardHeader}>
                     <ImageBackground source={BackgroundBanner} resizeMode="cover" style={[styles.logo]}/>

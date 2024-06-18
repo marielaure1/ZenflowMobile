@@ -47,22 +47,39 @@ class ApiAxios<DataInterface> {
   }
 
   async createAxios(datas: DataInterface) {
-    const response = await this.apiClient.post(`/${this.path}`, datas);
-    return response.data;
+    try {
+      const response = await this.apiClient.post(`/${this.path}`, datas);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 
   async findOneAxios(id: string) {
-    const response = await this.apiClient.get(`/${this.path}/${id}`);
-    return response.data;
+    try {
+      const response = await this.apiClient.get(`/${this.path}/${id}`);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 
   async updateAxios(id: string, datas: DataInterface) {
-    const response = await this.apiClient.put(`/${this.path}/${id}`, datas);
-    return response.data;
+    try {
+      const response = await this.apiClient.put(`/${this.path}/${id}`, datas);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 
   async deleteAxios(id: string) {
-    await this.apiClient.delete(`/${this.path}/${id}`);
+    try {
+      const response = await this.apiClient.delete(`/${this.path}/${id}`);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 }
 

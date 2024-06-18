@@ -35,8 +35,6 @@ const usePlans = () => {
             customerId: createCheckoutSession.datas.payment.customer,
             customerEphemeralKeySecret: createCheckoutSession.datas.payment.ephemeralKey,
             paymentIntentClientSecret: createCheckoutSession.datas.payment.paymentIntent,
-            // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-            //methods that complete payment after a delay, like SEPA Debit and Sofort.
             allowsDelayedPaymentMethods: true,
             defaultBillingDetails: {
               name: 'Jane Doe',

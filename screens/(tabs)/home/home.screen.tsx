@@ -68,12 +68,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <Text style={[styles.headerText1]}>Bonjour <Text style={[styles.headerText2]}>{me?.customer?.firstName}</Text></Text>
       </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryList}>
-        <CardCatagory title="Client" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
+      <View style={styles.categoryList}>
+        <CardCatagory title="Clients" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
+        <CardCatagory title="Prospects" link="Prospects" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
         <CardCatagory title="Notes" link="Notes" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
        
-      </ScrollView>
+      </View>
       {/* <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {notification && notification.request.content.title} </Text>

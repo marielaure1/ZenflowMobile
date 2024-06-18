@@ -12,7 +12,7 @@ const useProjectPost = ({ route }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tabs, setTabs] = useState("Infos");
-  const [form, setForm] = useState({ name: '', description: '', priority: '' });
+  const [form, setForm] = useState({ name: '', description: '', priority: 'sdsd' });
   
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();

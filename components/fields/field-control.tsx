@@ -1,43 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Text } from 'react-native';
 import { Controller } from 'react-hook-form';
 import styles from '@/components/fields/field.styles';
 import ChipGroup from '@components/chip/chip-group';
+import { DatePickerModal } from 'react-native-paper-dates';
 
 const FieldControl = ({ control, name, label, error, defaultSelected = [], rules = {}, defaultrules = {}, type = "input", placeholder = "", options = [], ...props }) => {
+  const [open, setOpen] = useState(false);
 
-  const handleChipChange = (selected: string[]) => {
-    console.log('Selected Chips:', selected);
+  const onConfirm = (params, onChange) => {
+    onChange(params.date);
+    setOpen(false);
   };
-  
-    return (
+
+  const onDismiss = () => {
+    setOpen(false);
+  };
+
+  return (
     <View style={styles.formGroup}>
-      <Text style={styles.label}>{label} {rules?.required ? "*" : ""}</Text>
+      {label && <Text style={styles.label}>{label} {rules?.required ? "*" : ""}</Text>}
       <Controller
         control={control}
         name={name}
         rules={rules}
         render={({ field: { onChange, onBlur, value } }) => (
-
           <>
-            {type == "input" && (
+            {type === "input" && (
               <TextInput
-                 style={styles.input}
-                 placeholder={placeholder || label}
-                 onBlur={onBlur}
-                 onChangeText={onChange}
-                 value={value}
-                 {...props}
-               />
+                style={styles.input}
+                placeholder={placeholder || label}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                {...props}
+              />
             )}
 
-            {type == "chips" && (
+            {type === "chips" && (
               <ChipGroup
                 defaultSelected={defaultSelected}
                 options={options}
                 multiple={false}
-                onChange={handleChipChange}
+                onChange={onChange}
               />
+            )}
+
+            {type === "date" && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  placeholder={placeholder || label}
+                  onFocus={() => setOpen(true)}
+                  value={value ? value.toDateString() : ''}
+                  {...props}
+                />
+                <DatePickerModal
+                  mode="single"
+                  visible={open}
+                  onDismiss={onDismiss}
+                  date={value}
+                  onConfirm={(params) => onConfirm(params, onChange)}
+                  locale="fr" // Vous pouvez changer la locale si nécessaire
+                />
+              </>
             )}
           </>
         )}

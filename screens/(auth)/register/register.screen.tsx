@@ -6,6 +6,8 @@ import Button from "@components/buttons/button";
 import FieldControl from "@components/fields/field-control";
 import Regex from "@constants/regex";
 
+
+
 const RegisterScreen = ({ navigation }) => {
   const { control, handleSubmit, handleRegister, errors, validatePasswordConfirm } = useRegister();
 
@@ -49,6 +51,7 @@ const RegisterScreen = ({ navigation }) => {
       name="password" 
       label="Mot de passe" 
       error={errors.password} 
+      secureTextEntry={true}
       rules={{ 
         required: 'Ce champ est requis', 
         minLength: { 
@@ -70,6 +73,7 @@ const RegisterScreen = ({ navigation }) => {
       name="passwordConfirm" 
       label="Confirmer le mot de passe" 
       error={errors.passwordConfirm} 
+      secureTextEntry={true}
       rules={{ 
         required: 'Ce champ est requis',
         validate: validatePasswordConfirm

@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
       },
       formGroup: {
         flexDirection: "column",
-        gap: 10
+        gap: 10,
+        marginBottom: 20
       },
       label: {
         fontSize: 14,

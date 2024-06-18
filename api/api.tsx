@@ -1,21 +1,24 @@
 import { useSelector } from 'react-redux';
 import AuthReactQuery from '@api/auth/auth';
 import CustomersReactQuery from '@api/customers/customers';
-import CustomersProps from '@/common/interfaces/customers.interface';
+import CustomersProps from '@interfaces/customers.interface';
 import PlansReactQuery from '@api/plans/plans';
-import PlansProps from '@/common/interfaces/plans.interface';
+import PlansProps from '@interfaces/plans.interface';
 import SubscriptionsReactQuery from '@api/subscriptions/subscriptions';
-import SubscriptionsProps from '@/common/interfaces/subscriptions.interface';
+import SubscriptionsProps from '@interfaces/subscriptions.interface';
 import PaymentsReactQuery from '@api/payments/payments';
-import PaymentsProps from '@/common/interfaces/payments.interface';
+import PaymentsProps from '@interfaces/payments.interface';
 import ProjectsReactQuery from '@api/projects/projects';
-import ProjectsProps from '@/common/interfaces/projects.interface';
-import TaskCategoryReactQuery from '@/api/task-categories/task-categories';
-import TaskCategoryProps from '@/common/interfaces/task-category.interface';
+import ProjectsProps from '@interfaces/projects.interface';
+import TaskCategoriesReactQuery from '@/api/task-categories/task-categories';
+import TaskCategoriesProps from '@interfaces/task-categories.interface';
 import TasksReactQuery from '@api/tasks/tasks';
-import TasksProps from '@/common/interfaces/tasks.interface';
+import TasksProps from '@interfaces/tasks.interface';
 import ClientsReactQuery from '@api/clients/clients';
-import ClientsProps from '@/common/interfaces/clients.interface';
+import ProspectsReactQuery from '@api/prospects/prospects';
+import ClientsProps from '@interfaces/clients.interface';
+import CustomFieldsReactQuery from '@api/custom-fields/custom-fields';
+import CustomFieldsProps from '@interfaces/custom-fields.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 export const getToken = () => {
@@ -55,4 +58,12 @@ export const useTasksApi = () => {
 
 export const useClientsApi = () => {
   return new ClientsReactQuery(getToken());
+};
+
+export const useProspectsApi = () => {
+  return new ProspectsReactQuery(getToken());
+};
+
+export const useCustomFieldsApi = () => {
+  return new CustomFieldsReactQuery(getToken());
 };

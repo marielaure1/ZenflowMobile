@@ -12,14 +12,22 @@ const useProjects = () => {
   const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
   const [tabs, setTabs] = useState("Analyse");
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findAll(), ["projects"]);
+  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findAllOwner(), ["projects"]);
 
   const navigation = useNavigation();
 
   useEffect(() => {
+    
     if (!fetchIsLoading && response) {
-      setProjectsList(response?.datas?.projects);
+
+      if(response?.code == 404){
+        setError("Vous n'avez pas encore de project")
+      } else {
+        setProjectsList(response?.datas?.projects);
+      }
+      
       setIsLoading(false);
+     
     }
   }, [fetchIsLoading, response]);
 
@@ -30,7 +38,7 @@ const useProjects = () => {
     }
   }, [fetchError]);
 
-  return { navigation, error, projectsList, refetch, tabs, setTabs };
+  return { navigation, error, isLoading, projectsList, refetch, tabs, setTabs };
 };
 
 export default useProjects;

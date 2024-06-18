@@ -1,15 +1,31 @@
-import { Add, Layer } from 'iconsax-react-native';
+import { Add, Layer, Trash } from 'iconsax-react-native';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { useClientsApi } from '@/api/api';
 
-const FabsClient = ({projectId}) => {
+
+const FabsClient = ({client}) => {
   const [state, setState] = React.useState({ open: false });
   const navigation = useNavigation();
   const onStateChange = ({ open }) => setState({ open });
+  const clientsApi = useClientsApi();
 
   const { open } = state;
+
+  const handleDelete = async () => {
+    try {
+      const deletedClient = await clientsApi.delete(client._id);
+      console.log(deletedClient);
+
+      navigation.navigate("Clients")
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   return (
           <FAB.Group
@@ -19,18 +35,26 @@ const FabsClient = ({projectId}) => {
             fabStyle={styles.btn} 
             actions={[
               {
-                icon: () => <Add size="24" color="#38BDF8"/>,
-                label: 'Créer une section',
-                style: [styles.btnAction],
-                onPress: () =>  navigation.navigate("TaskCategoryPost", {projectId: projectId}),
+                icon: () => <Add size="24" color="#FFC045"/>,
+                label: 'Modifier le client',
+                style: [styles.btnAction, styles.btnActionOrange],
+                onPress: () =>  navigation.navigate("ClientPost", {client: client}),
                 
               },
               {
-                icon: () => <Add size="24" color="#38BDF8"/>,
-                label: 'Créer un champ',
-                style: [styles.btnAction],
-                onPress: () => console.log('Pressed email'),
+                icon: () => <Trash size="24" color="#FD4949"/>,
+                label: 'Supprimer le client',
+                style: [styles.btnAction, styles.btnActionRed],
+                onPress: () => handleDelete(),
+                
               },
+              {
+                icon: () => <Add size="24" color="#FFC045"/>,
+                label: 'Gérer les champs personnalisés',
+                style: [styles.btnAction, styles.btnActionOrange],
+                onPress: () =>  navigation.navigate("CustomFieldManage", {client: client}),
+                
+              }
             ]}
             onStateChange={onStateChange}
             onPress={() => {
@@ -68,8 +92,15 @@ const styles = StyleSheet.create({
     width: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "transparant"
-
+    shadowColor: "transparant",
+    elevation: 0,
+    shadowOffset: {width: 0, height: 0}
+  },
+  btnActionRed:{
+    backgroundColor: "#FFE1E1",
+  },
+  btnActionOrange:{
+    backgroundColor: "#FFF0D5",
   }
 });
 

@@ -8,6 +8,7 @@ import MainNavigator from '@navigators/main.navigator';
 import { createNavigationContainerRef } from '@react-navigation/native';
 import { useCustomersApi } from '@api/api';
 import { useQuery } from '@tanstack/react-query';
+import useFetchData from '../hooks/useFetchData';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -15,35 +16,32 @@ const AuthProvider = () => {
   const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
+ 
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const token = user?.stsTokenManager?.accessToken;
+      dispatch(login(token));
 
-  const fetchMe = async () => {
-    return customersApi.findMe();
-  };
-
-  const { data: response, isLoading: isLoadingMe, error: fetchError, refetch } = useQuery({
-    queryKey: ['me'],
-    queryFn: fetchMe,
-    enabled: false
-});
+      const { data } = await refetch();
+      if (data) {
+        dispatch(login(token, data?.datas?.me));
+      }
+    } else {
+      dispatch(logout());
+    }
+  });
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      
-      if (user) {
-        const token = user?.stsTokenManager?.accessToken;
-        dispatch(login(token));
 
-        const { data } = await refetch();
-        if (data) {
-          dispatch(login(token, data?.datas?.me));
-        }
-      } else {
-        dispatch(logout());
-      }
-    });
-
-    return () => unsubscribe();
-  }, [dispatch, refetch]);
+    console.log("response token", response?.message);
+    
+    if(response?.message == "Invalid token"){
+      return () => dispatch(logout());
+    } else {
+      return () => unsubscribe();
+    }
+  }, [dispatch, refetch, response, isLoadingMe, fetchError]);
 
   console.log("auth: ", isAuthenticated);
 

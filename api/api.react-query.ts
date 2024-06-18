@@ -16,33 +16,55 @@ class ApiReactQuery<DataInterface> {
   }
 
   async findAll() {
-    const response = await this.apiAxios.findAllAxios();
-    this.queryClient.setQueryData([this.type], response); 
-    return response;
+    try {
+      const response = await this.apiAxios.findAllAxios();
+      this.queryClient.setQueryData([this.type], response); 
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 
   async create(datas: DataInterface) {
-    const response = await this.apiAxios.createAxios(datas);
-    this.queryClient.invalidateQueries(this.type);
-    return response;
+    try {
+      const response = await this.apiAxios.createAxios(datas);
+      this.queryClient.invalidateQueries(this.type);
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 
   async findOne(id: string) {
-    const response = await this.apiAxios.findOneAxios(id);
-    this.queryClient.setQueryData([this.type, id], response); 
-    return response;
+    try {
+      console.log(id);
+      
+      const response = await this.apiAxios.findOneAxios(id);
+      this.queryClient.setQueryData([this.type, id], response); 
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 
   async update(id: string, datas: DataInterface) {
-    const response = await this.apiAxios.updateAxios(id, datas);
-    this.queryClient.invalidateQueries(this.type);
-    return response;
+    try {
+      const response = await this.apiAxios.updateAxios(id, datas);
+      this.queryClient.invalidateQueries(this.type);
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 
   async delete(id: string) {
-    const response = await this.apiAxios.deleteAxios(id);
-    this.queryClient.invalidateQueries(this.type);
-    return response;
+    try {
+      const response = await this.apiAxios.deleteAxios(id);
+      this.queryClient.invalidateQueries(this.type);
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 }
 

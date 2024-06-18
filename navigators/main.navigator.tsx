@@ -11,8 +11,11 @@ import AccountScreen from '@/screens/(tabs)/account/account.screen';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ClientsScreen from '@screens/(clients)/clients/clients.screen';
-// import ClientScreen from '@screens/(clients)/client/client.screen';
+import ClientScreen from '@screens/(clients)/client/client.screen';
 import ClientPostScreen from '@screens/(clients)/client-post/client-post.screen';
+import ProspectsScreen from '@screens/(prospects)/prospects/prospects.screen';
+import ProspectScreen from '@screens/(prospects)/prospect/prospect.screen';
+import ProspectPostScreen from '@screens/(prospects)/prospect-post/prospect-post.screen';
 import CustomFieldPostScreen from '@screens/(common)/custom-field-post/custom-field-post.screen';
 
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
@@ -36,32 +39,32 @@ const TabNavigator = () => {
       tabBarActiveTintColor: '#171717',
       tabBarShowLabel: false,
       headerShown: false,
-      tabBarStyle: { position: 'absolute', borderWidth: 0, padding: 10, height: 50 },
+      tabBarStyle: { position: 'absolute', borderWidth: 0, height: 50, shadowOffset: {width: 0, height: 0}, elevation: 0 },
     }}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{
           tabBarIcon: ({ color }) => (
-            <Home2  color={ color } variant="Linear" size={28} />
+            <Home2  color={ color } variant="Linear" size={24} />
           ),
         }}/>
       <Tab.Screen name="Tasks" component={SearchScreen} options={{
           tabBarIcon: ({ color }) => (
-            <TaskSquare  color={ color } variant="Linear" size={28} />
+            <TaskSquare  color={ color } variant="Linear" size={24} />
           ),
         }} />
       <Tab.Screen name="Notification" component={NotificationScreen} options={{
           tabBarIcon: ({ color }) => (
-            <NotificationBing  color={ color } variant="Linear" size={28} />
+            <NotificationBing  color={ color } variant="Linear" size={24} />
           ),
         }}/>
        <Tab.Screen name="Search" component={SearchScreen} options={{
           tabBarIcon: ({ color }) => (
-            <SearchNormal  color={ color } variant="Linear" size={28} />
+            <SearchNormal  color={ color } variant="Linear" size={24} />
           ),
         }} />
       <Tab.Screen name="Account" component={AccountScreen} options={{
           tabBarIcon: ({ color }) => (
-            <Profile  color={ color } variant="Linear" size={28} />
+            <Profile  color={ color } variant="Linear" size={24} />
           ),
         }}/>
     </Tab.Navigator>
@@ -81,19 +84,23 @@ const MainNavigator = () => {
       <Stack.Screen name="About" component={ClientsScreen} />
       <Stack.Screen name="Terms" component={ClientsScreen} />
 
-
-
-
       {/**Clients */}
       <Stack.Screen name="Clients" component={ClientsScreen} />
-      {/* <Stack.Screen name="Client" component={ClientScreen} />*/}
+      <Stack.Screen name="Client" component={ClientScreen} />
       <Stack.Screen name="ClientPost" component={ClientPostScreen} /> 
+
+      {/**Clients */}
+      <Stack.Screen name="Prospects" component={ProspectsScreen} />
+      <Stack.Screen name="Prospect" component={ProspectScreen} />
+      <Stack.Screen name="ProspectPost" component={ProspectPostScreen} /> 
 
       <Stack.Screen name="CustomFieldPost" component={CustomFieldPostScreen} /> 
       
+      {/**Projects */}
       <Stack.Screen name="Projects" component={ProjectsScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />
       <Stack.Screen name="ProjectPost" component={ProjectPostScreen} />
+      
       {/* <Stack.Screen name="Task" component={TaskScreen} /> */}
       <Stack.Screen name="TaskPost" component={TaskPostScreen} />
       <Stack.Screen name="TaskCategoryPost" component={TaskCategoryPostScreen} />

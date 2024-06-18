@@ -64,7 +64,12 @@ export default function useStyles(){
         fontWeight: 600,
       },
       categoryList: {
-        paddingVertical: 30
+        paddingVertical: 30,
+        paddingHorizontal: 10,
+        gap: 15,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%"
       }
   });
   return styles;

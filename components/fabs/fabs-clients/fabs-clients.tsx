@@ -29,7 +29,7 @@ const FabsClients = () => {
                 icon: () => <Add size="24" color="#38BDF8"/>,
                 label: 'Créer un champ personnalisé',
                 style: [styles.btnAction],
-                onPress: () =>  navigation.navigate("CustomFieldPost"),
+                onPress: () =>  navigation.navigate("CustomFieldPost", { schema: "Clients"}),
               },
             ]}
             onStateChange={onStateChange}

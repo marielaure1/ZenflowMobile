@@ -14,9 +14,9 @@ export default function useStyles(){
       justifyContent: "center",
       gap: 10,
       borderRadius: 10,
-      width: 124,
-      height: 80,
-      marginHorizontal: 10
+      width: "47%",
+      height: 100,
+      // marginHorizontal: 10
     },
     marginBottom: {
       marginVertical: 20

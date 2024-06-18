@@ -34,7 +34,7 @@ const TabsViewBasic: React.FC = ({ view, setView, text, colors}) => {
     }
 
     return (
-      <TouchableOpacity style={[styles.container, view == text ? { backgroundColor: colors.background} : {}]} onPress={() => setView(text)}>
+      <TouchableOpacity style={[styles.container, view == text ? { borderColor: colors.foreground} : {}]} onPress={() => setView(text)}>
           <View style={[styles.bgIcon, {backgroundColor: colors.background}]}>
               {iconElement}
           </View>

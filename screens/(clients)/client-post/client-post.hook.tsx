@@ -9,7 +9,7 @@ import FieldControl from "@components/fields/field-control";
 
 const useClientPost = ({ route }) => {
   const id = route?.params?.id;
-  const taskCategoryId = route?.params?.taskCategoryId;
+  const client = route?.params?.client;
   const clientsApi = useClientsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -21,15 +21,14 @@ const useClientPost = ({ route }) => {
     formState: { errors }
   } = useForm<ClientsProps>({
     defaultValues: {
-      society: "",
-      lastName: "",
-      firstName: "",
-      email: "",
-      phone: "",
-      address: "",
-      status: "",
-      ownerId: "",
-      customFields: []
+      society: client ? client.society : "",
+      lastName: client ? client.lastName : "",
+      firstName: client ? client.firstName : "",
+      email: client ? client.email : "",
+      phone: client ? client.phone : "",
+      address: client ? client.address : "",
+      status: client ? client.status : "",
+      customFields: client ? client.customFields : []
     }
   });
   
@@ -40,9 +39,24 @@ const useClientPost = ({ route }) => {
   title += " un client";
 
   const handleCreate = async (data: ClientsProps) => {
+
+    console.log("create");
+    
     
     try{
       const createdClient = await clientsApi.create({...data, ownerId: me?.customer?._id});
+      navigation.goBack();
+      
+    } catch(error){
+      console.log(error);
+      
+    }
+  };
+
+  const handleUpdate = async (data: ClientsProps) => {
+    console.log("update");
+    try{
+      const updatedClient = await clientsApi.update(client._id, {...data, ownerId: me?.customer?._id});
       navigation.goBack();
       
     } catch(error){
@@ -64,7 +78,7 @@ const useClientPost = ({ route }) => {
   //   }
   // }, [fetchError]);
 
-  return { control, errors, tabs, setTabs, title, handleCreate, handleSubmit };
+  return { control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useClientPost;

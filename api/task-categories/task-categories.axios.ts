@@ -1,7 +1,7 @@
 import ApiAxios from '@api/api.axios';
 import TaskCategoriesProps from '@interfaces/task-categories.interface';
 
-class TaskCategorysAxios extends ApiAxios<TaskCategoriesProps> {
+class TaskCategoriesAxios extends ApiAxios<TaskCategoriesProps> {
   constructor(path: string, token?: string) {
     super(path, token);
   }
@@ -12,4 +12,4 @@ class TaskCategorysAxios extends ApiAxios<TaskCategoriesProps> {
   }
 }
 
-export default TaskCategorysAxios;
+export default TaskCategoriesAxios;

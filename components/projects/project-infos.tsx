@@ -114,14 +114,14 @@ const ProjectInfos = ({ project }) => {
                   // }}
                 /> */}
 
-              <DatePickerModal
-                locale="en"
-                mode="single"
-                visible={open}
-                onDismiss={onDismissSingle}
-                date={date}
-                onConfirm={onConfirmSingle}
-              />
+            <DatePickerModal
+              locale="en"
+              mode="single"
+              visible={open}
+              onDismiss={onDismissSingle}
+              date={date}
+              onConfirm={onConfirmSingle}
+            />
                 <Button onPress={() => setOpen(true)}>Pick date</Button>
               </PaperProvider>
             )}

@@ -12,7 +12,7 @@ const useClients = () => {
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
   const [tabs, setTabs] = useState("Analyse");
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => clientsApi.findAll(), ["clients"]);
+  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => clientsApi.findAllOwner(), ["clients"]);
 
   const navigation = useNavigation();
 
