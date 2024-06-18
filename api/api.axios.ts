@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 let LOCATION = "Maison";
-let IP = LOCATION === "Maison" ? 'http://192.168.1.80:3001/api' : 'http://10.2.106.6:3001/api';
+let IP = LOCATION === "Maison" ? 'http://172.17.112.1:3001/api' : 'http://10.2.106.6:3001/api';
 
 class ApiAxios<DataInterface> {
   protected apiClient: AxiosInstance;

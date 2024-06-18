@@ -11,6 +11,7 @@ import queryClient from '@api/config.react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 // import StripeProvider from '@providers/stripe.provider';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import "@/global.css"
 
 SplashScreen.preventAutoHideAsync();
 
