@@ -13,7 +13,7 @@ interface ButtonIconProps {
     icon: string
 }
 
-const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, icon}) => {
+const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, icon,className = ""}) => {
     const navigation = useNavigation();
 
     const changeView = (url: string, params) => {
@@ -43,19 +43,20 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, 
             break;
         case "Trash":
             iconTag = <Trash color={'#344051'} variant="Linear" size={18} />;
-            btnStyle = buttons.buttonGrey;
+            btnStyle = buttons.buttonRed;
             break;
         case "Back":
             iconTag = <Back color={'#344051'} variant="Linear" size={18} />;
             btnStyle = buttons.buttonGrey;
             break;
         default:
+            iconTag = icon;
             break;
     }
       
 
     return (
-        <TouchableOpacity style={[buttons.buttonIcon, btnStyle]} onPress={() => link ? changeView(link, linkParams) : action()}>
+        <TouchableOpacity style={[buttons.buttonIcon, btnStyle]} className={className} onPress={() => link ? changeView(link, linkParams) : action()}>
             {iconTag}
         </TouchableOpacity>
     );

@@ -22,8 +22,10 @@ const useClients = () => {
 
       if(response?.code == 404){
         setError("Vous n'avez pas encore de client")
+        setClientsList([]);
       } else {
         setClientsList(response?.datas?.clients);
+        setError("");
       }
       
       setIsLoading(false);

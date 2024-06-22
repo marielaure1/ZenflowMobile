@@ -9,6 +9,8 @@ import useStyles from "@screens/(tabs)/home/home.styles";
 import useHome from "@screens/(tabs)/home/home.hook";
 import Template from '@/components/layout/template/template';
 import CardCatagory from '@/components/cards/card-category/card-category';
+import LineChart from '@/components/charts/charts-lines';
+import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -61,6 +63,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   //   };
   // }, []);
 
+  const data = [50, 30, 70, 100, 60]; 
+
   return (
     <Template>
 
@@ -75,6 +79,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <CardCatagory title="Notes" link="Notes" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
        
       </View>
+
+      <GestureHandlerRootView style={{ flex: 1 }}>
+      
+        <LineChart data={data} />
+    </GestureHandlerRootView>
+
       {/* <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {notification && notification.request.content.title} </Text>

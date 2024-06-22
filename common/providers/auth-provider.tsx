@@ -1,4 +1,3 @@
-// @components/providers/AuthProvider.tsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '@config/firebase';
@@ -16,34 +15,37 @@ const AuthProvider = () => {
   const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const state = useSelector((state) => state.auth);
   const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
  
-  const unsubscribe = auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const token = user?.stsTokenManager?.accessToken;
-      dispatch(login(token));
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        
+        const token = user?.stsTokenManager?.accessToken;
+        const { data } = await refetch();
 
-      const { data } = await refetch();
-      if (data) {
-        dispatch(login(token, data?.datas?.me));
+        if (data) {
+          dispatch(login(token, data?.datas?.me));
+        } else {
+          auth.signOut()
+          dispatch(logout());
+        }
+      } else {
+        console.log(user);
+        dispatch(logout());
       }
-    } else {
-      dispatch(logout());
-    }
-  });
+    });
+
+    return () => unsubscribe();
+  }, [dispatch, refetch, response]);
 
   useEffect(() => {
-
-    console.log("response token", response?.message);
-    
-    if(response?.message == "Invalid token"){
-      return () => dispatch(logout());
-    } else {
-      return () => unsubscribe();
+    if (response?.message === "Invalid token") {
+      dispatch(logout());
     }
-  }, [dispatch, refetch, response, isLoadingMe, fetchError]);
-
-  console.log("auth: ", isAuthenticated);
+    
+  }, [response, dispatch]);
 
   return isAuthenticated ? <MainNavigator /> : <AuthNavigator />;
 };

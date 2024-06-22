@@ -16,6 +16,8 @@ import ClientPostScreen from '@screens/(clients)/client-post/client-post.screen'
 import ProspectsScreen from '@screens/(prospects)/prospects/prospects.screen';
 import ProspectScreen from '@screens/(prospects)/prospect/prospect.screen';
 import ProspectPostScreen from '@screens/(prospects)/prospect-post/prospect-post.screen';
+
+import CustomFieldManageScreen from '@screens/(common)/custom-field-manage/custom-field-manage.screen';
 import CustomFieldPostScreen from '@screens/(common)/custom-field-post/custom-field-post.screen';
 
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
@@ -25,6 +27,8 @@ import TaskPostScreen from '@screens/(projects)/task-post/task-post.screen';
 import TaskCategoryPostScreen from '@screens/(projects)/task-category-post/task-category-post.screen';
 import PlansScreen from '@screens/(account)/plans/plans.screen';
 import { Home2, TaskSquare, NotificationBing, SearchNormal, Profile } from 'iconsax-react-native'
+
+import ErrorScreen from "@screens/(common)/error/error.screen";
 
 const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
@@ -94,7 +98,10 @@ const MainNavigator = () => {
       <Stack.Screen name="Prospect" component={ProspectScreen} />
       <Stack.Screen name="ProspectPost" component={ProspectPostScreen} /> 
 
+      <Stack.Screen name="CustomFieldManage" component={CustomFieldManageScreen} /> 
       <Stack.Screen name="CustomFieldPost" component={CustomFieldPostScreen} /> 
+
+      <Stack.Screen name="Error" component={ErrorScreen} /> 
       
       {/**Projects */}
       <Stack.Screen name="Projects" component={ProjectsScreen} />

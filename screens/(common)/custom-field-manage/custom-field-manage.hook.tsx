@@ -1,24 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useCustomFieldsApi } from '@api/api';
+import { useClientsApi } from '@api/api';
 import CustomFieldProps from '@interfaces/custom-field.interface';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-// import useFetchData from '@hooks/useFetchData';
+import useFetchData from '@hooks/useFetchData';
 
-const useCustomFieldPost = ({ route }) => {
-  const id = route?.params?.id;
-  const schema = route?.params?.schema;
-  const customFieldsApi = useCustomFieldsApi();
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+const useCustomFieldManage = ({ route }) => {
+  const clientsApi = useClientsApi();
+  const [customField, setCustomField] = useState([]);
   const [tabs, setTabs] = useState("Infos");
-  
+  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => clientsApi.findAllOwnerCustomsFields(), ["client-customs-fields"]);
+
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
-  
-  let title = id ? "Modifier" : "Créer";
-  title += " un champ";
 
   const {
     control,
@@ -29,48 +24,45 @@ const useCustomFieldPost = ({ route }) => {
       name: "",
       type: "text",
       options: null,
-      schema
+      schema: route?.params?.schema
     }
   });
 
-  const handleCreate = async (data: CustomFieldProps) => {
-    try {
-
-
-      data.type = data.type[0]
+  useEffect(() => {
+    if (!fetchIsLoading && initialCustomField) {
+      console.log(initialCustomField?.datas?.clients);
       
-  console.log(data);
-  
-      
-      // if(type == "client"){
-        const updatedCustomFieldsApi = await customFieldsApi.create({...data, schemaIds: null, ownerId: me?.customer?._id});
-        console.log(updatedCustomFieldsApi);
-        
-        navigation.goBack();
-
-      // }
-    } catch (error) {
-      console.log(error);
-      
+      setCustomField(initialCustomField?.datas?.clients);
     }
-  }
+  }, [fetchIsLoading, initialCustomField]);
 
+  useEffect(() => {
+    if (fetchError) {
+      console.error(fetchError.message);
+    }
+  }, [fetchError]);
 
-  // useEffect(() => {
-  //   if (!fetchIsLoading && response) {
-  //     setCustomField(response?.datas?.custom-fields);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchIsLoading, response]);
+  const keyExtractor = (item) => item._id;
 
-  // useEffect(() => {
-  //   if (fetchError) {
-  //     setError(fetchError.message);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchError]);
+  const handleDragEnd = ({ data }) => {
+    setCustomField(data);
+    handleUpdate(data);
+  };
 
-  return { navigation, control, errors, tabs, setTabs, title, handleCreate, handleSubmit };
+  const handleUpdate = async (data) => {
+    try {
+      await clientsApi.updatePositions(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = (id) => {
+    // Ajoutez ici votre logique de suppression
+    console.log(`Delete item with id: ${id}`);
+  };
+
+  return { customField, keyExtractor, navigation, handleDragEnd, handleDelete, control, errors, tabs, setTabs, title: route?.params?.id ? "Modifier un champ" : "Créer un champ", handleSubmit, schema: route?.params?.schema };
 };
 
-export default useCustomFieldPost;
+export default useCustomFieldManage;

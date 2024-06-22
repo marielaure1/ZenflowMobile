@@ -3,17 +3,16 @@ import ClientAxios from '@api/clients/clients.axios';
 import ClientsProps from '@interfaces/clients.interface';
 import queryClient from '@api/config.react-query';
 import ApiReactQuery from '@api/api.react-query';
+import CustomFieldProps from '@/common/interfaces/custom-fields.interface';
 
 class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
   protected apiAxios: ClientAxios;
-  protected queryClient: QueryClient;
 
   constructor(token?: string) {
     const path = 'clients';
     const invalidateQueryFiltersClients: InvalidateQueryFilters = { queryKey: [path] };
     super(invalidateQueryFiltersClients, path, token);
     this.apiAxios = new ClientAxios(path, token);
-    this.queryClient = new QueryClient();
   }
 
   async findAllOwner(){
@@ -21,7 +20,9 @@ class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
   }
 
   async findAllOwnerCustomsFields(){
-    return await this.apiAxios.findAllOwnerCustomsFields();
+    const data = await this.apiAxios.findAllOwnerCustomsFields();
+    this.queryClient.setQueryData(["client-customs-fields"], data);
+    return data;
   }
 
   async findOneOwnerCustomsFields(id: string){
@@ -30,8 +31,20 @@ class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
     return data;
   }
 
+  async updatePositions(datas: CustomFieldProps[]){
+    const data = await this.apiAxios.updatePositions(datas);
+    this.queryClient.invalidateQueries("client-customs-fields");
+    return data;
+  }
+
   async createCustomField(data: ClientsProps){
-    return await this.apiAxios.createCustomField(data);
+    try {
+      const response = await this.apiAxios.createCustomField(data);
+      this.queryClient.invalidateQueries("client-customs-fields");
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 }
 

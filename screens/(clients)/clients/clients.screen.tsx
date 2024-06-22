@@ -15,15 +15,16 @@ import Card from "@components/cards/card/card";
 import ButtonPrimary from "@components/buttons/button";
 import CardClient from "@components/cards/card-client/card-client";
 import AnalyseNumber from "@components/analyse/analyse-number/analyse-number";
+import { Add, Layer } from 'iconsax-react-native';
 
-export default function Clients() {
+export default function Clients({navigation}) {
   const styles = useStyles();
-  const { navigation, isLoading, error, clientsList, refetch, tabs, setTabs } = useClients();
+  const { isLoading, error, clientsList, refetch, tabs, setTabs } = useClients();
 
   return (
     <>
       <Template>
-        <Banner title={"Clients"} image={BackgroundBanner}/>
+        <Banner title={"Clients"}/>
         <View style={styles.container}> 
    
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
@@ -33,14 +34,14 @@ export default function Clients() {
           </ScrollView>
 
           <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
-              {error && <ButtonPrimary type={"blue"} text="Ajouter un client" link={"ClientPost"}/>}
+          {error && <ButtonPrimary type={"blue"} text="Ajouter un client" link={"ClientPost"}/>}
 
           {tabs == "Analyse" && (
             <>
               <View style={styles.grid}>
                 <AnalyseNumber title={"Nombre de clients"} number={clientsList.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"A rappeler"} number={clientsList.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"En attente"} number={clientsList.length} progress={"-10%"} color={"red"}/>
+                <AnalyseNumber title={"A rappeler"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
+                <AnalyseNumber title={"En attente"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"Sans contact depuis 3 mois"} number={clientsList.length} progress={"-10%"} color={"red"}/>
               </View>
             </>
@@ -64,7 +65,26 @@ export default function Clients() {
       
       </Template>
 
-      <FabsClients />
+      <FabsClients
+      btns={[
+        { 
+          icon: <Add size="24" color="#FFFFFF" />,
+          text: 'Créer un client', 
+          delay: 200, 
+          value: 150, 
+          action: () => navigation.navigate("ClientPost"), 
+          colors: {background: "red", foreground: "white"}
+        },
+        { 
+          icon: <Add size="24" color="#FFFFFF" />,
+          text: 'Gérer les champs', 
+          delay: 200, 
+          value: 80, 
+          action: () => navigation.navigate("CustomFieldManage", { schema: "Clients"}), 
+          colors: {background: "red", foreground: "white"}
+        },
+      ]}
+      />
     </>
   );
 }

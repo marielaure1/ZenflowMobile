@@ -1,4 +1,5 @@
 interface ClientsProps{
+    _id?: string;
     society?: string;
     firstName: string;
     lastName: string;

@@ -14,4 +14,6 @@ export const login = (token?: string, customer?: object): AuthAction => ({
 
 export const logout = (): AuthAction => ({
     type: AuthActionTypes.LOGOUT,
+    token: "", 
+    customer: {}
 });
