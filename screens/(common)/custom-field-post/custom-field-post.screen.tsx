@@ -14,6 +14,7 @@ const CustomFieldPostScreen = ({ route }) => {
   const styles = useStyles();
   const { control, selectedType, item, tabs, setTabs, title, errors, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
+console.log(item);
 console.log(item?.options);
 
   return (
@@ -34,6 +35,7 @@ console.log(item?.options);
             label="Titre du champ" 
             error={errors.name} 
             type="input"
+            item={item}
              />
 
             <FieldControl 
@@ -50,6 +52,7 @@ console.log(item?.options);
               { type: CustomFieldEnum.SELECT_MULTIPLE, text: "Sélection multiple", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
               { type: CustomFieldEnum.DATE, text: "Date", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
             ]}
+            item={item}
              />
 
              {selectedType == CustomFieldEnum.NUMBER && (
@@ -64,16 +67,18 @@ console.log(item?.options);
                   { type: "number", text: "Nombre", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
                   { type: "bar", text: "Barre", colors: { background: "#CEF0FF", foreground: "#38BDF8" } }
                 ]}
+                item={item}
                 />
              )}
 
-            {/* {selectedType == CustomFieldEnum.SELECT && (
+            {selectedType == CustomFieldEnum.SELECT && (
                 <FieldControl 
                 control={control} 
                 name="options" 
                 label="Options" 
                 error={errors.options} 
                 type="chips-edit"
+                item={item}
                 />
              )}
 
@@ -84,8 +89,9 @@ console.log(item?.options);
                 label="Options" 
                 error={errors.options} 
                 type="chips-edit"
+                item={item}
                 />
-             )} */}
+             )}
 
           
      

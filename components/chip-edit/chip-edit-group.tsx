@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import ChipEdit from '@components/chip-edit/chip-edit';
-import ButtonIcon from '../buttons/button-icon';
+import ButtonIcon from '@components/buttons/button-icon';
 
 interface ChipOption {
   text: string;
 }
 
-interface ChipGroupEditProps {
+interface ChipEditGroupProps {
   options: ChipOption[];
-  value: Array<Object>;
+  item?: Array<Object>;
   onChange?: (selected: ChipOption[]) => void;
 }
 
-const ChipGroupEdit: React.FC<ChipGroupEditProps> = ({ options, value, onChange }) => {
-  const [chips, setChips] = useState(value);
+const ChipEditGroup: React.FC<ChipEditGroupProps> = ({ options, item, onChange }) => {
+  const [chips, setChips] = useState(item?.options ? item.options : []);
   const [editingChip, setEditingChip] = useState<string | null>(null);
   const [newChipText, setNewChipText] = useState('');
   const [editChipText, setEditChipText] = useState<string>('');
-
+  
   useEffect(() => {
     if (onChange) {
       onChange(chips);
@@ -26,15 +26,21 @@ const ChipGroupEdit: React.FC<ChipGroupEditProps> = ({ options, value, onChange 
   }, [chips]);
 
   const handleDeleteChip = (text: string) => {
-    setChips(chips.filter(chip => chip.text !== text));
+    if(chips){
+      setChips(chips.filter(chip => chip.text !== text));
+    }
+    
   };
 
   const handleEditChip = (text: string) => {
     if (editChipText.trim() === '') return;
-    const updatedChips = chips.map(chip => chip.text === text ? { ...chip, text: editChipText } : chip);
-    setChips(updatedChips);
-    setEditingChip(null);
-    setEditChipText('');
+    if(chips){
+      const updatedChips = chips.map(chip => chip.text === text ? { ...chip, text: editChipText } : chip);
+      setChips(updatedChips);
+      setEditingChip(null);
+      setEditChipText('');
+    }
+    
   };
 
   const handleAddChip = () => {
@@ -55,7 +61,7 @@ const ChipGroupEdit: React.FC<ChipGroupEditProps> = ({ options, value, onChange 
         />
         <ButtonIcon text="Add" type="primary" icon="Add" action={handleAddChip} />
       </View>
-      {chips.map((chip, index) => (
+      {chips && chips.map((chip, index) => (
         <View key={index} style={styles.chipContainer}>
           {editingChip === chip.text ? (
             <View className="p-[15px] w-full flex-row justify-between items-center gap-md rounded-[15px] bg-base-0">
@@ -119,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChipGroupEdit;
+export default ChipEditGroup;

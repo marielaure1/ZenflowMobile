@@ -16,15 +16,21 @@ import ButtonPrimary from "@components/buttons/button";
 import CardClient from "@components/cards/card-client/card-client";
 import AnalyseNumber from "@components/analyse/analyse-number/analyse-number";
 import { Add, Layer } from 'iconsax-react-native';
-
+import SearchBar from "@/components/search-bar/search-bar";
 export default function Clients({navigation}) {
   const styles = useStyles();
-  const { isLoading, error, clientsList, refetch, tabs, setTabs } = useClients();
+  const { fields, filteredClients, handleSearch, isLoading, error, clientsList, refetch, tabs, setTabs } = useClients();
 
   return (
     <>
       <Template>
         <Banner title={"Clients"}/>
+        <SearchBar
+        data={filteredClients}
+        allData={clientsList}
+        fields={fields}
+        onSearch={handleSearch}
+      />
         <View style={styles.container}> 
    
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
@@ -50,7 +56,7 @@ export default function Clients({navigation}) {
           {tabs == "Liste des Clients" && (
             <>
               <View style={styles.grid}>
-                {clientsList && clientsList.map((client, key) => (
+                {filteredClients && filteredClients.map((client, key) => (
                   <CardClient key={key} data={client}/>
                 ))}
               </View>
