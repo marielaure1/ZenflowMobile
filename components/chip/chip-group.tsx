@@ -6,11 +6,11 @@ interface ChipGroupProps {
   options: { text: string, type: string, colors: string[] }[];
   defaultSelected?: string[];
   multiple?: boolean;
-  onChange?: (selected: string[]) => void;
+  onChange?: (selected: string | string[]) => void;
 }
 
 const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChange, defaultSelected = [] }) => {
-  const [selectedChips, setSelectedChips] = useState<string[]>(defaultSelected);
+  const [selectedChips, setSelectedChips] = useState<string | string[]>(multiple ? defaultSelected : defaultSelected[0] || '');
 
   useEffect(() => {
     if (onChange) {
@@ -20,11 +20,19 @@ const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChan
 
   const handlePressChip = (label: string) => {
     if (multiple) {
-      setSelectedChips((prev) => 
-        prev.includes(label) ? prev.filter((chip) => chip !== label) : [...prev, label]
+      setSelectedChips((prev) =>
+        Array.isArray(prev) ? (prev.includes(label) ? prev.filter((chip) => chip !== label) : [...prev, label]) : [label]
       );
     } else {
-      setSelectedChips([label]);
+      setSelectedChips(label);
+    }
+  };
+
+  const isSelected = (label: string) => {
+    if (multiple) {
+      return Array.isArray(selectedChips) && selectedChips.includes(label);
+    } else {
+      return selectedChips === label;
     }
   };
 
@@ -35,7 +43,7 @@ const ChipGroup: React.FC<ChipGroupProps> = ({ options, multiple = false, onChan
           key={index}
           text={option.text}
           colors={option.colors}
-          selected={selectedChips.includes(option.type)}
+          selected={isSelected(option.type)}
           onPress={() => handlePressChip(option.type)}
         />
       ))}

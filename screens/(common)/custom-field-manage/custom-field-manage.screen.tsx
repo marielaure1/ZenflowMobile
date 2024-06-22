@@ -7,7 +7,7 @@ import Banner from '@components/banner/banner';
 import ButtonIcon from '@components/buttons/button-icon';
 import { Category } from 'iconsax-react-native';
 import { NestableDraggableFlatList, NestableScrollContainer, RenderItemParams } from 'react-native-draggable-flatlist';
-
+import RenderItem from '@/components/custom-fields/render-item/render-item';
 const CustomFieldManageScreen = ({ navigation, route }) => {
   // const styles = useStyles();
   const { customField, keyExtractor, handleDragEnd, handleDelete, control, tabs, setTabs, title, errors, handleSubmit, schema } = useCustomFieldManage({ route });
@@ -15,20 +15,7 @@ const CustomFieldManageScreen = ({ navigation, route }) => {
   // console.log(customField);
  
 
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<any>) => {
-    return (
-      <TouchableOpacity style={styles.itemContainer} onLongPress={drag}>
-        <View style={styles.itemContent}>
-          <Category color={'#171717'} variant="Linear" size={18} />
-          <Text>{item?.name}</Text>
-        </View>
-        <View style={styles.itemActions}>
-          <ButtonIcon text="Edit" type="primary" icon="Magicpen" action={() => navigation.navigate("CustomFieldPost", { id: item._id, schema })} />
-          <ButtonIcon text="Delete" type="primary" icon="Trash" action={() => handleDelete(item._id)} />
-        </View>
-      </TouchableOpacity>
-    );
-  };
+
 
   return (
     <>
@@ -40,9 +27,18 @@ const CustomFieldManageScreen = ({ navigation, route }) => {
         <GestureHandlerRootView style={styles.containerDrag}>
           {customField && customField.length > 0 && (
             <NestableScrollContainer>
-              <NestableDraggableFlatList
+             <NestableDraggableFlatList
                 data={customField}
-                renderItem={renderItem}
+                renderItem={({ item, drag, isActive }) => (
+                  <RenderItem 
+                    item={item} 
+                    drag={drag} 
+                    isActive={isActive} 
+                    handleDelete={handleDelete} 
+                    schema={schema} 
+                    navigation={navigation} 
+                  />
+                )}
                 keyExtractor={keyExtractor}
                 onDragEnd={handleDragEnd}
               />

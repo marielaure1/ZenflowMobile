@@ -4,51 +4,71 @@ import { useCustomFieldsApi } from '@api/api';
 import CustomFieldProps from '@interfaces/custom-field.interface';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import CustomFieldEnum from '@/common/enums/custom-field.enum';
 // import useFetchData from '@hooks/useFetchData';
-
+import queryClient from '@/api/config.react-query';
 const useCustomFieldPost = ({ route }) => {
-  const id = route?.params?.id;
+  const item = route?.params?.item;
   const schema = route?.params?.schema;
   const customFieldsApi = useCustomFieldsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tabs, setTabs] = useState("Infos");
-  
+  const [selectedType, setSelectedType] = useState(item ? item?.type : null);
+
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
   
-  let title = id ? "Modifier" : "Créer";
+  let title = item ? "Modifier" : "Créer";
   title += " un champ";
+  console.log(schema);
 
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    watch,
+    formState: { errors  }
   } = useForm<CustomFieldProps>({
     defaultValues: {
-      name: "",
-      type: "text",
-      options: null,
+      name: item ? item?.name : "",
+      type: item ? item?.type : CustomFieldEnum.TEXT,
+      options: item ? item?.options : null,
       schema
     }
   });
 
-  const handleCreate = async (data: CustomFieldProps) => {
-    try {
-
-
-      data.type = data.type[0]
-      
-  console.log(data);
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) =>
+      {
+        setSelectedType(value.type)
+        console.log("option", value.options)
+      }
+    )
+    return () => subscription.unsubscribe()
+  }, [watch])
   
-      
-      // if(type == "client"){
+
+  const handleCreate = async (data: CustomFieldProps) => {
+    
+    try {
         const updatedCustomFieldsApi = await customFieldsApi.create({...data, schemaIds: null, ownerId: me?.customer?._id});
         console.log(updatedCustomFieldsApi);
         
         navigation.goBack();
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
-      // }
+  const handleUpdate = async (data: CustomFieldProps) => {
+    try {
+      console.log(data);
+      
+        const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, schemaIds: null, ownerId: me?.customer?._id});
+        console.log(updatedCustomFieldsApi);
+        queryClient.invalidateQueries({ queryKey: [`client-customs-fields`] });
+        navigation.goBack();
     } catch (error) {
       console.log(error);
       
@@ -70,7 +90,7 @@ const useCustomFieldPost = ({ route }) => {
   //   }
   // }, [fetchError]);
 
-  return { navigation, control, errors, tabs, setTabs, title, handleCreate, handleSubmit };
+  return { selectedType, item, navigation, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useCustomFieldPost;

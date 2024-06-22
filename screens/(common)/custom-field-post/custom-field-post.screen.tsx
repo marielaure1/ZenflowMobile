@@ -12,8 +12,9 @@ import CustomFieldEnum from '@/common/enums/custom-field.enum';
 
 const CustomFieldPostScreen = ({ route }) => {
   const styles = useStyles();
-  const { control, tabs, setTabs, title, errors, handleCreate, handleSubmit } = useTasks({ route });
+  const { control, selectedType, item, tabs, setTabs, title, errors, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
+console.log(item?.options);
 
   return (
     <>    
@@ -41,20 +42,54 @@ const CustomFieldPostScreen = ({ route }) => {
             label="Type de champ" 
             error={errors.type} 
             type="chips"
-            defaultSelected={[CustomFieldEnum.TEXT]}
+            defaultSelected={[item?.type]}
             options={[
               { type: CustomFieldEnum.TEXT, text: "Texte", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
               { type: CustomFieldEnum.NUMBER, text: "Nombre", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
               { type: CustomFieldEnum.SELECT, text: "Sélection", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
               { type: CustomFieldEnum.SELECT_MULTIPLE, text: "Sélection multiple", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
-              { type: CustomFieldEnum.FLAG, text: "Etiquette", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
               { type: CustomFieldEnum.DATE, text: "Date", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
             ]}
              />
 
+             {selectedType == CustomFieldEnum.NUMBER && (
+                <FieldControl 
+                control={control} 
+                name="options" 
+                label="Options" 
+                error={errors.options} 
+                type="chips"
+                defaultSelected={[item?.options ? item?.options[0] : CustomFieldEnum.NUMBER]}
+                options={[
+                  { type: "number", text: "Nombre", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+                  { type: "bar", text: "Barre", colors: { background: "#CEF0FF", foreground: "#38BDF8" } }
+                ]}
+                />
+             )}
+
+            {/* {selectedType == CustomFieldEnum.SELECT && (
+                <FieldControl 
+                control={control} 
+                name="options" 
+                label="Options" 
+                error={errors.options} 
+                type="chips-edit"
+                />
+             )}
+
+            {selectedType == CustomFieldEnum.SELECT_MULTIPLE && (
+                <FieldControl 
+                control={control} 
+                name="options" 
+                label="Options" 
+                error={errors.options} 
+                type="chips-edit"
+                />
+             )} */}
+
           
      
-          <Button text="Valider" type="blue" action={handleSubmit(handleCreate)} />
+          <Button text="Valider" type="blue" action={handleSubmit(route?.params?.item ? handleUpdate : handleCreate)} />
         </View>
       </Template>
     </>

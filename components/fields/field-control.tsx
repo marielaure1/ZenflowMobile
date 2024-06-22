@@ -3,6 +3,7 @@ import { View, TextInput, Text } from 'react-native';
 import { Controller } from 'react-hook-form';
 import styles from '@/components/fields/field.styles';
 import ChipGroup from '@components/chip/chip-group';
+import ChipEditGroup from '@components/chip-edit/chip-edit-group';
 import { DatePickerModal } from 'react-native-paper-dates';
 
 const FieldControl = ({ control, name, label, error, defaultSelected = [], rules = {}, defaultrules = {}, type = "input", placeholder = "", options = [], ...props }) => {
@@ -45,6 +46,15 @@ const FieldControl = ({ control, name, label, error, defaultSelected = [], rules
                 onChange={onChange}
               />
             )}
+
+            {type === "chips-edit" && (
+              <ChipEditGroup
+                value={value}
+                options={options}
+                onChange={onChange}
+              />
+            )}
+
 
             {type === "date" && (
               <>

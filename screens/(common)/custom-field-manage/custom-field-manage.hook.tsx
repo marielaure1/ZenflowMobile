@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useClientsApi } from '@api/api';
-import CustomFieldProps from '@interfaces/custom-field.interface';
+import { useCustomFieldsApi } from '@api/api';
+import CustomFieldProps from '@interfaces/custom-fields.interface';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import useFetchData from '@hooks/useFetchData';
 
 const useCustomFieldManage = ({ route }) => {
-  const clientsApi = useClientsApi();
+  const customFieldsApi = useCustomFieldsApi();
   const [customField, setCustomField] = useState([]);
   const [tabs, setTabs] = useState("Infos");
-  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => clientsApi.findAllOwnerCustomsFields(), ["client-customs-fields"]);
+  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => customFieldsApi.findAllOwnerCustomsFields("client"), ["client-customs-fields"]);
 
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
@@ -51,14 +51,13 @@ const useCustomFieldManage = ({ route }) => {
 
   const handleUpdate = async (data) => {
     try {
-      await clientsApi.updatePositions(data);
+      await customFieldsApi.updatePositions("client", data);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleDelete = (id) => {
-    // Ajoutez ici votre logique de suppression
     console.log(`Delete item with id: ${id}`);
   };
 
