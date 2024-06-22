@@ -11,7 +11,7 @@ class CustomerAxios extends ApiAxios<CustomersProps> {
       const response = await this.apiClient.get(`/${this.path}/me`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.log("CustomerAxios > findMe >", error);
       return error.response.data;
     }
     
