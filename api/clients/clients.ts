@@ -19,33 +19,7 @@ class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
     return await this.apiAxios.findAllOwner();
   }
 
-  async findAllOwnerCustomsFields(){
-    const data = await this.apiAxios.findAllOwnerCustomsFields();
-    this.queryClient.setQueryData(["client-customs-fields"], data);
-    return data;
-  }
-
-  async findOneOwnerCustomsFields(id: string){
-    const data = await this.apiAxios.findOneOwnerCustomsFields(id);
-    this.queryClient.setQueryData(["client-customs-fields", id], data);
-    return data;
-  }
-
-  async updatePositions(datas: CustomFieldProps[]){
-    const data = await this.apiAxios.updatePositions(datas);
-    this.queryClient.invalidateQueries("client-customs-fields");
-    return data;
-  }
-
-  async createCustomField(data: ClientsProps){
-    try {
-      const response = await this.apiAxios.createCustomField(data);
-      this.queryClient.invalidateQueries("client-customs-fields");
-      return response;
-    } catch (error) {
-      return error?.response;
-    }
-  }
+  
 }
 
 export default ClientsReactQuery;

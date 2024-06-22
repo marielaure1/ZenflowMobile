@@ -26,13 +26,15 @@ const AuthProvider = () => {
         const { data } = await refetch();
 
         if (data) {
+          console.log("LOGIN");
           dispatch(login(token, data?.datas?.me));
         } else {
+          console.log("LOGOUT");
           auth.signOut()
           dispatch(logout());
         }
       } else {
-        console.log(user);
+        console.log("LOGOUT");
         dispatch(logout());
       }
     });

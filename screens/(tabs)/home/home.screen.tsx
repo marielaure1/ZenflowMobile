@@ -38,6 +38,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const styles = useStyles();
 
   const { me } = useHome();
+  
+console.log("ddddddddddddddddddddddd");
 
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -80,10 +82,10 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
        
       </View>
 
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* <GestureHandlerRootView style={{ flex: 1 }}>
       
         <LineChart data={data} />
-    </GestureHandlerRootView>
+    </GestureHandlerRootView> */}
 
       {/* <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>

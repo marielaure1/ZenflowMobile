@@ -47,7 +47,7 @@ class ApiReactQuery<DataInterface> {
     }
   }
 
-  async update(datas: DataInterface) {
+  async update(id: string, datas: DataInterface) {
     try {
       const response = await this.apiAxios.updateAxios(id, datas);
       this.queryClient.invalidateQueries(this.type);

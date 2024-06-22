@@ -13,7 +13,7 @@ const CardCategory = ({ title, icon, color, link}) => {
 
     return (
         <TouchableOpacity style={[styles.container]} onPress={() => navigation.navigate(link)}>
-            <View className='bg-red-400 rounded-[20]'>
+            <View className='bg-blue-900 rounded-[20]'>
                 <Home2 color={color.foreground} size={20}/>
             </View>
             <Text style={[styles.text, {color: color.foreground}]}>{title}</Text>
