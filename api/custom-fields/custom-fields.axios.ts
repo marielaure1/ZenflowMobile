@@ -16,8 +16,12 @@ class CustomsFieldsAxios extends ApiAxios<CustomFieldsProps> {
   }
 
   async findOneOwnerCustomsFields(id: string, schema: string){
-    const response = await this.apiClient.get(`${this.path}/${id}/me/${schema}`)
-    return response.data
+    try {
+      const response = await this.apiClient.get(`${this.path}/${id}/me/${schema}`)
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
   }
 
   async updatePositions(schema: string, datas: CustomFieldsProps){

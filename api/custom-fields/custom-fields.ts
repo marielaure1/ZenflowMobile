@@ -32,9 +32,9 @@ class CustomFieldsReactQuery extends ApiReactQuery<CustomFieldsProps> {
     return data;
   }
 
-  async createCustomField(schema: string, data: CustomFieldsProps){
+  async createForOne(schema: string, data: CustomFieldsProps){
     try {
-      const response = await this.apiAxios.createCustomField(schema, data);
+      const response = await this.apiAxios.createAxios(data);
       this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
       return response;
     } catch (error) {

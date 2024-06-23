@@ -8,22 +8,24 @@ import ButtonIcon from '@components/buttons/button-icon';
 import { Category } from 'iconsax-react-native';
 import { NestableDraggableFlatList, NestableScrollContainer, RenderItemParams } from 'react-native-draggable-flatlist';
 import RenderItem from '@/components/custom-fields/render-item/render-item';
+import FetchPending from '@/components/fetch-pending/fetch-pending';
 const CustomFieldManageScreen = ({ navigation, route }) => {
   // const styles = useStyles();
-  const { customField, keyExtractor, handleDragEnd, handleDelete, control, tabs, setTabs, title, errors, handleSubmit, schema } = useCustomFieldManage({ route });
+  const { customField, keyExtractor, handleDragEnd, handleDelete, control, tabs, setTabs, title, errors, handleSubmit, isLoading, error, schema, parentId } = useCustomFieldManage({ route });
 
-  // console.log(customField);
+  console.log(customField);
  
 
 
 
   return (
-    <>
+    <Template noScroll={true}>
       {/* <Banner title={"Gérer les champs personnalisés"} /> */}
       <View style={styles.container}>
         {/* <View style={styles.buttonContainer}> */}
-          <ButtonIcon text="Valider" type="primary" icon="Add" action={() => navigation.navigate("CustomFieldPost", { schema })} />
+          <ButtonIcon text="Valider" type="primary" icon="Add" action={() => navigation.navigate("CustomFieldPost", { schema, parentId })} />
         {/* </View>  */}
+        <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
         <GestureHandlerRootView style={styles.containerDrag}>
           {customField && customField.length > 0 && (
             <NestableScrollContainer>
@@ -32,6 +34,7 @@ const CustomFieldManageScreen = ({ navigation, route }) => {
                 renderItem={({ item, drag, isActive }) => (
                   <RenderItem 
                     item={item} 
+                    parentId={parentId}
                     drag={drag} 
                     isActive={isActive} 
                     handleDelete={handleDelete} 
@@ -46,7 +49,7 @@ const CustomFieldManageScreen = ({ navigation, route }) => {
           )}
         </GestureHandlerRootView>
       </View>
-    </>
+    </Template>
   );
 };
 

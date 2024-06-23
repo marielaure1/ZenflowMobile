@@ -7,11 +7,16 @@ import { useForm } from 'react-hook-form';
 import useFetchData from '@hooks/useFetchData';
 
 const useCustomFieldManage = ({ route }) => {
+  const parentId = route?.params?.parentId;
+  console.log("parentId", parentId);
+  
+  const schema = route?.params?.schema;
   const customFieldsApi = useCustomFieldsApi();
   const [customField, setCustomField] = useState([]);
   const [tabs, setTabs] = useState("Infos");
-  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => customFieldsApi.findAllOwnerCustomsFields("client"), ["client-customs-fields"]);
-
+  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => parentId ?  customFieldsApi.findOneOwnerCustomsFields(parentId, schema) : customFieldsApi.findAllOwnerCustomsFields(schema), [`${schema}-customs-fields`]);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
 
@@ -30,10 +35,19 @@ const useCustomFieldManage = ({ route }) => {
 
   useEffect(() => {
     if (!fetchIsLoading && initialCustomField) {
-      console.log(initialCustomField?.datas?.clients);
-      
-      setCustomField(initialCustomField?.datas?.clients);
+      console.log("dd", initialCustomField?.datas?.customfields);
+
+      if (initialCustomField?.code === 404) {
+        setError("Aucun champ personnalisé n'as été trouvé.");
+        setCustomField([]);
+      } else {
+        setCustomField(initialCustomField?.datas?.customfields);
+        setError("");
+      }
+      setIsLoading(false);
     }
+
+    
   }, [fetchIsLoading, initialCustomField]);
 
   useEffect(() => {
@@ -51,7 +65,7 @@ const useCustomFieldManage = ({ route }) => {
 
   const handleUpdate = async (data) => {
     try {
-      await customFieldsApi.updatePositions("client", data);
+      await customFieldsApi.updatePositions(schema, data);
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +75,7 @@ const useCustomFieldManage = ({ route }) => {
     console.log(`Delete item with id: ${id}`);
   };
 
-  return { customField, keyExtractor, navigation, handleDragEnd, handleDelete, control, errors, tabs, setTabs, title: route?.params?.id ? "Modifier un champ" : "Créer un champ", handleSubmit, schema: route?.params?.schema };
+  return { parentId, customField, error, isLoading, keyExtractor, navigation, handleDragEnd, handleDelete, control, errors, tabs, setTabs, title: route?.params?.id ? "Modifier un champ" : "Créer un champ", handleSubmit, schema: route?.params?.schema };
 };
 
 export default useCustomFieldManage;

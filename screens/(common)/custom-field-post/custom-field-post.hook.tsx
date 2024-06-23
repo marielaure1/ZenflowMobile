@@ -8,6 +8,8 @@ import CustomFieldEnum from '@/common/enums/custom-field.enum';
 // import useFetchData from '@hooks/useFetchData';
 import queryClient from '@/api/config.react-query';
 const useCustomFieldPost = ({ route }) => {
+  const parentId = route?.params?.parentId;
+  console.log("parentIdx", parentId);
   const item = route?.params?.item;
   const schema = route?.params?.schema;
   const customFieldsApi = useCustomFieldsApi();
@@ -33,7 +35,8 @@ const useCustomFieldPost = ({ route }) => {
       name: item ? item?.name : "",
       type: item ? item?.type : CustomFieldEnum.TEXT,
       options: item ? item?.options : null,
-      schema
+      schema,
+      schemaIds: parentId ? [parentId] : null
     }
   });
 
@@ -51,9 +54,8 @@ const useCustomFieldPost = ({ route }) => {
   const handleCreate = async (data: CustomFieldProps) => {
     
     try {
-        const updatedCustomFieldsApi = await customFieldsApi.create({...data, schemaIds: null, ownerId: me?.customer?._id});
-        console.log(updatedCustomFieldsApi);
-        
+        const updatedCustomFieldsApi = await customFieldsApi.createForOne(schema, {...data, ownerId: me?.customer?._id});
+        queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
         navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -63,11 +65,8 @@ const useCustomFieldPost = ({ route }) => {
 
   const handleUpdate = async (data: CustomFieldProps) => {
     try {
-      console.log(data);
-      
-        const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, schemaIds: null, ownerId: me?.customer?._id});
-        console.log(updatedCustomFieldsApi);
-        queryClient.invalidateQueries({ queryKey: [`client-customs-fields`] });
+        const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, ownerId: me?.customer?._id});
+        queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
         navigation.goBack();
     } catch (error) {
       console.log(error);

@@ -16,7 +16,7 @@ const useClient = ({id}) => {
 console.log("id", id);
 
   const { response: client, isLoading, error, refetch } = useFetchData(() => clientsApi.findOne(id), ["clients", id]);
-  const { response : customFields, isLoading: isLoadingCustomFields, error: fetchErrorCustomFields, refetch: refetchCustomFields } = useFetchData(() => clientsApi.findOneOwnerCustomsFields(id), ["client-customs-fields", id]);
+  const { response : customFields, isLoading: isLoadingCustomFields, error: fetchErrorCustomFields, refetch: refetchCustomFields } = useFetchData(() => clientsApi.findOneOwnerCustomsFields(id, "client"), ["client-customs-fields", id]);
 
   const navigation = useNavigation();
 

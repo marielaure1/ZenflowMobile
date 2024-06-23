@@ -86,7 +86,7 @@ export default function Clients({navigation}) {
           text: 'Gérer les champs', 
           delay: 200, 
           value: 80, 
-          action: () => navigation.navigate("CustomFieldManage", { schema: "client"}), 
+          action: () => navigation.navigate("CustomFieldManage", { schema: "clients"}), 
           colors: {background: "red", foreground: "white"}
         },
       ]}

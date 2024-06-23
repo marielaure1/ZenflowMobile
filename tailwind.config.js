@@ -39,6 +39,7 @@ module.exports = {
         'xl': '25px',
       },
       colors: {
+        background: "#F4F7FE",
         base: {
           0: "#FFFFFF",
           50: "#f9fafb",

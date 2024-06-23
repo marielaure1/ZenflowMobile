@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { useClientsApi } from '@/api/api';
+import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 
 const FabsClient = ({client}) => {
@@ -17,13 +18,10 @@ const FabsClient = ({client}) => {
   const handleDelete = async () => {
     try {
       const deletedClient = await clientsApi.delete(client._id);
-      console.log(deletedClient);
-
       navigation.navigate("Clients")
       
     } catch (error) {
       console.log(error);
-      
     }
   }
 
@@ -52,7 +50,7 @@ const FabsClient = ({client}) => {
                 icon: () => <Add size="24" color="#FFC045"/>,
                 label: 'Gérer les champs personnalisés',
                 style: [styles.btnAction, styles.btnActionOrange],
-                onPress: () =>  navigation.navigate("CustomFieldManage", {client: client}),
+                onPress: () =>  navigation.navigate("CustomFieldManage", {parentId: client._id, schema: "client"}),
                 
               }
             ]}
