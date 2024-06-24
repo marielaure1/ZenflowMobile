@@ -3,71 +3,98 @@ import Template from '@/components/layout/template/template';
 import Banner from '@/components/banner/banner';
 import TabsViewBasic from '@/components/tabs-view/basic/tabs-view-basic';
 import useProjects from '@screens/(projects)/projects/projects.hook';
-import useStyles from '@screens/(projects)/projects/projects.styles';
-import KanbanBoard from '@/components/kanban/kanban';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView, View, Text } from 'react-native';
-// import CardProject from '@components/cards/card-project/card-project';
-import BackgroundBanner from "@img/banner/banner-2.png";
-import FabsProjects from '@components/fabs/fabs-projects/fabs-projects';
+import Fabs from '@components/fabs/fabs';
 import FetchPending from '@components/fetch-pending/fetch-pending';
 import Card from "@components/cards/card/card";
 import ButtonPrimary from "@components/buttons/button";
 import CardProject from "@components/cards/card-project/card-project";
 import AnalyseNumber from "@components/analyse/analyse-number/analyse-number";
+import { Add, ChemicalGlass, Layer, Magicpen } from 'iconsax-react-native';
+import SearchBar from "@/components/search-bar/search-bar";
 
-export default function Projects() {
-  const styles = useStyles();
-  const { navigation, isLoading, error, projectsList, refetch, tabs, setTabs } = useProjects();
-
+export default function Projects({navigation}) {
+  const {
+    currentTab, 
+    setCurrentTab, 
+    fields, 
+    filteredProjects, 
+    handleSearch, 
+    error, 
+    isLoading, 
+    projectsList, 
+    refetch, 
+    tabs, 
+    setTabs 
+   } = useProjects();
+   
   return (
     <>
       <Template>
-        <Banner title={"Projects"} image={BackgroundBanner}/>
-        <View style={styles.container}> 
-   
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
-        
-            <TabsViewBasic view={tabs} setView={setTabs} text="Analyse" colors={{"background": "#FFF0D5", "foreground": "#FFC045"}}/>
-            <TabsViewBasic view={tabs} setView={setTabs} text="Liste des Projects" colors={{"background": "#E2F9E8", "foreground": "#34A853"}}/>
+        <Banner title={"Projects"} btnBack={true}/>
+          {!error && !isLoading && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-[30px]">
+            {tabs && tabs.map((tab, key) => (
+              <TabsViewBasic key={key} view={currentTab} setView={setCurrentTab} data={tab} colors={{ background: tab?.background, foreground: tab?.foreground }} />
+            ))}
           </ScrollView>
-          {projectsList.length < 1 && (
-            <>
-              <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
-              {error && <ButtonPrimary type={"blue"} text="Ajouter un project" link={"ProjectPost"}/>}
-            </>
           )}
 
-          {tabs == "Analyse" && projectsList.length > 0 && (
-            <>
-              <View style={styles.grid}>
+          <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
+          
+          {error && <ButtonPrimary type={"blue"} text="Ajouter un project" link={"ProjectPost"}/>}
+
+            {currentTab == 2 && filteredProjects?.length > 0&& (
+              <View className="flex-col gap-xl w-full">
                 <AnalyseNumber title={"Nombre de projects"} number={projectsList.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"A rappeler"} number={projectsList.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"En attente"} number={projectsList.length} progress={"-10%"} color={"red"}/>
+                <AnalyseNumber title={"A rappeler"} number={projectsList?.length} progress={"-10%"} color={"red"}/>
+                <AnalyseNumber title={"En attente"} number={projectsList?.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"Sans contact depuis 3 mois"} number={projectsList.length} progress={"-10%"} color={"red"}/>
               </View>
-            </>
-          )}
+            )}
 
-          {tabs == "Liste des Projects" &&  projectsList.length > 0  && (
-            <>
-              <View style={styles.grid}>
-                {projectsList.length > 0 && projectsList.map((project, key) => (
+            {currentTab == 1 && !error && !isLoading && (
+            <View className="flex-col gap-xl w-full">
+              
+              <SearchBar
+                data={filteredProjects}
+                allData={projectsList}
+                fields={fields}
+                onSearch={handleSearch}
+              />
+
+              {filteredProjects?.length > 0 && (
+              <View className="w-full gap-md">
+                {filteredProjects && filteredProjects.map((project, key) => (
                   <CardProject key={key} data={project}/>
                 ))}
               </View>
-            </>
-            
-          )}
-
-
-          
-        </View>
-      
+              )}
+            </View>
+            )}
       
       </Template>
 
-      <FabsProjects />
+      <Fabs
+      btns={[
+        { 
+          icon: <Add size="24" color="#38BDF8" />,
+          text: 'Créer un project', 
+          delay: 220, 
+          value: 200, 
+          action: () => navigation.navigate("ProjectPost"), 
+          colors: {background: "#E2F6FE", foreground: "#38BDF8"}
+        },
+        { 
+          icon: <ChemicalGlass size="24" color="#A78BFA" />,
+          text: 'Gérer les champs', 
+          delay: 200, 
+          value: 140, 
+          action: () => navigation.navigate("CustomFieldManage", { schema: "projects"}), 
+          colors: {background: "#EDE9FE", foreground: "#A78BFA"}
+        },
+      ]}
+      />
     </>
   );
 }

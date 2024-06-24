@@ -51,7 +51,7 @@ export default function Prospects({navigation}) {
           {error && <ButtonPrimary type={"blue"} text="Ajouter un prospect" link={"ProspectPost"}/>}
 
             {currentTab == 2 && filteredProspects?.length > 0 && (
-              <View style={styles.grid}>
+              <View className="flex-col gap-xl w-full">
                 <AnalyseNumber title={"Nombre de prospects"} number={prospectsList.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"A rappeler"} number={prospectsList?.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"En attente"} number={prospectsList?.length} progress={"-10%"} color={"red"}/>

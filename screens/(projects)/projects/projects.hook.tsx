@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useProjectsApi } from '@api/api';
-import { useQuery } from '@tanstack/react-query';
 import ProjectsProps from '@interfaces/projects.interface';
 import useFetchData from '@hooks/useFetchData';
 
@@ -10,24 +9,46 @@ const useProjects = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
-  const [tabs, setTabs] = useState("Analyse");
-
+  const [filteredProjects, setFilteredProjects] = useState<ProjectsProps[]>([]); 
+  const [tabs, setTabs] = useState([
+    {
+      id: 1,
+      text: "Liste des projects",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+    {
+      id: 2,
+      text: "Analyse",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+  ]);
+  const [currentTab, setCurrentTab] = useState(1);
   const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findAllOwner(), ["projects"]);
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    
-    if (!fetchIsLoading && response) {
+  const fields = ['society', 'firstName', 'lastName'];
 
-      if(response?.code == 404){
-        setError("Vous n'avez pas encore de project")
+  const handleSearch = (filteredData) => {
+    console.log("filteredData", filteredData);
+    
+    setFilteredProjects(filteredData);
+  };
+  console.log(response);
+  useEffect(() => {
+    if (!fetchIsLoading && response) {
+      if (response?.code === 404) {
+        setError("Vous n'avez pas encore de project");
+        setProjectsList([]);
+        setFilteredProjects([]); 
       } else {
-        setProjectsList(response?.datas?.projects);
+        setProjectsList(response?.datas?.projects || []); 
+        setFilteredProjects(response?.datas?.projects || []); 
+        setError("");
       }
-      
       setIsLoading(false);
-     
     }
   }, [fetchIsLoading, response]);
 
@@ -38,7 +59,19 @@ const useProjects = () => {
     }
   }, [fetchError]);
 
-  return { navigation, error, isLoading, projectsList, refetch, tabs, setTabs };
+  return { 
+    currentTab, 
+    setCurrentTab, 
+    fields, 
+    filteredProjects, 
+    handleSearch, 
+    error, 
+    isLoading, 
+    projectsList, 
+    refetch, 
+    tabs, 
+    setTabs 
+  };
 };
 
 export default useProjects;

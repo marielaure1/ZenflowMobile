@@ -14,12 +14,6 @@ class ProspectsReactQuery extends ApiReactQuery<ProspectsProps> {
     this.apiAxios = new ProspectAxios(path, token);
   }
 
-  async findAllOwner(){
-    const response = await this.apiAxios.findAllOwner();
-    this.queryClient.invalidateQueries({ queryKey: ["prospects"] });
-    return response;
-  }
-
 }
 
 export default ProspectsReactQuery;

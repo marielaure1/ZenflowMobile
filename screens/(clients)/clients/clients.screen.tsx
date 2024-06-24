@@ -3,7 +3,6 @@ import Template from '@/components/layout/template/template';
 import Banner from '@/components/banner/banner';
 import TabsViewBasic from '@/components/tabs-view/basic/tabs-view-basic';
 import useClients from '@screens/(clients)/clients/clients.hook';
-import useStyles from '@screens/(clients)/clients/clients.styles';
 import { ScrollView, View, Text } from 'react-native';
 import Fabs from '@components/fabs/fabs';
 import FetchPending from '@components/fetch-pending/fetch-pending';
@@ -15,7 +14,6 @@ import { Add, ChemicalGlass, Layer, Magicpen } from 'iconsax-react-native';
 import SearchBar from "@/components/search-bar/search-bar";
 
 export default function Clients({navigation}) {
-  const styles = useStyles();
   const {
     currentTab, 
     setCurrentTab, 
@@ -29,26 +27,23 @@ export default function Clients({navigation}) {
     tabs, 
     setTabs 
    } = useClients();
-
-
-   console.log(filteredClients);
-   
+  
   return (
     <>
       <Template>
         <Banner title={"Clients"} btnBack={true}/>
-       
+        {!error && !isLoading && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-[30px]">
           {tabs && tabs.map((tab, key) => (
             <TabsViewBasic key={key} view={currentTab} setView={setCurrentTab} data={tab} colors={{ background: tab?.background, foreground: tab?.foreground }} />
           ))}
           </ScrollView>
-
+          )}
           <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
           {error && <ButtonPrimary type={"blue"} text="Ajouter un client" link={"ClientPost"}/>}
 
-            {currentTab == 2 && filteredClients?.length > 0&& (
-              <View style={styles.grid}>
+            {currentTab == 2 && filteredClients?.length > 0 && (
+              <View className="flex-col gap-xl w-full">
                 <AnalyseNumber title={"Nombre de clients"} number={clientsList.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"A rappeler"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"En attente"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
@@ -56,7 +51,7 @@ export default function Clients({navigation}) {
               </View>
             )}
 
-            {currentTab == 1 && (
+            {currentTab == 1 && !error && !isLoading && (
             <View className="flex-col gap-xl w-full">
               
               <SearchBar

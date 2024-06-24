@@ -64,6 +64,16 @@ class ApiReactQuery<DataInterface> {
       return error?.response;
     }
   }
+
+  async findAllOwner(){
+    try {
+      const response = await this.apiAxios.findAllOwner();
+      this.queryClient.invalidateQueries(this.type);
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
+  }
 }
 
 export default ApiReactQuery;

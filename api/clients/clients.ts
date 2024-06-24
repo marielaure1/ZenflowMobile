@@ -15,12 +15,6 @@ class ClientsReactQuery extends ApiReactQuery<ClientsProps> {
     this.apiAxios = new ClientAxios(path, token);
   }
 
-  async findAllOwner(){
-    const response = await this.apiAxios.findAllOwner();
-    this.queryClient.invalidateQueries({ queryKey: ["clients"] });
-    return response;
-  }
-
   
 }
 

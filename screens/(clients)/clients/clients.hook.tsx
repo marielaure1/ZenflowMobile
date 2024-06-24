@@ -9,7 +9,7 @@ const useClients = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
-  const [filteredClients, setFilteredClients] = useState<ClientsProps[]>([]); // Initialisez filteredClients avec un tableau vide
+  const [filteredClients, setFilteredClients] = useState<ClientsProps[]>([]); 
   const [tabs, setTabs] = useState([
     {
       id: 1,
