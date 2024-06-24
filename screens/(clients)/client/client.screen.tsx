@@ -7,10 +7,12 @@ import Banner from '@components/banner/banner';
 import useStyles from "@screens/(clients)/client/client.styles";
 import FabsClient from '@/components/fabs/fabs-client/fabs-client';
 import BackgroundBanner from "@img/banner/banner-2.png";
-import ClientInfos from '@components/clients/client-infos/client-infos';
+import ClientInfos from '@/widgets/clients/client-infos/client-infos';
 import FetchPending from '@/components/fetch-pending/fetch-pending';
+import Fabs from '@/components/fabs/fabs';
+import { Add, ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
 
-const Client = ({ route }) => {
+const Client = ({ navigation, route }) => {
   const styles = useStyles();
   const { id } = route.params;
   const {  client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields  } = useClients({ id });
@@ -23,17 +25,8 @@ const Client = ({ route }) => {
 
   return (
     <>    
-   
       <Template>
-        <Banner title={(client?.datas?.clients?.society ? client?.datas?.clients?.society : client?.datas?.clients?.firstName)} image={BackgroundBanner} />
-
-        
-        
-        {/* <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
-          <TabsViewBasic view={tabs} setView={setTabs} text="Infos" colors={{ background: "#CEF0FF", foreground: "#35BFFF" }} />
-          <TabsViewBasic view={tabs} setView={setTabs} text="Analyse" colors={{ background: "#FFF0D5", foreground: "#FFC045" }} />
-          <TabsViewBasic view={tabs} setView={setTabs} text="Liste des tâches" colors={{ background: "#E2F9E8", foreground: "#34A853" }} />
-        </ScrollView> */}
+        <Banner title={(client?.datas?.clients?.society ? client?.datas?.clients?.society : client?.datas?.clients?.firstName)} btnBack />
 
         {client?.datas?.clients && <ClientInfos client={client?.datas?.clients} customFields={customFields?.datas?.clients} />}
 
@@ -43,9 +36,36 @@ const Client = ({ route }) => {
         
 
       </Template>
-     
-      {client?.datas?.clients && <FabsClient client={client?.datas?.clients}/>}
-      
+
+      <Fabs
+      btns={[
+        { 
+          icon: <Magicpen size="24" color="#FB923C" />,
+          text: 'Modifier le client', 
+          delay: 240, 
+          value: 260, 
+          action: () => navigation.navigate("ClientPost", {client: client?.datas?.clients}), 
+          colors: {background: "#FFEDD5", foreground: "#FB923C"}
+        },
+        { 
+          icon: <Trash size="24" color="#FF6666" />,
+          text: 'Supprimer le client', 
+          delay: 220, 
+          value: 200, 
+          action: () => navigation.navigate("ClientPost"), 
+          colors: {background: "#FFE5E5", foreground: "#FF6666"}
+        },
+        { 
+          icon: <ChemicalGlass size="24" color="#A78BFA" />,
+          text: 'Gérer les champs personnalisés', 
+          delay: 200, 
+          value: 140, 
+          action: () => navigation.navigate("CustomFieldManage", {parentId: client._id, schema: "client"}), 
+          colors: {background: "#EDE9FE", foreground: "#A78BFA"}
+        },
+      ]}
+      />
+    
     </>
 
   );

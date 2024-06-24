@@ -9,8 +9,8 @@ import AuthProvider from '@/common/providers/auth-provider';
 import queryClient from '@api/config.react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StripeProvider } from '@stripe/stripe-react-native';
-import {  
-  useFonts, 
+import {
+  useFonts,
   Poppins_100Thin,
   Poppins_200ExtraLight,
   Poppins_300Light,
@@ -28,17 +28,17 @@ const App = () => {
   const colorScheme = useColorScheme();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [fontsLoaded] = useFonts({
-    Poppins_100Thin,
-    Poppins_200ExtraLight,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-    Poppins_700Bold,
-    Poppins_800ExtraBold,
-    Poppins_900Black
+    Poppins100: Poppins_100Thin,
+    Poppins200: Poppins_200ExtraLight,
+    Poppins300: Poppins_300Light,
+    Poppins400: Poppins_400Regular,
+    Poppins500: Poppins_500Medium,
+    Poppins600: Poppins_600SemiBold,
+    Poppins700: Poppins_700Bold,
+    Poppins800: Poppins_800ExtraBold,
+    Poppins900: Poppins_900Black
   });
-  
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();

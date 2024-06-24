@@ -5,11 +5,10 @@ import CustomFieldProps from '@interfaces/custom-fields.interface';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@/api/config.react-query';
 
 const useCustomFieldManage = ({ route }) => {
   const parentId = route?.params?.parentId;
-  console.log("parentId", parentId);
-  
   const schema = route?.params?.schema;
   const customFieldsApi = useCustomFieldsApi();
   const [customField, setCustomField] = useState([]);
@@ -17,7 +16,6 @@ const useCustomFieldManage = ({ route }) => {
   const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => parentId ?  customFieldsApi.findOneOwnerCustomsFields(parentId, schema) : customFieldsApi.findAllOwnerCustomsFields(schema), [`${schema}-customs-fields`]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const me = useSelector((state) => state.auth.customer);
   const navigation = useNavigation();
 
   const {
@@ -35,7 +33,6 @@ const useCustomFieldManage = ({ route }) => {
 
   useEffect(() => {
     if (!fetchIsLoading && initialCustomField) {
-      console.log("dd", initialCustomField?.datas?.customfields);
 
       if (initialCustomField?.code === 404) {
         setError("Aucun champ personnalisé n'as été trouvé.");
@@ -71,8 +68,13 @@ const useCustomFieldManage = ({ route }) => {
     }
   };
 
-  const handleDelete = (id) => {
-    console.log(`Delete item with id: ${id}`);
+  const handleDelete = async (id) => {
+    try {
+      await customFieldsApi.delete(id);
+      queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return { parentId, customField, error, isLoading, keyExtractor, navigation, handleDragEnd, handleDelete, control, errors, tabs, setTabs, title: route?.params?.id ? "Modifier un champ" : "Créer un champ", handleSubmit, schema: route?.params?.schema };

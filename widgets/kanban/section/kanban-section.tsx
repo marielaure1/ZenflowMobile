@@ -3,9 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import {
   NestableDraggableFlatList
 } from 'react-native-draggable-flatlist';
-import useStyles from "@components/kanban/section/kanban-section.styles";
+import useStyles from "@widgets/kanban/section/kanban-section.styles";
 import ButtonIcon from '@/components/buttons/button-icon';
-import useKanbanSection from "@components/kanban/section/kanban-section.hook";
+import useKanbanSection from "@widgets/kanban/section/kanban-section.hook";
 
 export default function KanbanSection({projectId, title, data, keyExtractor, renderItem}) {
  const styles = useStyles();

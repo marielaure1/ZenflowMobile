@@ -6,16 +6,16 @@ module.exports = {
     extend: {
       fontFamily: {
         primary: {
-          100: ['Poppins_100Thin', 'sans-serif'],
-          200: ['Poppins_200ExtraLight', 'sans-serif'],
-          300: ['Poppins_300Light', 'sans-serif'],
-          400: ['Poppins_400Regular', 'sans-serif'],
-          500: ['Poppins_500Medium', 'sans-serif'],
-          600: ['Poppins_600SemiBold', 'sans-serif'],
-          700: ['Poppins_700Bold', 'sans-serif'],
-          800: ['Poppins_800ExtraBold', 'sans-serif'],
-          900: ['Poppins_900Black', 'sans-serif']
-        }, 
+          100: ['Poppins_100Thin'],
+          200: ['Poppins_200ExtraLight'],
+          300: ['Poppins_300Light'],
+          400: ['Poppins_400Regular'],
+          500: ['Poppins_500Medium'],
+          600: ['Poppins600'],
+          700: ['Poppins_700Bold'],
+          800: ['Poppins_800ExtraBold'],
+          900: ['Poppins_900Black'],
+        },
       },
       padding: {
         'xs': '5px',

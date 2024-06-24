@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import useTasks from '@screens/(projects)/task-post/task-post.hook';
+import useTasks from '@/screens/(projects)/task-post/task-post.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';

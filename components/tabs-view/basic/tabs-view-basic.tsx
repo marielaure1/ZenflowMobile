@@ -15,13 +15,13 @@ interface TabsViewBasicProps {
     color: object;
 }
 
-const TabsViewBasic: React.FC = ({ view, setView, text, colors}) => {
+const TabsViewBasic: React.FC = ({ view, setView, data, colors}) => {
 
     const styles = useStyles();
     let iconElement;
     let size = 20;
 
-    switch (text) {
+    switch (data?.text) {
         case "Analyse":
             iconElement = <Activity color={colors.foreground} size={size}/>;
             break;
@@ -34,11 +34,11 @@ const TabsViewBasic: React.FC = ({ view, setView, text, colors}) => {
     }
 
     return (
-      <TouchableOpacity style={[styles.container, view == text ? { borderColor: colors.foreground} : {}]} onPress={() => setView(text)}>
+      <TouchableOpacity style={[styles.container, view == data?.text ? { borderColor: colors.foreground} : {}]} onPress={() => setView(data?.id)}>
           <View style={[styles.bgIcon, {backgroundColor: colors.background}]}>
               {iconElement}
           </View>
-          <Text style={[styles.text, {color: colors.foreground}]}>{text}</Text>
+          <Text style={[styles.text, {color: colors.foreground}]}>{data?.text}</Text>
       </TouchableOpacity>
     );
 };

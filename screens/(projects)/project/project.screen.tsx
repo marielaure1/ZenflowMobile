@@ -5,11 +5,10 @@ import useProjects from '@screens/(projects)/project/project.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import TabsViewBasic from '@components/tabs-view/basic/tabs-view-basic';
-import KanbanBoard from '@components/kanban/kanban';
+import KanbanBoard from '@widgets/kanban/kanban';
 import useStyles from "@screens/(projects)/project/project.styles";
 import FabsProject from '@/components/fabs/fabs-project/fabs-project';
-import BackgroundBanner from "@img/banner/banner-2.png";
-import ProjectInfos from '@/components/projects/project-infos';
+import ProjectInfos from '@/widgets/projects/project-infos';
 
 const Project = ({ route }) => {
   const styles = useStyles();
@@ -28,7 +27,7 @@ const Project = ({ route }) => {
     <>    
    
       <Template>
-        <Banner title={project?.name} image={BackgroundBanner} />
+        <Banner title={project?.name}  />
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.list}>
           <TabsViewBasic view={tabs} setView={setTabs} text="Infos" colors={{ background: "#CEF0FF", foreground: "#35BFFF" }} />
           <TabsViewBasic view={tabs} setView={setTabs} text="Analyse" colors={{ background: "#FFF0D5", foreground: "#FFC045" }} />

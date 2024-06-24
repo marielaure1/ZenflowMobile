@@ -9,9 +9,22 @@ const useClients = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
-  const [tabs, setTabs] = useState("Analyse");
   const [filteredClients, setFilteredClients] = useState<ClientsProps[]>([]); // Initialisez filteredClients avec un tableau vide
-
+  const [tabs, setTabs] = useState([
+    {
+      id: 1,
+      text: "Liste des clients",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+    {
+      id: 2,
+      text: "Analyse",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+  ]);
+  const [currentTab, setCurrentTab] = useState(1);
   const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => clientsApi.findAllOwner(), ["clients"]);
 
   const navigation = useNavigation();
@@ -23,7 +36,7 @@ const useClients = () => {
     
     setFilteredClients(filteredData);
   };
-
+  console.log(response);
   useEffect(() => {
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
@@ -46,7 +59,19 @@ const useClients = () => {
     }
   }, [fetchError]);
 
-  return { fields, filteredClients, handleSearch, navigation, error, isLoading, clientsList, refetch, tabs, setTabs };
+  return { 
+    currentTab, 
+    setCurrentTab, 
+    fields, 
+    filteredClients, 
+    handleSearch, 
+    error, 
+    isLoading, 
+    clientsList, 
+    refetch, 
+    tabs, 
+    setTabs 
+  };
 };
 
 export default useClients;

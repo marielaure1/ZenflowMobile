@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import useStyles from '@components/kanban/task/kanban-task.styles';
+import useStyles from '@widgets/kanban/task/kanban-task.styles';
 import { Home2 } from 'iconsax-react-native';
 import { useNavigation } from '@react-navigation/native';
 import Flag from '@components/flag/flag';

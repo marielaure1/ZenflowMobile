@@ -7,7 +7,7 @@ import Banner from '@components/banner/banner';
 import useStyles from "@screens/(prospects)/prospect/prospect.styles";
 import FabsProspect from '@components/fabs/fabs-prospect/fabs-prospect';
 import BackgroundBanner from "@img/banner/banner-2.png";
-import ProspectInfos from '@components/prospects/prospect-infos/prospect-infos';
+import ProspectInfos from '@/widgets/prospects/prospect-infos/prospect-infos';
 
 const Prospect = ({ route }) => {
   const styles = useStyles();

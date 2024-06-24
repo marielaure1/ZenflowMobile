@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Button, Provider as PaperProvider } from 'react-native-paper';
 import { DatePickerModal, SingleDatePicker } from 'react-native-paper-dates';
-import Card from '../cards/card/card'; 
+import Card from '../../components/cards/card/card'; 
 import { useProjectsApi } from '@api/api';
-import ChipGroup from '../chip/chip-group';
-import Flag from '../flag/flag';
-import useStyles from "@components/projects/project-infos.styles";
-import ButtonIcon from '../buttons/button-icon';
+import ChipGroup from '../../components/chip/chip-group';
+import Flag from '../../components/flag/flag';
+import useStyles from "@/widgets/projects/project-infos.styles";
+import ButtonIcon from '../../components/buttons/button-icon';
 
 
 const ProjectInfos = ({ project }) => {

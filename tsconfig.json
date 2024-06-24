@@ -20,6 +20,9 @@
       "@components/*": [
         "./components/*"
       ],
+      "@widgets/*": [
+        "./widgets/*"
+      ],
       "@config/*": [
         "./config/*"
       ],

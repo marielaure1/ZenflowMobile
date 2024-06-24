@@ -23,9 +23,12 @@ import CustomFieldPostScreen from '@screens/(common)/custom-field-post/custom-fi
 import ProjectsScreen from '@screens/(projects)/projects/projects.screen';
 import ProjectScreen from '@screens/(projects)/project/project.screen';
 import ProjectPostScreen from '@screens/(projects)/project-post/project-post.screen';
-import TaskPostScreen from '@screens/(projects)/task-post/task-post.screen';
-import TaskCategoryPostScreen from '@screens/(projects)/task-category-post/task-category-post.screen';
+import TaskPostScreen from '@/screens/(projects)/task-post/task-post.screen';
+import TaskCategoryPostScreen from '@/screens/(projects)/task-category-post/task-category-post.screen';
+
+import GeneralScreen from '@screens/(account)/general/general.screen';
 import PlansScreen from '@screens/(account)/plans/plans.screen';
+
 import { Home2, TaskSquare, NotificationBing, SearchNormal, Profile } from 'iconsax-react-native'
 
 import ErrorScreen from "@screens/(common)/error/error.screen";
@@ -44,29 +47,30 @@ const TabNavigator = () => {
       tabBarShowLabel: false,
       headerShown: false,
       tabBarStyle: { position: 'absolute', borderWidth: 0, height: 50, shadowOffset: {width: 0, height: 0}, elevation: 0 },
+      tabBarHideOnKeyboard: true
     }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{
+      <Tab.Screen name="TabHome" component={HomeNavigator} options={{
           tabBarIcon: ({ color }) => (
             <Home2  color={ color } variant="Linear" size={24} />
           ),
         }}/>
-      <Tab.Screen name="Tasks" component={SearchScreen} options={{
+      <Tab.Screen name="TabTasks" component={TasksNavigator} options={{
           tabBarIcon: ({ color }) => (
             <TaskSquare  color={ color } variant="Linear" size={24} />
           ),
         }} />
-      <Tab.Screen name="Notification" component={NotificationScreen} options={{
+      <Tab.Screen name="TabNotification" component={NotificationsNavigator} options={{
           tabBarIcon: ({ color }) => (
             <NotificationBing  color={ color } variant="Linear" size={24} />
           ),
         }}/>
-       <Tab.Screen name="Search" component={SearchScreen} options={{
+       <Tab.Screen name="TabSearch" component={SearchNavigator} options={{
           tabBarIcon: ({ color }) => (
             <SearchNormal  color={ color } variant="Linear" size={24} />
           ),
         }} />
-      <Tab.Screen name="Account" component={AccountScreen} options={{
+      <Tab.Screen name="TabAccount" component={AccountNavigator} options={{
           tabBarIcon: ({ color }) => (
             <Profile  color={ color } variant="Linear" size={24} />
           ),
@@ -75,39 +79,41 @@ const TabNavigator = () => {
   );
 };
 
+
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={TabNavigator} />
+    </Stack.Navigator>
+  )
+}
+export default MainNavigator;
 
-      {/*Account*/}
-      <Stack.Screen name="General" component={ClientsScreen} />
-      <Stack.Screen name="Plans" component={PlansScreen} />
-      <Stack.Screen name="Notifications" component={ClientsScreen} />
-      <Stack.Screen name="Help" component={ClientsScreen} />
-      <Stack.Screen name="About" component={ClientsScreen} />
-      <Stack.Screen name="Terms" component={ClientsScreen} />
-
-      {/**Clients */}
+const HomeNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      
+      <Stack.Screen name="Home" component={HomeScreen} />
+      {/** Module Clients */}
       <Stack.Screen name="Clients" component={ClientsScreen} />
       <Stack.Screen name="Client" component={ClientScreen} />
       <Stack.Screen name="ClientPost" component={ClientPostScreen} /> 
 
-      {/**Clients */}
+      {/**Module Prospects */}
       <Stack.Screen name="Prospects" component={ProspectsScreen} />
       <Stack.Screen name="Prospect" component={ProspectScreen} />
       <Stack.Screen name="ProspectPost" component={ProspectPostScreen} /> 
 
+      {/**Module Common */}
       <Stack.Screen name="CustomFieldManage" component={CustomFieldManageScreen} /> 
       <Stack.Screen name="CustomFieldPost" component={CustomFieldPostScreen} /> 
-
       <Stack.Screen name="Error" component={ErrorScreen} /> 
       
-      {/**Projects */}
+      {/**Module Projects */}
       <Stack.Screen name="Projects" component={ProjectsScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />
-      <Stack.Screen name="ProjectPost" component={ProjectPostScreen} />
-      
+      <Stack.Screen name="ProjectPost" component={ProjectPostScreen} />   
       {/* <Stack.Screen name="Task" component={TaskScreen} /> */}
       <Stack.Screen name="TaskPost" component={TaskPostScreen} />
       <Stack.Screen name="TaskCategoryPost" component={TaskCategoryPostScreen} />
@@ -115,4 +121,47 @@ const MainNavigator = () => {
   );
 };
 
-export default MainNavigator;
+const TasksNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tasks" component={NotificationScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const NotificationsNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Notifications" component={NotificationScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const SearchNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Search" component={SearchScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const AccountNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Account" component={AccountScreen} />
+      <Stack.Screen name="General" component={GeneralScreen} />
+      <Stack.Screen name="Plans" component={PlansScreen} />
+      <Stack.Screen name="Notifications" component={ClientsScreen} />
+      <Stack.Screen name="Help" component={ClientsScreen} />
+      <Stack.Screen name="About" component={ClientsScreen} />
+      <Stack.Screen name="Terms" component={ClientsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export type RootStackParamList = {
+  Home: undefined;
+  Clients: undefined;
+  Client: { clientId: string };
+  ClientPost: undefined;
+};

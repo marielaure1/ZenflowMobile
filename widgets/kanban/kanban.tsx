@@ -6,11 +6,11 @@ import {
   ScaleDecorator,
   RenderItemParams,
 } from 'react-native-draggable-flatlist';
-import useStyles from "@components/kanban/kanban.styles";
-import KanbanTask from '@components/kanban/task/kanban-task';
+import useStyles from "@widgets/kanban/kanban.styles";
+import KanbanTask from '@widgets/kanban/task/kanban-task';
 import KanbanSection from './section/kanban-section';
-import Card from '../cards/card/card';
-import ButtonPrimary from '../buttons/button';
+import Card from '@components/cards/card/card';
+import ButtonPrimary from '@components/buttons/button';
 
 export default function Kanban({projectId, datas}) {
   const styles = useStyles();

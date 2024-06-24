@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import useTasks from '@screens/(common)/custom-field-post/custom-field-post.hook';
-import useStyles from '@screens/(common)/custom-field-post/custom-field-post.styles';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';
@@ -11,7 +10,6 @@ import FieldControl from '@/components/fields/field-control';
 import CustomFieldEnum from '@/common/enums/custom-field.enum';
 
 const CustomFieldPostScreen = ({ route }) => {
-  const styles = useStyles();
   const { control, selectedType, item, tabs, setTabs, title, errors, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
 console.log(item);
@@ -20,8 +18,8 @@ console.log(item?.options);
   return (
     <>    
       <Template>
-        <Banner title={title} />
-        <View style={styles.container}>
+        <Banner title={title} btnBack/>
+        <View className='flex-col gap-md'>
           {/* <TextInput
             style={styles.input}
             onChangeText={(value) => handleInputChange('name', value)}

@@ -1,3 +1,4 @@
+import { SearchNormal1 } from 'iconsax-react-native';
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
@@ -25,6 +26,7 @@ const SearchBar = ({ allData, fields, onSearch }) => {
 
   return (
       <View className="p-[15px] w-full flex-row justify-between items-center gap-md rounded-[15px] bg-base-0">
+        <SearchNormal1 color={"#010101"} size={18}/>
       <TextInput
          className="w-full  h-full"
         placeholder="Rechercher..."

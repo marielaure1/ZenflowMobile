@@ -25,7 +25,10 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
         control={control}
         name={name}
         rules={rules}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, onBlur, value } }) => {
+          console.log(value);
+          
+          return(
           <>
             {type === "input" && (
               <TextInput
@@ -62,7 +65,7 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
                   style={styles.input}
                   placeholder={placeholder || label}
                   onFocus={() => setOpen(true)}
-                  value={value ? value.toDateString() : ''}
+                  value={value ? value?.toDateString() : ''}
                   {...props}
                 />
                 <DatePickerModal
@@ -76,7 +79,7 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
               </>
             )}
           </>
-        )}
+        )}}
       />
       {error && <Text style={{ color: 'red' }}>{error.message}</Text>}
     </View>

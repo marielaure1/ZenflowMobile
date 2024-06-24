@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Card from '../../cards/card/card'; 
-import useStyles from '@components/prospects/prospect-infos/prospect-infos.styles';
+import Card from '../../../components/cards/card/card'; 
+import useStyles from '@/widgets/prospects/prospect-infos/prospect-infos.styles';
 
 const ProspectInfos = ({ prospect, customFields }) => {
   const styles = useStyles();

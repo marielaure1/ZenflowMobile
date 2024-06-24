@@ -5,13 +5,7 @@ import variables from '@theme/theme.variables';
 export default function useStyles(){
   
   const styles = StyleSheet.create({
-    card: {
-      width: 300,
-      height: 200,
-      backgroundColor: "white",
-      borderRadius: 8,
-      padding: 20
-    },
+
     cardHeader: {
       width: "100%",
       flexDirection: 'row',

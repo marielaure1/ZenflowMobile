@@ -11,11 +11,26 @@ class CustomerAxios extends ApiAxios<CustomersProps> {
       const response = await this.apiClient.get(`/${this.path}/me`);
       return response.data;
     } catch (error) {
-      console.log("CustomerAxios > findMe >", error);
       return error.response.data;
     }
-    
-    
+  }
+
+  async updateMeEmail(email: string) {
+    try {
+      const response = await this.apiClient.put(`/${this.path}/me/email`, email);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  async updateMePassword(password: string) {
+    try {
+      const response = await this.apiClient.put(`/${this.path}/me/password`, password);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
   }
 }
 

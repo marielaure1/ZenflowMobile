@@ -15,22 +15,11 @@ class ProspectsReactQuery extends ApiReactQuery<ProspectsProps> {
   }
 
   async findAllOwner(){
-    return await this.apiAxios.findAllOwner();
+    const response = await this.apiAxios.findAllOwner();
+    this.queryClient.invalidateQueries({ queryKey: ["prospects"] });
+    return response;
   }
 
-  async findAllOwnerCustomsFields(){
-    return await this.apiAxios.findAllOwnerCustomsFields();
-  }
-
-  async findOneOwnerCustomsFields(id: string){
-    const data = await this.apiAxios.findOneOwnerCustomsFields(id);
-    this.queryClient.setQueryData(["prospect-customs-fields", id], data);
-    return data;
-  }
-
-  async createCustomField(data: ProspectsProps){
-    return await this.apiAxios.createCustomField(data);
-  }
 }
 
 export default ProspectsReactQuery;

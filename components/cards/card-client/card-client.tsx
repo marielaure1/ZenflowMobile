@@ -1,59 +1,50 @@
-// import React, {useContext} from 'react';
-import { Pressable, StyleSheet, Text, ViewStyle, View, ImageBackground, TouchableOpacity } from 'react-native';
-// import buttons from '@theme/theme.buttons';
-// import texts from '@theme/theme.texts';
-// import ButtonSecondary from "@components/buttons/buttonSecondary";
-// import useHeader from "@components/layout/header/header.hook";
-import useStyles from "@/components/cards/card-client/card-client.styles";
-import useCardClient from "@components/cards/card-client/card-client.hook";
-import Flag from "@/components/flag/flag";
 import React from 'react';
-import BackgroundBanner from "@img/banner/banner-2.png";
+import { TouchableOpacity, Text, View, ImageBackground } from 'react-native';
+import useStyles from "@components/cards/card-client/card-client.styles";
+import useCardClient from "@components/cards/card-client/card-client.hook";
 import Card from '@components/cards/card/card';
+import useDateFormatter from '@hooks/useDateFormatter';
 
+// Définir les types des props de la carte client
 interface CardClientsProps {
-    data :object;
+  data: {
+    _id: string;
+    society?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    createdAt: Date | string
+  };
 }
 
-const CardClients = ({data} : CardClientsProps) => {
-    const styles = useStyles();
+const CardClients: React.FC<CardClientsProps> = ({ data }) => {
+  const styles = useStyles();
+  const { navigation } = useCardClient();
+  const createdAt = useDateFormatter(data?.createdAt, 'dd MMMM yyyy');
+  return (
+    <Card className='w-[47%]'>
+      <TouchableOpacity className="flex-col gap-md " onPress={() => navigation.navigate("Client", { id: data._id })}>
+        <View className='w-full'>
+            {data?.society && <Text className='text-md text-base-500'>{createdAt}</Text>}
+        </View>
+        <View className="flex-col gap-xs">
+            {data?.society && <Text className='text-lg text-neutral-900 font-[Poppins600]' >{data?.society}</Text>}
 
-    const { 
-        navigation
-    } = useCardClient();
+            <Text className={`text-lg text-neutral-900 ${data?.society ? "font-[Poppins400]" : "font-[Poppins600]"}`}>
+                {data?.firstName} {data?.lastName}
+            </Text>
+        </View>
+        {/* <View className="flex-col gap-xs">
+            {data?.society && <Text className='text-lg text-neutral-900 font-[Poppins600]' >{data?.society}</Text>}
 
-    console.log(data);
-    
-    
-    return (
-        <Card>  
-        <TouchableOpacity  onPress={() => navigation.navigate("Client", { id: data._id })}>
-            <View style={styles.cardHeader}>
-                <View style={styles.cardHeader}>
-                    <ImageBackground source={BackgroundBanner} resizeMode="cover" style={[styles.logo]}/>
-
-                    <View style={styles.cardHeader}>
-                        {data?.society && <Text style={styles.cardTitle}>{data?.society}</Text>}
-                        <Text style={data?.society ? styles.cardTitle : styles.cardSubTitle }>{data?.firstName} {data?.lastName}</Text>
-                    </View>
-                
-                </View>
-            
-            </View>
-            
-            <View style={styles.cardBody}>
-                <View style={styles.cardLine}>
-                    <Text style={styles.cardLineText}>Email: </Text>
-                    <Text style={styles.cardLineText}>{data?.email}</Text>
-                </View>
-                <View style={styles.cardLine}>
-                    <Text style={styles.cardLineText}>Téléphone: </Text>
-                    <Text style={styles.cardLineText}>{data?.phone}</Text>
-                </View>
-            </View>
-            </TouchableOpacity>
-        </Card>
-    );
+            <Text className={`text-lg text-neutral-900 ${data?.society ? "font-[Poppins400]" : "font-[Poppins600]"}`}>
+                {data?.firstName} {data?.lastName}
+            </Text>
+        </View> */}
+      </TouchableOpacity>
+    </Card>
+  );
 };
 
 export default CardClients;

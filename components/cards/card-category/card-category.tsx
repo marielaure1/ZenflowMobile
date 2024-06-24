@@ -1,24 +1,30 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import useStyles from '@/components/cards/card-category/card-category.styles';
 import { Home2 } from 'iconsax-react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+// import { RootStackParamList } from '@navigators/main.navigator';
 
+interface CardCategoryProps {
+  title: string;
+  icon: React.ReactNode;
+  color: { background: string, foreground: string};
+  link: string;
+}
 
-const CardCategory = ({ title, icon, color, link}) => {
+const CardCategory: React.FC<CardCategoryProps> = ({ title, icon, color, link }) => {
+  const navigation = useNavigation<NavigationProp<string>>();
 
-    const styles = useStyles();
-    const navigation = useNavigation();
-    
-
-    return (
-        <TouchableOpacity style={[styles.container]} onPress={() => navigation.navigate(link)}>
-            <View className='bg-blue-900 rounded-[20]'>
-                <Home2 color={color.foreground} size={20}/>
-            </View>
-            <Text style={[styles.text, {color: color.foreground}]}>{title}</Text>
-        </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity 
+      className='p-[10px] bg-base-0 flex-col items-center justify-center gap-sm rounded-sm w-[47%] h-[100]' 
+      onPress={() => navigation.navigate(link)}
+    >
+      <View className='bg-orange-400 rounded-[20] w-[30px] h-[30px] flex-row justify-center items-center'>
+        {icon}
+      </View>
+      <Text className='text-md font-primary-500'>{title}</Text>
+    </TouchableOpacity>
+  );
 };
 
 export default CardCategory;

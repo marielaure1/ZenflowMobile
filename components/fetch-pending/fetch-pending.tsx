@@ -4,8 +4,8 @@ import React from "react";
 import Alert from "@components/alert/alert";
 
 interface FetchPendingProps{
-    isLoading: boolean;
-    error: string;
+    isLoading?: boolean;
+    error?: string | null;
     type: string;
 }
 export default function FetchPending({isLoading, error, type} : FetchPendingProps){

@@ -4,6 +4,9 @@ import ButtonIcon from '@components/buttons/button-icon';
 import { Category } from 'iconsax-react-native';
 
 const RenderItem = ({ item, drag, parentId, isActive, handleDelete, schema, navigation }) => {
+
+  console.log(item);
+  
   return (
     <TouchableOpacity style={styles.itemContainer} onLongPress={drag}>
       <View style={styles.itemContent}>

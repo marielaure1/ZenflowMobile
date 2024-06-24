@@ -16,8 +16,19 @@ class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
 
   async findMe() {
     const response = await this.apiAxios.findMe();
-    
     queryClient.setQueryData(["me"], response);
+    return response;
+  }
+
+  async updateMeEmail(email: string) {
+    const response = await this.apiAxios.updateMeEmail(email);
+    queryClient.invalidateQueries({ queryKey: ["me"] });
+    return response;
+  }
+
+  async updateMePassword(password: string) {
+    const response = await this.apiAxios.updateMePassword(password);
+    queryClient.invalidateQueries({ queryKey: ["me"] });
     return response;
   }
 }

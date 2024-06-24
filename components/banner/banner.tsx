@@ -1,27 +1,17 @@
 import React from "react";
 import { View, Text, ImageBackground } from "react-native";
 import { BannerProps } from "@/components/banner/banner.interface";
-import styles from "@/components/banner/banner.styles";
 import ButtonGoBack from "@/components/buttons/button-go-back";
 
-const Banner = ({title, image = null}: BannerProps) => {
+const Banner = ({title, btnBack, filter, search}: BannerProps) => {
     return (
         <>
-            {image ? (
-                <ImageBackground source={image} resizeMode="cover" style={[styles.container]}>
-                    <View style={[styles.alignLeft]}>
-                        <ButtonGoBack/>
-                    </View>
-                    <Text style={[styles.title]}>{title}</Text>
-                </ImageBackground>
-            ):(
-                <View style={[styles.containerBasic]}>
-                    <View style={[styles.alignLeft]}>
-                        <ButtonGoBack/>
-                    </View>
-                    <Text style={[styles.containerBasicTitle]}>{title}</Text>
+           <View className="h-[130px] w-full pt-[70px] items-center mb-[10px]">
+                <View className="w-full flex-row justify-start items-center absolute left-[0] top-[40px]">
+                    {btnBack && <ButtonGoBack/>}
                 </View>
-            )}
+                <Text className="text-2xl font-[Poppins600] text-center">{title}</Text>
+            </View>
         </>
     )
 }

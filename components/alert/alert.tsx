@@ -22,7 +22,7 @@ const Alert = ({message = "Une erreur c'est produite", type ="error", error =""}
     }
     
     return (
-        <View style={{ backgroundColor: backgroundColor, borderRadius: 10, width: "100%", padding: 10 }}>
+        <View className={`p-md rounded-md mb-[20px]`} style={{ backgroundColor }}>
             <Text style={{ color: color }}>{message}</Text>
         </View>
     )

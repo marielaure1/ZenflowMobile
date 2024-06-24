@@ -1,43 +1,29 @@
 import React from 'react';
-import { TouchableOpacity, Pressable, StyleSheet, Text, ViewStyle, Image, View } from 'react-native';
-import buttons from '@theme/theme.buttons';
-import { StyleProp } from 'react-native';
-import { Callback } from '@react-native-async-storage/async-storage/lib/typescript/types';
+import { TouchableOpacity, Text, View, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Add, ChemicalGlass } from 'iconsax-react-native'
+import { Add, ChemicalGlass } from 'iconsax-react-native';
 
 interface ButtonAccountProps {
-    navigation?: any; 
     link?: string;
+    action?: () => void;
+    text: string;
+    icon: React.ReactNode;
 }
 
-const ButtonAccount: React.FC<ButtonAccountProps> = ({ link, text, icon}) => {
-
+const ButtonAccount: React.FC<ButtonAccountProps> = ({ link, action, text, icon }) => {
     const navigation = useNavigation();
 
     const changeView = (url: string) => {
-        navigation?.navigate(url);
+        navigation.navigate(url as never); 
     };
 
-    let iconTag = <></>;
-
-    switch (icon){
-      case "ChemicalGlass":
-        iconTag = <ChemicalGlass color={'#181818'} variant="Linear" size={15} />;
-        break;
-      case "Add":
-        iconTag = <Add color={'#38BDF8'} variant="Linear" size={15} />;
-        break;
-      default:
-        break;
-    }
-      
-
     return (
-        <TouchableOpacity style={[buttons.buttonAccount]} onPress={() => changeView(link)}>
-            <View style={[buttons.buttonAccountLeft]}>
-              {iconTag}
-              <Text style={[buttons.buttonAccountText]}>{text}</Text>
+        <TouchableOpacity className='w-full p-xs flex-row justify-between' onPress={() => link ? changeView(link) : action && action()}>
+            <View className='flex-row items-center gap-sm rounded-sm'>
+                <View className='w-[30px] h-[30px] flex justify-center items-center rounded-lg bg-zinc-100'>
+                    {icon}
+                </View>
+                <Text className='text-[14px] font-primary-400'>{text}</Text>
             </View>
         </TouchableOpacity>
     );

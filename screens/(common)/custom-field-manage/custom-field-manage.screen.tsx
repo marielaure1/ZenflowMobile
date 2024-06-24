@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import useCustomFieldManage from '@screens/(common)/custom-field-manage/custom-field-manage.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import ButtonIcon from '@components/buttons/button-icon';
-import { Category } from 'iconsax-react-native';
-import { NestableDraggableFlatList, NestableScrollContainer, RenderItemParams } from 'react-native-draggable-flatlist';
-import RenderItem from '@/components/custom-fields/render-item/render-item';
-import FetchPending from '@/components/fetch-pending/fetch-pending';
+import { NestableDraggableFlatList, NestableScrollContainer } from 'react-native-draggable-flatlist';
+import RenderItem from '@widgets/custom-fields/render-item/render-item';
+import FetchPending from '@components/fetch-pending/fetch-pending';
+
 const CustomFieldManageScreen = ({ navigation, route }) => {
   // const styles = useStyles();
   const { customField, keyExtractor, handleDragEnd, handleDelete, control, tabs, setTabs, title, errors, handleSubmit, isLoading, error, schema, parentId } = useCustomFieldManage({ route });
 
-  console.log(customField);
- 
-
-
-
   return (
     <Template noScroll={true}>
-      {/* <Banner title={"Gérer les champs personnalisés"} /> */}
-      <View style={styles.container}>
-        {/* <View style={styles.buttonContainer}> */}
+      <Banner title={"Gérer les champs personnalisés"} btnBack/>
+      <View className='w-full flex-col gap-md'>
+        <View className='flex-row justify-end'>
           <ButtonIcon text="Valider" type="primary" icon="Add" action={() => navigation.navigate("CustomFieldPost", { schema, parentId })} />
-        {/* </View>  */}
+        </View> 
         <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
-        <GestureHandlerRootView style={styles.containerDrag}>
+        <GestureHandlerRootView style={[{width: "100%"}]}>
           {customField && customField.length > 0 && (
             <NestableScrollContainer>
              <NestableDraggableFlatList
@@ -52,43 +47,5 @@ const CustomFieldManageScreen = ({ navigation, route }) => {
     </Template>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-    width: '100%',
-    flexDirection: "column",
-    backgroundColor: "red"
-  },
-  containerDrag: {
-    width: '100%',
-    flexDirection: "column"
-  },
-  buttonContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
-  itemContainer: {
-    padding: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    marginBottom: 10,
-  },
-  itemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  itemActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-});
 
 export default CustomFieldManageScreen;

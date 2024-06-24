@@ -8,7 +8,13 @@ interface ClientsProps{
     address: string;
     status: string;
     ownerId: string;
-    customFields?: Array<Object>;
+    lastContactDate?: Date;
+    marketSegment?: string;
+    needs?: string;
+    leadSource?: string;
+    companySize?: string;
+    estimatedBudget?: number;
+    customFieldValues?: Array<Object>;
 }
 
 export default ClientsProps;

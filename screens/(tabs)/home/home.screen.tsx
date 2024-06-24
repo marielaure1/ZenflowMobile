@@ -38,8 +38,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const styles = useStyles();
 
   const { me } = useHome();
-  
-console.log("ddddddddddddddddddddddd");
+
 
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -70,16 +69,18 @@ console.log("ddddddddddddddddddddddd");
   return (
     <Template>
 
-      <View style={[styles.headerText]}>
-        <Text style={[styles.headerText1]}>Bonjour <Text style={[styles.headerText2]}>{me?.customer?.firstName}</Text></Text>
+      <View className='pb-[10px] pt-[50px]'>
+        <Text className='text-2xl'>
+          Bonjour  
+          {me?.customer && <Text className='font-[Poppins600]'> {me?.customer?.firstName}</Text>}
+        </Text>
       </View>
 
-      <View style={styles.categoryList}>
+      <View className='py-[30px] gap-md flex-row flex-wrap'>
         <CardCatagory title="Clients" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Prospects" link="Prospects" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
         <CardCatagory title="Notes" link="Notes" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
-       
       </View>
 
       {/* <GestureHandlerRootView style={{ flex: 1 }}>
