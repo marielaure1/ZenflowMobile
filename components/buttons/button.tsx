@@ -15,9 +15,10 @@ interface ButtonPrimaryProps {
     action?: CallbackType;
     size?: string;
     type: string;
+    disabled?: boolean;
 }
 
-const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type, size, icon, linkParams = {}}) => {
+const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ disabled = false, link, text, action, type, size, icon, linkParams = {}}) => {
 
     console.log(action);
     
@@ -45,7 +46,7 @@ const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ link, text, action, type,
     
 
     return (
-        <TouchableOpacity style={[buttons.button, typeList[type]["bg"]]} onPress={() => link ? changeView(link) : (action ? action() : null)}>
+        <TouchableOpacity style={[buttons.button, typeList[type]["bg"]]} onPress={() => link ? changeView(link) : (action ? action() : null)} disabled={disabled}>
             {icon && <Image source={icon} style={buttons.icon} />}
             <Text style={[buttons.buttonText, typeList[type]["txt"]]}>{text}</Text>
         </TouchableOpacity>

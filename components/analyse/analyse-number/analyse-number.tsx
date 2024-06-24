@@ -19,7 +19,7 @@ const AnalyseNumber = ({ title, number, progress, color}) => {
     }
 
     return(
-        <Card className="w-">
+        <Card className="">
             <Text style={[styles.title]}>{title}</Text>
             <View style={[styles.blocData]}>
                 <Text style={[styles.data]}>{number}</Text>

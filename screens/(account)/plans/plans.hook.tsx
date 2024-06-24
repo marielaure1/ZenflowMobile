@@ -13,20 +13,23 @@ const usePlans = () => {
     const plansApi = usePlansApi();
     const paymentsApi = usePaymentsApi();
     const subscriptionsApi = useSubscriptionsApi();
+    const [subscriptionState, setSubscriptionState] = useState("choose")
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
     const { response, isLoading, error, refetch } = useFetchData(() => plansApi.findAll(), ["plans"]);
 
     const navigation = useNavigation();
-
+    console.log(response?.datas.plans);
     const handleChangePlan = async (planId: string) => {
+      setSubscriptionState("pending")
+
         
         try {
           const subscription = await subscriptionsApi.create({ plan: planId, customer: customer.customer._id});
 
           const createCheckoutSession = await paymentsApi.createCheckoutSession({ 
-            amount: subscription.datas.subscriptions.stripeSubscription.items.data.plan.amount, 
-            currency: subscription.datas.subscriptions.stripeSubscription.items.data.plan.currency, 
+            amount: subscription.datas.subscriptions.stripeSubscription.items.data[0].plan.amount, 
+            currency: subscription.datas.subscriptions.stripeSubscription.items.data[0].plan.currency, 
             customerId: subscription.datas.subscriptions.subscription.stripeCustomerId
           });
 
@@ -40,9 +43,12 @@ const usePlans = () => {
               name: 'Jane Doe',
             }
           });
+
+          await openPaymentSheet();
           
         } catch (error) {
           console.log(error);
+          setSubscriptionState("choose")
         }
     }
 
@@ -51,12 +57,13 @@ const usePlans = () => {
   
       if (error) {
         console.log(`Error code: ${error.code}`, error.message);
+        setSubscriptionState("choose")
       } else {
-        console.log('Success', 'Your order is confirmed!');
+        setSubscriptionState("subscribed")
       }
     };
 
-  return { navigation, response, error, isLoading, handleChangePlan, refetch , openPaymentSheet};
+  return { subscriptionState, navigation, response, error, isLoading, handleChangePlan, refetch , openPaymentSheet};
 };
 
 export default usePlans;
