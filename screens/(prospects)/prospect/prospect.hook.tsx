@@ -9,33 +9,16 @@ import CustomFieldProps from '@/common/interfaces/custom-fields.interface';
 const useProspect = ({id}) => {
   const prospectsApi = useProspectsApi();
   const customFieldsApi = useCustomFieldsApi();
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [prospect, setProspect] = useState<ProspectsProps[]>([]);
-  const [customFields, setCustomFields] = useState<CustomFieldProps[]>([]);
-console.log(id);
+  // const [error, setError] = useState('');
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [prospect, setProspect] = useState<ProspectsProps>();
+  // const [customFields, setCustomFields] = useState<CustomFieldProps[]>([]);
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => prospectsApi.findOne(id), ["prospects", id]);
-  const { response : responseCustomFields, isLoading: fetchIsLoadingCustomFields, error: fetchErrorCustomFields, refetch: refetchCustomFields } = useFetchData(() => customFieldsApi.findAll(), ["custom-fields"]);
 
-  const navigation = useNavigation();
+  const { response: prospect, isLoading, error, refetch } = useFetchData(() => prospectsApi.findOne(id), ["prospects", id]);
+  const { response : customFields, isLoading: isLoadingCustomFields, error: fetchErrorCustomFields, refetch: refetchCustomFields } = useFetchData(() => customFieldsApi.findOneOwnerCustomsFields(id, "prospect"), ["prospect-customs-fields", id]);
 
-  useEffect(() => {
-    if (!fetchIsLoading && !fetchIsLoadingCustomFields && responseCustomFields && response) {
-      setProspect(response?.datas.prospects);
-      setCustomFields(response?.datas["custom-fields"])
-      setIsLoading(false);
-    }
-  }, [fetchIsLoading, fetchIsLoadingCustomFields, response, responseCustomFields]);
-
-  useEffect(() => {
-    if (fetchError) {
-      setError(fetchError.message);
-      setIsLoading(false);
-    }
-  }, [fetchError]);
-
-  return { navigation, error, prospect, refetch, isLoading };
+  return { error, prospect, refetch, isLoading, customFields, isLoadingCustomFields, fetchErrorCustomFields };
 };
 
 export default useProspect;

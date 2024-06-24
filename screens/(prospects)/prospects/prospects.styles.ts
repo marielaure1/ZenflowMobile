@@ -64,19 +64,18 @@ export default function useStyles(){
         fontWeight: 600,
       },
       list: {
-        paddingVertical: 30
+        paddingVertical: 0
       },
       grid: {
         width: "100%",
         flexWrap: 'wrap',
         flexDirection: "row",
         gap: 10,
-        padding: 10
       },
       container: {
         width: "100%",
         gap: 20,
-        paddingVertical: 40,
+        paddingVertical: 20,
         paddingHorizontal: 10
       }
   });

@@ -1,89 +1,76 @@
+// prospect-post.hook.ts
+
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useForm } from 'react-hook-form';
+import { useForm, FieldValues } from 'react-hook-form';
 import { useProspectsApi } from '@api/api';
-import ProspectsProps from '@interfaces/prospects.interface';
 import { useSelector } from 'react-redux';
-// import useFetchData from '@hooks/useFetchData';
-import FieldControl from "@components/fields/field-control";
+import ProspectsProps from '@interfaces/prospects.interface';
+import StatusEnum from '@/common/enums/status.enum';
 
-const useProspectPost = ({ route }) => {
-  const id = route?.params?.id;
-  const prospect = route?.params?.prospect;
+interface UseProspectPostProps {
+  route: any; 
+}
+
+const useProspectPost = ({ route }: UseProspectPostProps) => {
+  const prospect = route?.params?.prospect as ProspectsProps;
   const prospectsApi = useProspectsApi();
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [tabs, setTabs] = useState("Infos");
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [tabs, setTabs] = useState<string>('Infos');
+  const me = useSelector((state: any) => state?.auth?.customer); 
+console.log(me);
+console.log(prospect);
 
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ProspectsProps>({
     defaultValues: {
-      society: prospect ? prospect.society : "",
-      lastName: prospect ? prospect.lastName : "",
-      firstName: prospect ? prospect.firstName : "",
-      email: prospect ? prospect.email : "",
-      phone: prospect ? prospect.phone : "",
-      address: prospect ? prospect.address : "",
-      status: prospect ? prospect.status : "",
-      lastContactDate: prospect ? prospect.lastContactDate : null,
-      marketSegment: prospect ? prospect.marketSegment : "",
-      needs: prospect ? prospect.needs : "",
-      leadSource: prospect ? prospect.leadSource : "",
-      companySize: prospect ? prospect.companySize : "",
-      estimatedBudget: prospect ? prospect.estimatedBudget : null
-    }
+      society: prospect ? prospect?.society : '',
+      lastName: prospect ? prospect.lastName : '',
+      firstName: prospect ? prospect.firstName : '',
+      email: prospect ? prospect.email : '',
+      phone: prospect ? prospect.phone : '',
+      address: prospect ? prospect.address : '',
+      status: prospect ? prospect.status : StatusEnum.ACTIVE,
+      lastContactDate: prospect ? prospect.lastContactDate : undefined,
+      marketSegment: prospect ? prospect.marketSegment : undefined,
+      needs: prospect ? prospect.needs : undefined,
+      leadSource: prospect ? prospect.leadSource : undefined,
+      companySize: prospect ? prospect.companySize : undefined,
+      estimatedBudget: prospect ? prospect.estimatedBudget : undefined,
+      customFieldValues: prospect ? prospect.customFieldValues : [],
+      ownerId: me?.customer?._id
+    },
   });
-  
-  const me = useSelector((state) => state?.auth?.customer);
+
+
   const navigation = useNavigation();
-  
-  let title = id ? "Modifier" : "Créer";
-  title += " un prospect";
 
-  const handleCreate = async (data: ProspectsProps) => {
+  let title = prospect?._id ? 'Modifier' : 'Créer';
+  title += ' un prospect';
 
-    console.log("create");
-    
-    
-    try{
-      const createdProspect = await prospectsApi.create({...data, ownerId: me?.customer?._id});
+  const handleCreate = async (data: FieldValues) => {
+    try {
+      const createdProspect = await prospectsApi.create(data);
       navigation.goBack();
-      
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      
     }
   };
 
-  const handleUpdate = async (data: ProspectsProps) => {
-    console.log("update");
-    try{
-      const updatedProspect = await prospectsApi.update(prospect._id, {...data, ownerId: me?.customer?._id});
+  const handleUpdate = async (data: FieldValues) => {
+    try {
+      const updatedProspect = await prospectsApi.update(prospect?._id, data);
       navigation.goBack();
-      
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      
     }
   };
-  // useEffect(() => {
-  //   if (!fetchIsLoading && response) {
-  //     setProspect(response?.datas?.prospects);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchIsLoading, response]);
 
-  // useEffect(() => {
-  //   if (fetchError) {
-  //     setError(fetchError.message);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchError]);
-
-  return { control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
+  return { prospect, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useProspectPost;

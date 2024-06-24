@@ -11,6 +11,9 @@ const PlansScreen: React.FC = () => {
   const styles = useStyles();
   const { subscriptionState, navigation, response, error, isLoading, handleChangePlan, openPaymentSheet} = usePlans();
   
+// TODO/ Voir mon plan
+// TODO/ résilier
+// TODO/ Supprimer mon compte
 
   return (
     <Template>
@@ -26,6 +29,8 @@ const PlansScreen: React.FC = () => {
         ))}
       </ScrollView>
    )}
+
+   
       
     </Template>
   );

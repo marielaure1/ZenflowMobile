@@ -1,4 +1,5 @@
 interface ProspectsProps{
+    _id?: string;
     society?: string;
     firstName: string;
     lastName: string;
@@ -7,13 +8,13 @@ interface ProspectsProps{
     address: string;
     status: string;
     ownerId: string;
-    lastContactDate: string;
-    marketSegment: string;
-    needs: string;
-    leadSource: string;
-    companySize: string;
-    estimatedBudget: string;
-    customFields?: Array<Object>;
+    lastContactDate?: Date;
+    marketSegment?: string;
+    needs?: string;
+    leadSource?: string;
+    companySize?: string;
+    estimatedBudget?: number;
+    customFieldValues?: Array<Object>;
 }
 
 export default ProspectsProps;

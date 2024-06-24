@@ -13,12 +13,6 @@ const useProspectInfos = (prospect) => {
         phone: prospect.phone,
         address: prospect.address,
         status: prospect.status,
-        lastContactDate: prospect.lastContactDate,
-        marketSegment: prospect.marketSegment,
-        needs: prospect.needs,
-        leadSource: prospect.leadSource,
-        companySize: prospect.companySize,
-        estimatedBudget: prospect.estimatedBudget,
     }
   });
 

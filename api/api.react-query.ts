@@ -37,8 +37,6 @@ class ApiReactQuery<DataInterface> {
 
   async findOne(id: string) {
     try {
-      console.log(id);
-      
       const response = await this.apiAxios.findOneAxios(id);
       this.queryClient.setQueryData([this.type, id], response); 
       return response;

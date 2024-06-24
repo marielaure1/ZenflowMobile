@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useProspectsApi } from '@api/api';
-import { useQuery } from '@tanstack/react-query';
 import ProspectsProps from '@interfaces/prospects.interface';
 import useFetchData from '@hooks/useFetchData';
 
@@ -10,24 +9,46 @@ const useProspects = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [prospectsList, setProspectsList] = useState<ProspectsProps[]>([]);
-  const [tabs, setTabs] = useState("Analyse");
-
+  const [filteredProspects, setFilteredProspects] = useState<ProspectsProps[]>([]); 
+  const [tabs, setTabs] = useState([
+    {
+      id: 1,
+      text: "Liste des prospects",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+    {
+      id: 2,
+      text: "Analyse",
+      foreground: "#35BFFF",
+      background: "#CEF0FF",
+    },
+  ]);
+  const [currentTab, setCurrentTab] = useState(1);
   const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => prospectsApi.findAllOwner(), ["prospects"]);
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    
-    if (!fetchIsLoading && response) {
+  const fields = ['society', 'firstName', 'lastName'];
 
-      if(response?.code == 404){
-        setError("Vous n'avez pas encore de prospect")
+  const handleSearch = (filteredData) => {
+    console.log("filteredData", filteredData);
+    
+    setFilteredProspects(filteredData);
+  };
+  console.log(response);
+  useEffect(() => {
+    if (!fetchIsLoading && response) {
+      if (response?.code === 404) {
+        setError("Vous n'avez pas encore de prospect");
+        setProspectsList([]);
+        setFilteredProspects([]); 
       } else {
-        setProspectsList(response?.datas?.prospects);
+        setProspectsList(response?.datas?.prospects || []); 
+        setFilteredProspects(response?.datas?.prospects || []); 
+        setError("");
       }
-      
       setIsLoading(false);
-     
     }
   }, [fetchIsLoading, response]);
 
@@ -38,7 +59,19 @@ const useProspects = () => {
     }
   }, [fetchError]);
 
-  return { navigation, error, isLoading, prospectsList, refetch, tabs, setTabs };
+  return { 
+    currentTab, 
+    setCurrentTab, 
+    fields, 
+    filteredProspects, 
+    handleSearch, 
+    error, 
+    isLoading, 
+    prospectsList, 
+    refetch, 
+    tabs, 
+    setTabs 
+  };
 };
 
 export default useProspects;
