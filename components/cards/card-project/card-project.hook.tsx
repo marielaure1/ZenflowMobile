@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useProjectsApi, useTaskCategoryApi } from '@api/api';
+import { useProjectsApi, useTaskCategoriesApi } from '@api/api';
 import { useQuery } from '@tanstack/react-query';
 import ProjectsProps from '@interfaces/projects.interface';
 import TasksProps from '@interfaces/tasks.interface';

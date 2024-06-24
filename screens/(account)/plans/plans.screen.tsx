@@ -9,26 +9,27 @@ import FetchPending from '@components/fetch-pending/fetch-pending';
 
 const PlansScreen: React.FC = () => {
   const styles = useStyles();
-  const { subscriptionState, navigation, response, error, isLoading, handleChangePlan, openPaymentSheet} = usePlans();
-  
-// TODO/ Voir mon plan
+  const { myPlan, subscriptionState, navigation, response, error, isLoading, handleChangePlan, hangleCancelPlan, openPaymentSheet} = usePlans();
+
 // TODO/ résilier
-// TODO/ Supprimer mon compte
 
   return (
     <Template>
         <Banner title={"Abonnements"} btnBack/>
 
         <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
-        
    
-   {(subscriptionState == "choose" || subscriptionState == "pending") && (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-[30px]">
-        {response?.datas?.plans && response?.datas?.plans.map((plan, index) => (
-          <CardPlans subscriptionState={subscriptionState} key={index} handleChangePlan={handleChangePlan} plan={plan} index={index}/>
-        ))}
-      </ScrollView>
-   )}
+        {(subscriptionState == "choose" || subscriptionState == "pending") && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-[30px]">
+              {response?.datas?.plans && response?.datas?.plans.map((plan, index) => (
+                <CardPlans subscriptionState={subscriptionState} key={index} action={() => handleChangePlan(plan?._id)}  plan={plan}/>
+              ))}
+            </ScrollView>
+        )}
+
+        {subscriptionState == "subscribed" && (
+          <CardPlans subscriptionState={subscriptionState} plan={myPlan} action={() => hangleCancelPlan()}/>
+        )}
 
    
       

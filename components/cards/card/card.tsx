@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({ children, style = [], speed = 1, className 
 
     return (
         <Animated.View style={[animateElement(speed), ...style]}>
-          <View className={`p-sm bg-base-0 flex-col gap-sm rounded-lg w-full ${className}`} style={[style]}>
+          <View className={`p-sm bg-base-0 flex-col gap-sm rounded-lg w-full `} style={[style]}>
               {children}
           </View>
         </Animated.View>

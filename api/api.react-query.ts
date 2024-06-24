@@ -28,7 +28,7 @@ class ApiReactQuery<DataInterface> {
   async create(datas: DataInterface) {
     try {
       const response = await this.apiAxios.createAxios(datas);
-      this.queryClient.invalidateQueries(this.type);
+      this.queryClient.invalidateQueries({ queryKey: [this.type] });
       return response;
     } catch (error) {
       return error?.response;
@@ -48,7 +48,7 @@ class ApiReactQuery<DataInterface> {
   async update(id: string, datas: DataInterface) {
     try {
       const response = await this.apiAxios.updateAxios(id, datas);
-      this.queryClient.invalidateQueries(this.type);
+      this.queryClient.invalidateQueries({ queryKey: [this.type] });
       return response;
     } catch (error) {
       return error?.response;
@@ -58,7 +58,7 @@ class ApiReactQuery<DataInterface> {
   async delete(id: string) {
     try {
       const response = await this.apiAxios.deleteAxios(id);
-      this.queryClient.invalidateQueries(this.type);
+      this.queryClient.invalidateQueries({ queryKey: [this.type] });
       return response;
     } catch (error) {
       return error?.response;
@@ -68,7 +68,7 @@ class ApiReactQuery<DataInterface> {
   async findAllOwner(){
     try {
       const response = await this.apiAxios.findAllOwner();
-      this.queryClient.invalidateQueries(this.type);
+      this.queryClient.invalidateQueries({ queryKey: [this.type] });
       return response;
     } catch (error) {
       return error?.response;

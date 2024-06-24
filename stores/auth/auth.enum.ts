@@ -1,4 +1,8 @@
-export const enum AuthActionTypes {
-    LOGIN = 'LOGIN',
+export enum AuthActionTypes {
+    LOGIN_REQUEST = 'LOGIN_REQUEST',
+    LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+    LOGIN_FAILURE = 'LOGIN_FAILURE',
     LOGOUT = 'LOGOUT'
 }
+
+

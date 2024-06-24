@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const useLogin = () => {
     const [email, setEmail] = useState('edjour.marielaure@gmail.com');
-    const [password, setPassword] = useState('@Test123456');
+    const [password, setPassword] = useState('@MIm131609Dev');
     const [error, setError] = useState('');
   
     const handleLogin = () => {

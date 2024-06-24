@@ -19,6 +19,8 @@ export default function AccountScreen() {
     return <Text>Error: {error}</Text>;
   }
 
+  // TODO/ Supprimer mon compte
+
   return (
     <Template>
       <Banner title={"Mon Compte"}/>

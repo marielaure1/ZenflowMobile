@@ -48,7 +48,7 @@ console.log(client);
 
   const navigation = useNavigation();
 
-  let title = client._id ? 'Modifier' : 'Créer';
+  let title = client?._id ? 'Modifier' : 'Créer';
   title += ' un client';
 
   const handleCreate = async (data: FieldValues) => {

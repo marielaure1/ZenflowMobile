@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Card from '../../../components/cards/card/card';
-import { CustomField } from '@interfaces/clients.interface'; // Assuming CustomField interface is defined
+import { CustomField } from '@interfaces/clients.interface';
 import useDateFormatter from '@/common/hooks/useDateFormatter';
 
 interface ClientInfosProps {

@@ -2,7 +2,7 @@ import { Callback } from '@react-native-async-storage/async-storage/lib/typescri
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[]) => {
+const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[], enabled?: any) => {
   const [response, setResponse] = useState<T | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -10,9 +10,11 @@ const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[]
   const { data, isLoading: queryIsLoading, error: queryError, refetch } = useQuery<T>({
     queryKey: queryKey,
     queryFn: fetchDataFunction,
+    enabled: enabled
   });
 
   useEffect(() => {
+    console.log(data);
     
     if (!queryIsLoading && !queryError && data) {
       setResponse(data);
@@ -22,10 +24,6 @@ const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[]
       setIsLoading(false);
     }
   }, [data, queryError, queryIsLoading]);
-
-  useEffect(() => {
-    refetch();
-  }, [fetchDataFunction, refetch]);
 
   return { response, isLoading, error, refetch };
 };

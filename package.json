@@ -10,7 +10,7 @@
     "build-css": "node-sass theme/sass -o theme/css --recursive"
   },
   "dependencies": {
-    "@10play/tentap-editor": "^0.5.5",
+    "@10play/tentap-editor": "^0.5.7",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/vector-icons": "^14.0.0",
     "@gorhom/bottom-sheet": "^4.6.3",
@@ -68,7 +68,8 @@
     "react-query": "^3.39.3",
     "react-redux": "^9.1.2",
     "sass": "^1.77.6",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -27,7 +27,7 @@ export default function useStyles(){
     },
     textEmpty: {
       fontSize: 14,
-      fontFamily: "PoppinsSemiBold",
+      fontFamily: "Poppins600",
       textAlign: 'center',
     }
   });

@@ -7,6 +7,7 @@ import PlansProps from '@interfaces/plans.interface';
 import useFetchData from '@/common/hooks/useFetchData';
 import { useSelector } from 'react-redux';
 import { useStripe } from '@stripe/stripe-react-native';
+import queryClient from '@/api/config.react-query';
 
 const usePlans = () => {
     const customer = useSelector((state) => state?.auth?.customer);
@@ -15,11 +16,23 @@ const usePlans = () => {
     const subscriptionsApi = useSubscriptionsApi();
     const [subscriptionState, setSubscriptionState] = useState("choose")
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
+    const [ myPlan, setMyPlan ] = useState();
 
     const { response, isLoading, error, refetch } = useFetchData(() => plansApi.findAll(), ["plans"]);
+    const { response: responseSubscriptions, isLoading: isLoadingSubscriptions, error: fetchSubscriptions } = useFetchData(() => subscriptionsApi.findMySubscription(), ["subscriptions"]);
 
     const navigation = useNavigation();
-    console.log(response?.datas.plans);
+
+    useEffect(() => {
+      if(subscriptionsApi){
+        setSubscriptionState("subscribed")
+      }
+
+      if(response && responseSubscriptions){
+        setMyPlan(response?.datas?.plans.filter((val) => val?._id == responseSubscriptions?.datas?.subscriptions?.plan ? true : false)[0])
+      }
+    }, [responseSubscriptions])
+    
     const handleChangePlan = async (planId: string) => {
       setSubscriptionState("pending")
 
@@ -59,11 +72,20 @@ const usePlans = () => {
         console.log(`Error code: ${error.code}`, error.message);
         setSubscriptionState("choose")
       } else {
-        setSubscriptionState("subscribed")
+        setSubscriptionState("payment-error")
       }
     };
 
-  return { subscriptionState, navigation, response, error, isLoading, handleChangePlan, refetch , openPaymentSheet};
+    const hangleCancelPlan = async () => {
+      try {
+        const cancelSubscription = await subscriptionsApi.cancelSubscription(myPlan?._id)
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+
+  return { myPlan, subscriptionState, responseSubscriptions, navigation, response, error, isLoading, handleChangePlan, hangleCancelPlan, refetch , openPaymentSheet};
 };
 
 export default usePlans;

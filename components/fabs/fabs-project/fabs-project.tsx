@@ -22,7 +22,7 @@ const FabsProject = ({projectId}) => {
                 icon: () => <Add size="24" color="#38BDF8"/>,
                 label: 'Créer une section',
                 style: [styles.btnAction],
-                onPress: () =>  navigation.navigate("TaskCategoryPost", {projectId: projectId}),
+                onPress: () =>  navigation.navigate("TaskCategoriesPost", {projectId: projectId}),
                 
               },
               {

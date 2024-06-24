@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useTaskCategoryApi } from '@api/api';
+import { useTaskCategoriesApi } from '@api/api';
 import useFetchData from '@hooks/useFetchData';
 import TasksProps from '@interfaces/tasks.interface';
-import TaskCategoryProps from '@interfaces/task-category.interface';
+import TaskCategoriesProps from '@interfaces/task-categories.interface';
 
 export default function KanbanSection({id}) {
-  const taskCategoryApi = useTaskCategoryApi();
+  const taskCategoriesApi = useTaskCategoriesApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [taskCategories, setTaskCategories] = useState<TaskCategoryProps[]>([]);
+  const [taskCategories, setTaskCategories] = useState<TaskCategoriesProps[]>([]);
   const [tasks, setTasks] = useState<TasksProps[]>([]);
 
- const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => taskCategoryApi.findTasks(id), ["tasks-categories", id]);
+ const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => taskCategoriesApi.findTasks(id), ["tasks-categories", id]);
   useEffect(() => {
     if (!fetchIsLoading && response) {
       setTaskCategories(response?.datas?.tasks?.data);

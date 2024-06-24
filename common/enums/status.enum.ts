@@ -1,10 +1,10 @@
 enum StatusEnum {
-    ACTIVE = "Active",
-    INACTIVE = "Inactive",
-    SUSPENDED = "Suspended",
-    PENDING = "Pending",
-    CALL_AGAIN = "Call-again",
-    LOST = "Lost",
+    ACTIVE = "active",
+    INACTIVE = "inactive",
+    SUSPENDED = "suspended",
+    PENDING = "pending",
+    CALL_AGAIN = "call-again",
+    LOST = "lost",
 }
 
 export default StatusEnum;

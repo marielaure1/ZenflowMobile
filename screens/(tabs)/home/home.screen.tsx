@@ -80,7 +80,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <CardCatagory title="Clients" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Prospects" link="Prospects" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
-        <CardCatagory title="Notes" link="Notes" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
+        <CardCatagory title="Notes" link="Note" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
       </View>
 
       {/* <GestureHandlerRootView style={{ flex: 1 }}>

@@ -39,7 +39,7 @@ export default function useStyles(){
       paddingTop: 5
     },
     cardLineText: {
-      fontFamily: 'PoppinsMedium',
+      fontFamily: 'Poppins500',
       fontSize: 14,
       color: "red"
     },

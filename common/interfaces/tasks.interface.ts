@@ -10,7 +10,7 @@ interface TasksProps{
    timeEntries?: [];
    parentTaskId?: string;
    subTasks?: string;
-   taskCategoryIds?: string;
+   taskCategoriesIds?: string;
    order?: number;
 }
 

@@ -3,6 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useProjectsApi } from '@api/api';
 import ProjectsProps from '@interfaces/projects.interface';
 import useFetchData from '@hooks/useFetchData';
+import { useSelector } from 'react-redux';
+import queryClient from '@/api/config.react-query';
 
 const useProjects = () => {
   const projectsApi = useProjectsApi();
@@ -10,6 +12,7 @@ const useProjects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<ProjectsProps[]>([]); 
+  const state = useSelector((state) => state.auth.token);
   const [tabs, setTabs] = useState([
     {
       id: 1,
@@ -29,15 +32,13 @@ const useProjects = () => {
 
   const navigation = useNavigation();
 
-  const fields = ['society', 'firstName', 'lastName'];
+  const fields = ['name'];
 
   const handleSearch = (filteredData) => {
-    console.log("filteredData", filteredData);
-    
     setFilteredProjects(filteredData);
   };
-  console.log(response);
   useEffect(() => {
+    
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de project");

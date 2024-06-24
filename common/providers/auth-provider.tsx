@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '@config/firebase';
-import { login, logout } from '@stores/auth/auth.actions';
+import { loginRequest, loginSuccess, loginFailure, logout } from '@stores/auth/auth.actions';
 import AuthNavigator from '@navigators/auth.navigator';
 import MainNavigator from '@navigators/main.navigator';
 import { createNavigationContainerRef } from '@react-navigation/native';
@@ -14,40 +14,59 @@ export const navigationRef = createNavigationContainerRef();
 const AuthProvider = () => {
   const customersApi = useCustomersApi();
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const state = useSelector((state) => state.auth);
-  const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
- 
+  const [ token, setToken ] = useState("");
+  const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
+  const { response, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        
-        const token = user?.stsTokenManager?.accessToken;
-        const { data } = await refetch();
 
-        if (data) {
-          console.log("LOGIN");
-          dispatch(login(token, data?.datas?.me));
-        } else {
-          console.log("LOGOUT");
-          auth.signOut()
-          dispatch(logout());
+      if (user) {
+        dispatch(loginRequest());
+
+        try {
+          const token = await user.getIdToken();
+          setToken(token);
+          dispatch(loginSuccess(token));
+      
+        } catch (err) {
+          dispatch(loginFailure(err.message));
         }
       } else {
-        console.log("LOGOUT");
         dispatch(logout());
       }
     });
 
     return () => unsubscribe();
-  }, [dispatch, refetch, response]);
+  }, [dispatch]);
 
-  useEffect(() => {
-    if (response?.message === "Invalid token") {
-      dispatch(logout());
+
+  useEffect( () => {
+    if(isAuthenticated){
+      
+      let result = handleMe();
+
+      if(result){
+        dispatch(loginSuccess(token, result?.datas?.me));
+      } else {
+        dispatch(logout());
+      }
+      
     }
-    
-  }, [response, dispatch]);
+  }, [isAuthenticated])
+
+  const handleMe = async () => {
+    return await refetch()
+  }
+
+
+  if (loading) {
+    return null; 
+  }
+
+  if (error) {
+    return null; 
+  }
 
   return isAuthenticated ? <MainNavigator /> : <AuthNavigator />;
 };

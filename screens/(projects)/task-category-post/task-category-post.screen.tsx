@@ -1,50 +1,39 @@
-import React, { useRef } from 'react';
-import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import useProject from '@/screens/(projects)/task-category-post/task-category-post.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';
+import FieldControl from '@components/fields/field-control';
 
 const TaskPostScreen = ({ route }) => {
-  const { tabs, setTabs, project, title, handleInputChange, handleSubmit, form } = useProject({ route });
-console.log(form);
+  const { project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProject({ route });
 
   return (
-    <>    
-      <Template>
-        <Banner title={title} />
-        <View style={styles.container}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(value) => handleInputChange('name', value)}
-            value={form.name}
-            placeholder="Nom de la section"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={(value) => handleInputChange('description', value)}
-            value={form.description}
-            placeholder="Description"
-          />
-          <Button text="Valider" type="blue" action={handleSubmit} />
-        </View>
-      </Template>
-    </>
+    <Template>
+      <Banner title={title} />
+      <View className="flex-col gap-md">
+        <FieldControl
+          control={control}
+          name="name"
+          label="Nom de la section"
+          error={errors.name}
+          rules={{ required: 'Ce champ est requis' }}
+        />
+
+        <FieldControl
+          control={control}
+          name="description"
+          label="Description"
+          error={errors.description}
+          rules={{ required: 'Ce champ est requis' }}
+        />
+
+        <Button text="Valider" type="primary" action={handleSubmit(route?.params?.project ? handleUpdate : handleCreate)} />
+      </View>
+    </Template>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  input: {
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    marginBottom: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-  },
-});
 
 export default TaskPostScreen;

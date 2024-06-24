@@ -6,7 +6,7 @@ import ProjectsProps from '@interfaces/projects.interface';
 
 const useProject = ({ route }) => {
   const id = route?.params?.id;
-  const taskCategoryId = route?.params?.taskCategoryId;
+  const taskCategoriesId = route?.params?.taskCategoriesId;
   const tasksApi = useTasksApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -23,9 +23,9 @@ const useProject = ({ route }) => {
 
   const handleSubmit = async () => {
     try{
-      console.log("tasks", { ...form, taskCategoryId });
+      console.log("tasks", { ...form, taskCategoriesId });
       
-      const taskCategory = await tasksApi.create({ ...form, taskCategoryId });
+      const taskCategories = await tasksApi.create({ ...form, taskCategoriesId });
       navigation.goBack();
       
     } catch(error){

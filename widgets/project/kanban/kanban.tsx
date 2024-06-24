@@ -6,8 +6,8 @@ import {
   ScaleDecorator,
   RenderItemParams,
 } from 'react-native-draggable-flatlist';
-import useStyles from "@widgets/kanban/kanban.styles";
-import KanbanTask from '@widgets/kanban/task/kanban-task';
+import useStyles from "@widgets/project/kanban/kanban.styles";
+import KanbanTask from '@widgets/project/kanban/task/kanban-task';
 import KanbanSection from './section/kanban-section';
 import Card from '@components/cards/card/card';
 import ButtonPrimary from '@components/buttons/button';
@@ -44,7 +44,7 @@ export default function Kanban({projectId, datas}) {
     {datas.length < 1 && (
       <Card>
         <Text style={styles.textEmpty}>Commencer a gérer votre projet</Text>
-        <ButtonPrimary type={"blue"} text="Ajouter une section" link={"TaskCategoryPost"} linkParams={{projectId: projectId}}/>
+        <ButtonPrimary type={"blue"} text="Ajouter une section" link={"TaskCategoriesPost"} linkParams={{projectId: projectId}}/>
       </Card>
     )}
   </>

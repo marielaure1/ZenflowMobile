@@ -6,7 +6,7 @@ export default function useStyles(){
   
   const styles = StyleSheet.create({
     flag: {
-      fontFamily: 'PoppinsMedium',
+      fontFamily: 'Poppins500',
       fontSize: 12,
       paddingHorizontal: 10,
       paddingVertical: 5,

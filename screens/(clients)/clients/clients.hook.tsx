@@ -36,16 +36,17 @@ const useClients = () => {
     
     setFilteredClients(filteredData);
   };
-  console.log(response);
+
   useEffect(() => {
+    
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");
         setClientsList([]);
         setFilteredClients([]); 
       } else {
-        setClientsList(response?.datas?.clients || []); 
-        setFilteredClients(response?.datas?.clients || []); 
+        setClientsList(response?.datas?.clients); 
+        setFilteredClients(response?.datas?.clients); 
         setError("");
       }
       setIsLoading(false);

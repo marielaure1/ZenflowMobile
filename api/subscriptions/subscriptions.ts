@@ -13,6 +13,18 @@ class SubscriptionsReactQuery extends ApiReactQuery<SubscriptionsProps> {
     super(invalidateQueryFiltersSubscriptions, path, token);
     this.apiAxios = new SubscriptionAxios(path, token);
   }
+
+  async findMySubscription() {
+    const response = await this.apiAxios.findMySubscription();
+    queryClient.setQueryData(["subscriptions"], response);
+    return response;
+  }
+
+  async cancelSubscription(subscriptionId: string) {
+    const response = await this.apiAxios.cancelSubscription(subscriptionId);
+    queryClient.setQueryData(["subscriptions"], response);
+    return response;
+  }
 }
 
 export default SubscriptionsReactQuery;

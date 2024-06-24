@@ -26,6 +26,7 @@ module.exports = function(api) {
             '@stores': './stores',
             '@theme': './theme',
             '@interfaces': './common/interfaces',
+            '@enums': './common/enums',
           },
         },
       ],

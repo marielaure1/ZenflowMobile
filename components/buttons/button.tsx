@@ -20,8 +20,6 @@ interface ButtonPrimaryProps {
 
 const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ disabled = false, link, text, action, type, size, icon, linkParams = {}}) => {
 
-    console.log(action);
-    
     const navigation = useNavigation();
 
     const changeView = (url: string) => {
@@ -40,7 +38,11 @@ const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ disabled = false, link, t
         blue: {
             bg: buttons.buttonBlue,
             txt: buttons.buttonBlueText
-        }
+        },
+        red: {
+            bg: buttons.buttonRed,
+            txt: buttons.buttonRedText
+        },
     }
 
     

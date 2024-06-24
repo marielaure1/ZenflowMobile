@@ -1,56 +1,70 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, FieldValues } from 'react-hook-form';
 import { useProjectsApi } from '@api/api';
-import ProjectsProps from '@interfaces/projects.interface';
 import { useSelector } from 'react-redux';
-// import useFetchData from '@hooks/useFetchData';
+import ProjectsProps from '@interfaces/projects.interface';
+import StatusEnum from '@/common/enums/status.enum';
+import PriorityEnum from '@/common/enums/priority.enum';
+import queryClient from '@/api/config.react-query';
 
-const useProjectPost = ({ route }) => {
-  const id = route?.params?.id;
-  const taskCategoryId = route?.params?.taskCategoryId;
+interface UseProjectPostProps {
+  route: any; 
+}
+
+const useProjectPost = ({ route }: UseProjectPostProps) => {
+  const project = route?.params?.project as ProjectsProps;
   const projectsApi = useProjectsApi();
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [tabs, setTabs] = useState("Infos");
-  const [form, setForm] = useState({ name: '', description: '', priority: 'sdsd' });
-  
-  const me = useSelector((state) => state.auth.customer);
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [tabs, setTabs] = useState<string>('Infos');
+  const me = useSelector((state: any) => state?.auth?.customer); 
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProjectsProps>({
+    defaultValues: {
+      name: project ? project?.name : '',
+      description: project ? project.description : '',
+      status: project ? project.status : StatusEnum.ACTIVE,
+      priority: project ? project.priority : PriorityEnum.MEDIUM,
+      picture: project ? project.picture : '',
+      customFieldValues: project ? project.customFieldValues : [],
+      ownerId: me?.customer?._id
+    },
+  });
+
   const navigation = useNavigation();
-  
-  let title = id ? "Modifier" : "Créer";
-  title += " un projet";
 
-  const handleInputChange = (name, value) => {
-    setForm({ ...form, [name]: value });
-  };
+  let title = project?._id ? 'Modifier' : 'Créer';
+  title += ' un projet';
 
-  const handleSubmit = async () => {
-    console.log(form);
-    
-    try{
-      const taskCategory = await projectsApi.create({ ...form, ownerId: me.customer._id });
+  const handleCreate = async (data: FieldValues) => {
+    try {
+      const createdProject = await projectsApi.create(data);
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
-      
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      
     }
   };
-  // useEffect(() => {
-  //   if (!fetchIsLoading && response) {
-  //     setProject(response?.datas?.projects);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchIsLoading, response]);
 
-  // useEffect(() => {
-  //   if (fetchError) {
-  //     setError(fetchError.message);
-  //     setIsLoading(false);
-  //   }
-  // }, [fetchError]);
+  const handleUpdate = async (data: FieldValues) => {
+    try {
 
-  return { navigation, error, tabs, setTabs, title, handleInputChange, handleSubmit, form };
+      console.log(data);
+      
+      const updatedProject = await projectsApi.update(project._id, data);
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useProjectPost;

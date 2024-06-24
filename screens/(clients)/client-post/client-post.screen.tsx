@@ -89,7 +89,7 @@ const handleChipChange = (selected: string[]) => {
         }}
       />
 
-      {/* <FieldControl 
+      <FieldControl 
         control={control} 
         name="status" 
         label="Statut" 
@@ -108,7 +108,7 @@ const handleChipChange = (selected: string[]) => {
           { type: StatusEnum.LOST, text: "Perdu", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
         ]}
         item={client}
-      /> */}
+      />
 
       <FieldControl 
         control={control} 

@@ -1,12 +1,22 @@
-import { array } from './../../node_modules/@types/prop-types/index.d';
-interface ProjectsProps{
-    name: string;
-    description: string;
-    ownerId: string;
-    priority?: string;
-    clientId?: string;
-    tasks?: string[]
-    categoryIds?: string[];
+import Priority from '@enums/priority.enum';
+import StatusEnum from '@enums/status.enum';
+
+interface Project {
+  name: string;
+  description: string;
+  picture?: string;
+  status?: StatusEnum;
+  priority?: Priority;
+  ownerId: string;
+  teamId?: string;
+  milestoneIds?: string[];
+  noteIds?: string[];
+  clientId?: string;
+  taskCategoriesIds?: string[];
+  categoryIds?: string[];
+  customFieldValues?: Array<Object>;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export default ProjectsProps;
+export default Project;

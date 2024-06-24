@@ -1,60 +1,82 @@
-import React, { useRef } from 'react';
-import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import useTasks from '@screens/(projects)/project-post/project-post.hook';
-import useStyles from '@screens/(projects)/project-post/project-post.styles';
+import useProjectPost from '@screens/(projects)/project-post/project-post.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';
-import ChipGroup from '@/components/chip/chip-group';
+import FieldControl from '@components/fields/field-control';
+import StatusEnum from '@/common/enums/status.enum';
+import PriorityEnum from '@/common/enums/priority.enum';
 
-const ProjectPostScreen = ({ route }) => {
-  const styles = useStyles();
-  const { tabs, setTabs, title, handleInputChange, handleSubmit, form } = useTasks({ route });
-console.log("<form", form);
-
-const handleChipChange = (selected: string[]) => {
-  console.log('Selected Chips:', selected);
-};
+const ProjectPostScreen = ({ route, navigation }) => {
+  const { project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProjectPost({ route });
 
   return (
-    <>    
-      <Template>
-        <Banner title={title} />
-        <View style={styles.container}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(value) => handleInputChange('name', value)}
-            value={form.name}
-            placeholder="Titre du projet"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={(value) => handleInputChange('description', value)}
-            value={form.description}
-            placeholder="Description"
-          />
+    <Template>
+      <Banner title={title} btnBack={true} />
+      <View className='flex-col gap-md'>
+        <FieldControl
+          control={control}
+          name="name"
+          label="Titre"
+          error={errors.name}
+          rules={{ required: 'Ce champ est requis' }}
+        />
 
-          <View style={styles.formGroup}>
-              <Text style={styles.label}>Priorité</Text>
-              <View style={styles.flex}>
-              <ChipGroup
-                options={[
-                  { text: "Basse", colors: {"background": "#CEF0FF", "foreground": "#38BDF8"} }, 
-                  { text: "Moyen", colors: {"background": "#E6F4F1", "foreground": "#34A853"} }, 
-                  { text: "Elevé", colors: {"background": "#FFF9ED", "foreground": "#FFC045"} }, 
-                  { text: "Urgent", colors: {"background": "#FFE1E1", "foreground": "#FD4949"} }
-                ]}
-                multiple={false}
-                onChange={handleChipChange}
-              />
-                
-              </View>
-          </View>
-          <Button text="Valider" type="blue" action={handleSubmit} />
-        </View>
-      </Template>
-    </>
+        <FieldControl
+          control={control}
+          name="description"
+          label="Description"
+          error={errors.description}
+          rules={{ required: 'Ce champ est requis' }}
+        />
+
+        <FieldControl
+          control={control}
+          name="status"
+          label="Statut"
+          error={errors.status}
+          type="chips"
+          defaultSelected={[project ? project?.status : StatusEnum.ACTIVE]}
+          options={[
+            { type: StatusEnum.ACTIVE, text: "Active", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+            { type: StatusEnum.INACTIVE, text: "Inactive", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+            { type: StatusEnum.SUSPENDED, text: "Suspendu", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+            { type: StatusEnum.PENDING, text: "En attente", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+            { type: StatusEnum.CALL_AGAIN, text: "A relancer", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+            { type: StatusEnum.LOST, text: "Perdu", colors: { background: "#CEF0FF", foreground: "#38BDF8" } },
+          ]}
+          item={project}
+        />
+
+        <FieldControl
+          control={control}
+          name="priority"
+          label="Priorité"
+          error={errors.priority}
+          type="chips"
+          defaultSelected={[project ? project?.priority : PriorityEnum.MEDIUM]}
+          options={[
+            { type: PriorityEnum.HIGH, text: "Haute", colors: { background: "#FFCDD2", foreground: "#D32F2F" } },
+            { type: PriorityEnum.MEDIUM, text: "Moyen", colors: { background: "#FFF9C4", foreground: "#FBC02D" } },
+            { type: PriorityEnum.LOW, text: "Basse", colors: { background: "#C8E6C9", foreground: "#388E3C" } },
+            { type: PriorityEnum.URGENT, text: "Urgent", colors: { background: "#C8E6C9", foreground: "#388E3C" } },
+          ]}
+          item={project}
+        />
+
+        <FieldControl
+          control={control}
+          name="picture"
+          label="Image URL"
+          error={errors.picture}
+          rules={{ required: false }}
+        />
+
+        <Button text="Valider" type="primary" action={handleSubmit(route?.params?.project ? handleUpdate : handleCreate)} />
+      </View>
+    </Template>
   );
 };
 

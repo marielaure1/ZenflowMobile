@@ -12,7 +12,7 @@ export default function useStyles(){
     title: {
         fontSize: 12,
         color: "#989BA5",
-        fontFamily: "PoppinsMedium"
+        fontFamily: "Poppins500"
     },
     blocData: {
         flexDirection: "row",
@@ -22,7 +22,7 @@ export default function useStyles(){
     data: {
         fontSize: 30,
         color: "#020202",
-        fontFamily: "PoppinsMedium"
+        fontFamily: "Poppins500"
     }
   });
   

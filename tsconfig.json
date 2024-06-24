@@ -52,6 +52,9 @@
       ],
       "@constants/*": [
         "./common/constants/*"
+      ],
+      "@enums/*": [
+        "./common/enums/*"
       ]
     }
   },
@@ -59,5 +62,5 @@
     "**/*.ts",
     "**/*.tsx",
     "global.d.ts"
-  ]
+, "screens/(notes)/note"  ]
 }

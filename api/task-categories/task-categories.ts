@@ -4,7 +4,7 @@ import TaskCategoriesProps from '@interfaces/task-categories.interface';
 import queryClient from '@api/config.react-query';
 import ApiReactQuery from '../api.react-query';
 
-class TaskCategorysReactQuery extends ApiReactQuery<TaskCategoriesProps> {
+class TaskCategoriessReactQuery extends ApiReactQuery<TaskCategoriesProps> {
   protected apiAxios: TaskCategorieAxios;
 
   constructor(token?: string) {
@@ -19,4 +19,4 @@ class TaskCategorysReactQuery extends ApiReactQuery<TaskCategoriesProps> {
   }
 }
 
-export default TaskCategorysReactQuery;
+export default TaskCategoriessReactQuery;

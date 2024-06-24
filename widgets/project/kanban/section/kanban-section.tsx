@@ -3,9 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import {
   NestableDraggableFlatList
 } from 'react-native-draggable-flatlist';
-import useStyles from "@widgets/kanban/section/kanban-section.styles";
+import useStyles from "@widgets/project/kanban/section/kanban-section.styles";
 import ButtonIcon from '@/components/buttons/button-icon';
-import useKanbanSection from "@widgets/kanban/section/kanban-section.hook";
+import useKanbanSection from "@widgets/project/kanban/section/kanban-section.hook";
 
 export default function KanbanSection({projectId, title, data, keyExtractor, renderItem}) {
  const styles = useStyles();
@@ -22,7 +22,7 @@ export default function KanbanSection({projectId, title, data, keyExtractor, ren
             <Text style={[styles.countText]}>{tasks.length}</Text>
           </View>
         </View>
-        <ButtonIcon icon={"Add"} link={"TaskPost"} linkParams={{ taskCategoryId: data._id }} />
+        <ButtonIcon icon={"Add"} link={"TaskPost"} linkParams={{ taskCategoriesId: data._id }} />
       </View>
      {/* {tasks && tasks.map((task, key) => (
        

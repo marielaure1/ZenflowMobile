@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+  import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useClientsApi, useCustomFieldsApi } from '@api/api';
 import { useQuery } from '@tanstack/react-query';
