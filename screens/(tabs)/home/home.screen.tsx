@@ -35,9 +35,11 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   // const notificationListener = useRef<Notifications.Subscription>();
   // const responseListener = useRef<Notifications.Subscription>();
 
-  const styles = useStyles();
+  // const styles = useStyles();
 
   const { me } = useHome();
+  
+console.log("me : ", me);
 
 
   // useEffect(() => {
@@ -81,6 +83,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <CardCatagory title="Prospects" link="Prospects" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
         <CardCatagory title="Notes" link="Note" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
+      </View>
+
+      <View className='pb-[10px] pt-[50px]'>
+        <Text className='text-2xl'>
+          Bonjour  
+          {me?.customer && <Text className='font-[Poppins600]'> {me?.customer?.firstName}</Text>}
+        </Text>
       </View>
 
       {/* <GestureHandlerRootView style={{ flex: 1 }}>

@@ -11,7 +11,7 @@ export const loginRequest = (): AuthAction => ({
     type: AuthActionTypes.LOGIN_REQUEST,
 });
 
-export const loginSuccess = (token?: string, customer?: object): AuthAction => ({
+export const loginSuccess = (token: string, customer: object): AuthAction => ({
     type: AuthActionTypes.LOGIN_SUCCESS,
     token: token, 
     customer: customer

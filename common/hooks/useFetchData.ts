@@ -14,8 +14,6 @@ const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[]
   });
 
   useEffect(() => {
-    console.log(data);
-    
     if (!queryIsLoading && !queryError && data) {
       setResponse(data);
       setIsLoading(false);

@@ -21,7 +21,7 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black
 } from '@expo-google-fonts/poppins';
-import "@theme/global.css";
+import "@theme/output.css";
 import { Text } from "react-native";
 
 const App = () => {

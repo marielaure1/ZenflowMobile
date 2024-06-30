@@ -7,16 +7,13 @@ const useLogin = () => {
     const [password, setPassword] = useState('@MIm131609Dev');
     const [error, setError] = useState('');
   
-    const handleLogin = () => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          // Successfully registered
-          console.log("Successfully registered");
-          
-        })
-        .catch(err => {
-          setError(err.message);
-        });
+    const handleLogin = async () => {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log(userCredential.user);
+      } catch (err) {
+        setError(err.message);
+      }
     };
 
     return { email, setEmail, password, setPassword, error, handleLogin}

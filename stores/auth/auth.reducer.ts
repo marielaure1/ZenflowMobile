@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { AuthActionTypes, AuthAction } from '@stores/auth/auth.enum';
+import { AuthActionTypes } from '@stores/auth/auth.enum';
+import { AuthAction } from '@stores/auth/auth.actions';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -22,6 +23,9 @@ const authReducer: Reducer<AuthState, AuthAction> = (state = initialState, actio
     case AuthActionTypes.LOGIN_REQUEST:
       return {
         ...state,
+        isAuthenticated: false,
+        token: null,
+        customer: null,
         loading: true,
         error: null
       };
@@ -37,6 +41,9 @@ const authReducer: Reducer<AuthState, AuthAction> = (state = initialState, actio
     case AuthActionTypes.LOGIN_FAILURE:
       return {
         ...state,
+        isAuthenticated: false,
+        token: null,
+        customer: null,
         loading: false,
         error: action.error
       };
