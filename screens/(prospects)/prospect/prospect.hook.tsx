@@ -9,6 +9,7 @@ import CustomFieldProps from '@/common/interfaces/custom-fields.interface';
 const useProspect = ({id}) => {
   const prospectsApi = useProspectsApi();
   const customFieldsApi = useCustomFieldsApi();
+  const navigation = useNavigation();
   // const [error, setError] = useState('');
   // const [isLoading, setIsLoading] = useState(true);
   // const [prospect, setProspect] = useState<ProspectsProps>();

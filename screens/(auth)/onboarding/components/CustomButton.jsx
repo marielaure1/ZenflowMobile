@@ -59,7 +59,7 @@ const CustomButton = ({flatListRef, flatListIndex, dataLength}) => {
       }}>
       <Animated.View style={[styles.container, buttonAnimationStyle]}>
         <Animated.Text style={[styles.textButton, textAnimationStyle]}>
-          Get Started
+          Commencer
         </Animated.Text>
         <Animated.Image
           source={require('../assets/ArrowIcon.png')}

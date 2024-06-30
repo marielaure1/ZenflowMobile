@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import useTasks from '@screens/(clients)/client-post/client-post.hook';
-import useStyles from '@/screens/(clients)/client-post/client-post.styles';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
 import Button from '@components/buttons/button';
@@ -12,16 +11,8 @@ import Regex from "@constants/regex";
 import StatusEnum from '@/common/enums/status.enum';
 
 const ClientPostScreen = ({ route, navigation }) => {
-  const styles = useStyles();
   const { client, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
-
-  console.log(client);
-  
-
-const handleChipChange = (selected: string[]) => {
-  console.log('Selected Chips:', selected);
-};
 
   return (
     <>    

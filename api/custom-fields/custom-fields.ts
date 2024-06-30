@@ -12,11 +12,24 @@ class CustomFieldsReactQuery extends ApiReactQuery<CustomFieldsProps> {
     const invalidateQueryFiltersCustomFields: InvalidateQueryFilters = { queryKey: [path] };
     super(invalidateQueryFiltersCustomFields, path, token);
     this.apiAxios = new CustomFieldAxios(path, token);
+    console.log(token);
   }
 
   async findAllOwnerCustomsFields(schema: string){
+    this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
     const data = await this.apiAxios.findAllOwnerCustomsFields(schema);
-    this.queryClient.setQueryData([`${schema}-customs-fields`], data);
+
+    console.log(data);
+    
+    if(data.datas){
+      console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+      
+      this.queryClient.setQueryData([`${schema}-customs-fields`], data);
+    } else {
+      console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      
+      this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+    }
     return data;
   }
 

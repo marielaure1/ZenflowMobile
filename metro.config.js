@@ -1,4 +1,3 @@
-// metro.config.js
 const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 
@@ -8,7 +7,7 @@ const defaultConfig = getDefaultConfig(__dirname, {
 
 const config = withNativeWind(defaultConfig, {
   input: "./theme/global.css", 
-  output: "./theme/output.css"
+  outputDir: "./theme"
 });
 
 module.exports = {
@@ -19,6 +18,6 @@ module.exports = {
   },
   resolver: {
     ...config.resolver,
-    sourceExts: [...defaultConfig.resolver.sourceExts, "scss", "sass"],
+    sourceExts: [...config.resolver.sourceExts, "scss", "sass"],
   },
 };

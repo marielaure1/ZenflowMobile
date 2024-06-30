@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-let LOCATION = "Maison";
-let IP = LOCATION === "Maison" ? 'http://192.168.1.80:3001/api' : 'http://10.2.106.6:3001/api';
+console.log("ee", process.env.API_URL);
 
 class ApiAxios<DataInterface> {
   protected apiClient: AxiosInstance;
@@ -10,7 +9,7 @@ class ApiAxios<DataInterface> {
   constructor(public readonly path: string, token?: string) {
     this.token = token;
     this.apiClient = axios.create({
-      baseURL: IP,
+      baseURL: "http://192.168.22.2:3001/api",
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +83,7 @@ class ApiAxios<DataInterface> {
 
   async findAllOwner(){
     try {
-      const response = await this.apiClient.get(`${this.path}/me`)
+      const response = await this.apiClient.get(`${this.path}/me`);
       return response?.data;
     } catch (error) {
       return error?.response?.data;

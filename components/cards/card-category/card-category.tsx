@@ -19,10 +19,10 @@ const CardCategory: React.FC<CardCategoryProps> = ({ title, icon, color, link })
       className='p-[10px] bg-base-0 flex-col items-center justify-center gap-sm rounded-sm w-[47%] h-[100]' 
       onPress={() => navigation.navigate(link)}
     >
-      <View className='bg-orange-400 rounded-[20] w-[30px] h-[30px] flex-row justify-center items-center'>
+      <View className={`bg-orange-400 rounded-[20] w-[30px] h-[30px] flex-row justify-center items-center`} style={[{backgroundColor: color?.background}]}>
         {icon}
       </View>
-      <Text className='text-md font-primary-500'>{title}</Text>
+      <Text className='text-md font-primary-500' style={[{color: color?.foreground}]}>{title}</Text>
     </TouchableOpacity>
   );
 };

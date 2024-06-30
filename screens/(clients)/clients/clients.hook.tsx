@@ -32,14 +32,15 @@ const useClients = () => {
   const fields = ['society', 'firstName', 'lastName'];
 
   const handleSearch = (filteredData) => {
-    console.log("filteredData", filteredData);
-    
     setFilteredClients(filteredData);
   };
 
   useEffect(() => {
     
-    if (!fetchIsLoading && response) {
+    if (!fetchIsLoading) {
+
+      console.log(response.response);
+      
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");
         setClientsList([]);

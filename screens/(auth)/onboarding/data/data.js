@@ -12,23 +12,23 @@ const data: OnboardingData[] = [
   {
     id: 1,
     animation: require('../assets/animations/Lottie4.json'),
-    text: 'Lorem Ipsum dolor sit amet',
-    textColor: '#005b4f',
-    backgroundColor: '#ffa3ce',
+    text: 'Bienvenue sur Zenflow, votre solution complète pour gérer efficacement votre microentreprise.',
+    textColor: 'orange',
+    backgroundColor: '#F8E9B0',
   },
   {
     id: 2,
     animation: require('../assets//animations/Lottie2.json'),
-    text: 'Lorem Ipsum dolor sit amet',
-    textColor: '#1e2169',
-    backgroundColor: '#bae4fd',
+    text: 'Simplifiez votre quotidien avec notre CRM, la gestion de projets et la prise de notes intégrée.',
+    textColor: 'orange',
+    backgroundColor: '#F8E9B0',
   },
   {
     id: 3,
     animation: require('../assets//animations/Lottie3.json'),
-    text: 'Lorem Ipsum dolor sit amet',
-    textColor: '#F15937',
-    backgroundColor: '#faeb8a',
+    text: 'Rejoignez-nous dès maintenant!',
+    textColor: 'orange',
+    backgroundColor: '#F8E9B0',
   },
 ];
 

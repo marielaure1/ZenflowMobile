@@ -15,7 +15,9 @@ import { Add, ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
 const Client = ({ navigation, route }) => {
   const styles = useStyles();
   const { id } = route.params;
-  const {  client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields  } = useClients({ id });
+  const {  handleDelete, client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields  } = useClients({ id });
+  
+  console.log(client);
   
   if(isLoading || error){
     return(
@@ -52,7 +54,7 @@ const Client = ({ navigation, route }) => {
           text: 'Supprimer le client', 
           delay: 220, 
           value: 200, 
-          action: () => navigation.navigate("ClientPost"), 
+          action: () => handleDelete(client?.datas?.clients?._id), 
           colors: {background: "#FFE5E5", foreground: "#FF6666"}
         },
         { 
@@ -60,7 +62,7 @@ const Client = ({ navigation, route }) => {
           text: 'Gérer les champs personnalisés', 
           delay: 200, 
           value: 140, 
-          action: () => navigation.navigate("CustomFieldManage", {parentId: client._id, schema: "client"}), 
+          action: () => navigation.navigate("CustomFieldManage", {parentId: client?.datas?.clients?._id, schema: "client"}), 
           colors: {background: "#EDE9FE", foreground: "#A78BFA"}
         },
       ]}

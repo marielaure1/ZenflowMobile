@@ -11,6 +11,7 @@ import Template from '@/components/layout/template/template';
 import CardCatagory from '@/components/cards/card-category/card-category';
 import LineChart from '@/components/charts/charts-lines';
 import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Note, TaskSquare, UserSearch, UserTick } from 'iconsax-react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,9 +21,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-let LOCATION = "Maison";
-let IP = LOCATION === "Maison" ? 'http://192.168.1.80:3001' : 'http://10.2.106.6:3001';
-
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 interface HomeProps {
@@ -30,41 +28,8 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  // const [expoPushToken, setExpoPushToken] = useState('');
-  // const [notification, setNotification] = useState<Notifications.Notification | null>(null);
-  // const notificationListener = useRef<Notifications.Subscription>();
-  // const responseListener = useRef<Notifications.Subscription>();
-
-  // const styles = useStyles();
 
   const { me } = useHome();
-  
-console.log("me : ", me);
-
-
-  // useEffect(() => {
-  //   registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
-  //   notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-  //     setNotification(notification);
-  //   });
-
-  //   responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-  //     console.log(response);
-  //   });
-
-  //   const socket = io(IP);
-
-  //   socket.on('receiveNotification', (notification) => {
-  //     schedulePushNotification(notification);
-  //   });
-
-  //   return () => {
-  //     Notifications.removeNotificationSubscription(notificationListener.current);
-  //     Notifications.removeNotificationSubscription(responseListener.current);
-  //     socket.disconnect();
-  //   };
-  // }, []);
 
   const data = [50, 30, 70, 100, 60]; 
 
@@ -79,17 +44,10 @@ console.log("me : ", me);
       </View>
 
       <View className='py-[30px] gap-md flex-row flex-wrap'>
-        <CardCatagory title="Clients" link="Clients" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
-        <CardCatagory title="Prospects" link="Prospects" icon="" color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
-        <CardCatagory title="Projets" link="Projects" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
-        <CardCatagory title="Notes" link="Note" icon="" color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
-      </View>
-
-      <View className='pb-[10px] pt-[50px]'>
-        <Text className='text-2xl'>
-          Bonjour  
-          {me?.customer && <Text className='font-[Poppins600]'> {me?.customer?.firstName}</Text>}
-        </Text>
+        <CardCatagory title="Clients" link="Clients" icon={<UserTick size="20" color="#34A853"/>} color={{ background: "#E6F4F1", foreground: "#34A853" }}/>
+        <CardCatagory title="Prospects" link="Prospects" icon={<UserSearch size="20" color="#FFC045"/>} color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
+        <CardCatagory title="Projets" link="Projects" icon={<TaskSquare size="20" color="#35BFFF"/>} color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
+        <CardCatagory title="Notes" link="Note" icon={<Note size="20" color="#A78BFA"/>} color={{ background: "#EDE9FE", foreground: "#A78BFA" }}/>
       </View>
 
       {/* <GestureHandlerRootView style={{ flex: 1 }}>

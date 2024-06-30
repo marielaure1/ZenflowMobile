@@ -1,27 +1,19 @@
 import { AuthActionTypes } from '@stores/auth/auth.enum';
 
-export type AuthAction = {
-    type: AuthActionTypes;
-    token?: string;
-    customer?: object;
-    error?: string;
-};
-
-export const loginRequest = (): AuthAction => ({
-    type: AuthActionTypes.LOGIN_REQUEST,
+export const loginRequest = () => ({
+  type: AuthActionTypes.LOGIN_REQUEST,
 });
 
-export const loginSuccess = (token: string, customer: object): AuthAction => ({
-    type: AuthActionTypes.LOGIN_SUCCESS,
-    token: token, 
-    customer: customer
+export const loginSuccess = (token) => ({
+  type: AuthActionTypes.LOGIN_SUCCESS,
+  payload: token,
 });
 
-export const loginFailure = (error: string): AuthAction => ({
-    type: AuthActionTypes.LOGIN_FAILURE,
-    error: error
+export const loginFailure = (error) => ({
+  type: AuthActionTypes.LOGIN_FAILURE,
+  payload: error,
 });
 
-export const logout = (): AuthAction => ({
-    type: AuthActionTypes.LOGOUT,
+export const logout = () => ({
+  type: AuthActionTypes.LOGOUT,
 });
