@@ -16,14 +16,12 @@ const useFetchData = <T>(fetchDataFunction: () => Promise<T>, queryKey: string[]
   useEffect(() => {
     console.log(data);
     
-    if (queryError) {
-      // setError(data?.response?.data);
-      
-      setIsLoading(false);
-    } else if (!queryIsLoading && !queryError && data) {
+    if (!queryIsLoading && !queryError && data) {
       setResponse(data);
       setIsLoading(false);
-      
+    } else if (queryError) {
+      setError(data);
+      setIsLoading(false);
     }
   }, [data, queryError, queryIsLoading]);
 

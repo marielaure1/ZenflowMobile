@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useProspectsApi } from '@api/api';
+import { useCustomersApi, useProspectsApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ProspectsProps from '@interfaces/prospects.interface';
-import StatusEnum from '@/common/enums/status.enum';
+import StatusEnum from '@enums/status.enum';
+import queryClient from '@api/config.react-query';
+import useFetchData from '@hooks/useFetchData';
 
 interface UseProspectPostProps {
   route: any; 
@@ -15,12 +17,9 @@ interface UseProspectPostProps {
 const useProspectPost = ({ route }: UseProspectPostProps) => {
   const prospect = route?.params?.prospect as ProspectsProps;
   const prospectsApi = useProspectsApi();
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
-  const me = useSelector((state: any) => state?.auth?.customer); 
-console.log(me);
-console.log(prospect);
+  const customerApi = useCustomersApi();
+  const { response: me, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => customerApi.findMe(), ["me"]);
 
   const {
     control,
@@ -42,7 +41,7 @@ console.log(prospect);
       companySize: prospect ? prospect.companySize : undefined,
       estimatedBudget: prospect ? prospect.estimatedBudget : undefined,
       customFieldValues: prospect ? prospect.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.datas?.me?.customer?._id
     },
   });
 
@@ -54,7 +53,8 @@ console.log(prospect);
 
   const handleCreate = async (data: FieldValues) => {
     try {
-      const createdProspect = await prospectsApi.create(data);
+      const createdProspect = await prospectsApi.create({...data, ownerId: me?.datas?.me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -63,7 +63,8 @@ console.log(prospect);
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      const updatedProspect = await prospectsApi.update(prospect?._id, data);
+      const updatedProspect = await prospectsApi.update(prospect?._id, {...data, ownerId: me?.datas?.me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);

@@ -10,6 +10,11 @@ class AuthAxios extends ApiAxios<CustomersProps> {
     const response = await this.apiClient.post(`/${this.path}/register`, data);
     return response.data;
   }
+  
+  async verifToken(token: string) {
+    const response = await this.apiClient.get(`/${this.path}/verif-token/${token}`);
+    return response.data;
+  }
 }
 
 export default AuthAxios;

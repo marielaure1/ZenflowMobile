@@ -38,7 +38,7 @@ export default function Clients({navigation}) {
             <TabsViewBasic key={key} view={currentTab} setView={setCurrentTab} data={tab} colors={{ background: tab?.background, foreground: tab?.foreground }} />
           ))}
           </ScrollView>
-          )}
+        )}
           <FetchPending isLoading={isLoading} error={error} type="Not Found"/>
           {error && <ButtonPrimary type={"blue"} text="Ajouter un client" link={"ClientPost"}/>}
 

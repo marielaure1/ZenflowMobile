@@ -3,9 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import { useClientsApi } from '@api/api';
 import ClientsProps from '@interfaces/clients.interface';
 import useFetchData from '@hooks/useFetchData';
+import { useDispatch } from 'react-redux';
+import { loginFailure } from '@/stores/auth/auth.actions';
 
 const useClients = () => {
   const clientsApi = useClientsApi();
+  const dispatch = useDispatch();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
@@ -20,8 +23,8 @@ const useClients = () => {
     {
       id: 2,
       text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
+      foreground: "#FB923C",
+      background: "#FFEDD5",
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);
@@ -36,11 +39,9 @@ const useClients = () => {
   };
 
   useEffect(() => {
+    console.log("response", fetchError);
     
     if (!fetchIsLoading) {
-
-      console.log(response.response);
-      
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");
         setClientsList([]);

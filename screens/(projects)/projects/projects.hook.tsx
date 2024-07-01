@@ -12,7 +12,6 @@ const useProjects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<ProjectsProps[]>([]); 
-  const state = useSelector((state) => state.auth.token);
   const [tabs, setTabs] = useState([
     {
       id: 1,
@@ -38,8 +37,11 @@ const useProjects = () => {
     setFilteredProjects(filteredData);
   };
   useEffect(() => {
+
+    console.log(response);
     
-    if (!fetchIsLoading && response) {
+    
+    if (!fetchIsLoading) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de project");
         setProjectsList([]);

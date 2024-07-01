@@ -31,8 +31,7 @@ export default function Prospects({navigation}) {
    } = useProspects();
 
    // TODO: resoudre pb modif champ date prospects/clients...
-
-   console.log(filteredProspects);
+console.log(filteredProspects)
    
   return (
     <>
@@ -70,8 +69,8 @@ export default function Prospects({navigation}) {
               />
 
               {filteredProspects?.length > 0 && (
-              <View className="w-full gap-md">
-                {filteredProspects && filteredProspects.map((prospect, key) => (
+         <View className="w-full gap-md">
+                {      filteredProspects && filteredProspects?.map((prospect, key) => (
                   <CardProspect key={key} data={prospect}/>
                 ))}
               </View>

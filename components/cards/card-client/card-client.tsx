@@ -21,7 +21,7 @@ interface CardClientsProps {
 
 const CardClients: React.FC<CardClientsProps> = ({ data }) => {
   const { navigation, statusList } = useCardClient();
-
+  
   const status = statusList.filter((val) => val?.status.includes(data?.status))
   
   return (
@@ -34,7 +34,7 @@ const CardClients: React.FC<CardClientsProps> = ({ data }) => {
               <Text className='text-md text-base-500'>{useDateFormatter(data?.createdAt, 'dd MMMM yyyy')}</Text>
             )}
 
-            {data?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
+            {/* {data?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>} */}
         </View>
         <View className="flex-col gap-xs">
             {data?.society && <Text className='text-lg text-neutral-900 font-[Poppins600]' >{data?.society}</Text>}
