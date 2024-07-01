@@ -452,10 +452,6 @@
   padding: 15px
 }
 
-.p-sm {
-  padding: 10px
-}
-
 .p-xs {
   padding: 5px
 }
@@ -530,10 +526,6 @@
 
 .text-zinc-900 {
   color: #18181b
-}
-
-.text-red-500 {
-  color: #ef4444
 }
 
 .filter {
