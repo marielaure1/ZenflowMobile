@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
 import { useClientsApi, useCustomersApi } from '@api/api';
+import { useClientsApi, useCustomersApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ClientsProps from '@interfaces/clients.interface';
+import StatusEnum from '@enums/status.enum';
+import queryClient from '@api/config.react-query';
+import useFetchData from '@hooks/useFetchData';
 import StatusEnum from '@enums/status.enum';
 import queryClient from '@api/config.react-query';
 import useFetchData from '@hooks/useFetchData';
@@ -39,13 +43,14 @@ const useClientPost = ({ route }: UseClientPostProps) => {
       address: client ? client.address : '',
       status: client ? client.status : StatusEnum.ACTIVE,
       lastContactDate: client && client.lastContactDate ? new Date(client.lastContactDate).toISOString().split('T')[0] : undefined,
+      lastContactDate: client && client.lastContactDate ? new Date(client.lastContactDate).toISOString().split('T')[0] : undefined,
       marketSegment: client ? client.marketSegment : undefined,
       needs: client ? client.needs : undefined,
       leadSource: client ? client.leadSource : undefined,
       companySize: client ? client.companySize : undefined,
       estimatedBudget: client ? client.estimatedBudget : undefined,
       customFieldValues: client ? client.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.datas?.me?.customer?._id
     },
   });
   

@@ -38,7 +38,9 @@ class ApiReactQuery<DataInterface> {
   async findOne(id: string) {
     try {
       const response = await this.apiAxios.findOneAxios(id);
-      this.queryClient.setQueryData([this.type, id], response); 
+      if(response?.code?.toString()?.startsWith('2')){
+        this.queryClient.setQueryData([this.type], response); 
+      }
       return response;
     } catch (error) {
       return error?.response;
@@ -68,10 +70,17 @@ class ApiReactQuery<DataInterface> {
   async findAllOwner(){
     try {
       const response = await this.apiAxios.findAllOwner();
-      this.queryClient.invalidateQueries({ queryKey: [this.type] });
+      console.log("eedd", response?.response);
+      
+      if(response?.code?.toString()?.startsWith('2')){
+        this.queryClient.setQueryData([this.type], response); 
+      }
+      
       return response;
     } catch (error) {
-      return error?.response;
+      console.log("ee", error?.response);
+      
+      return error;
     }
   }
 }

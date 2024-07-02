@@ -9,10 +9,9 @@ interface AuthState {
   error: string | null;
 }
 
-const initialState: AuthState = {
+const initialState = {
   isAuthenticated: false,
   token: null,
-  customer: null,
   loading: false,
   error: null,
 };
@@ -23,31 +22,27 @@ const authReducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case AuthActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        token: action.token,
-        customer: action.customer,
+        token: action.payload,
         loading: false,
-        error: null
+        error: null,
       };
     case AuthActionTypes.LOGIN_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.payload,
       };
     case AuthActionTypes.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
         token: null,
-        customer: null,
-        loading: false,
-        error: null
       };
     default:
       return state;

@@ -7,6 +7,7 @@ import queryClient from '@/api/config.react-query';
 
 const useClients = () => {
   const clientsApi = useClientsApi();
+  const dispatch = useDispatch();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
@@ -21,8 +22,8 @@ const useClients = () => {
     {
       id: 2,
       text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
+      foreground: "#FB923C",
+      background: "#FFEDD5",
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);

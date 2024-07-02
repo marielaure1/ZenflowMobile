@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { supabase } from '@config/supabase';
 import { loginRequest, loginSuccess, loginFailure, logout } from '@stores/auth/auth.actions';
@@ -13,7 +13,6 @@ import queryClient from '@api/config.react-query';
 export const navigationRef = createNavigationContainerRef();
 
 const AuthProvider = () => {
-  const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
@@ -45,8 +44,9 @@ const AuthProvider = () => {
         } catch (err) {
           dispatch(loginFailure(err.message));
         }
-      } else {
+      } catch (err) {
         dispatch(logout());
+        dispatch(loginFailure(err.message));
       }
     });
 

@@ -5,6 +5,7 @@ import styles from '@screens/(auth)/login/login.styles';
 import Button from "@/components/buttons/button";
 import Field from "@/components/fields/field";
 import Alert from '@/components/alert/alert';
+import Banner from '@/components/banner/banner';
 
 const LoginScreen = ({navigation}) => {
  
@@ -13,8 +14,8 @@ const LoginScreen = ({navigation}) => {
   } = useLogin();
 
   return (
-    <View style={styles.container}>
-       <Text style={styles.title}>Connexion</Text>
+    <View className='p-md gap-md'>
+       <Banner title='Connexion' btnBack />
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
         {/* <Alert error={error} message={"Identifiants incorrects."} /> */}
@@ -23,7 +24,7 @@ const LoginScreen = ({navigation}) => {
         <Field get={password} set={setPassword} name="Password" secureTextEntry={true}/>
 
         <Button text="Connexion" type="primary" action={handleLogin}/>
-        <Text style={styles.forgotPassword} onPress={() => navigation?.navigate("ForgetPasssword")}>Mot de passe oublié</Text>
+        {/* <Text style={styles.forgotPassword} onPress={() => navigation?.navigate("ForgetPasssword")}>Mot de passe oublié</Text> */}
     </View>
   );
 };
