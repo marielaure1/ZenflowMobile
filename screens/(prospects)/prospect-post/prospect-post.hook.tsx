@@ -1,12 +1,11 @@
-// prospect-post.hook.ts
-
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useProspectsApi } from '@api/api';
+import { useCustomersApi, useProspectsApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ProspectsProps from '@interfaces/prospects.interface';
 import StatusEnum from '@/common/enums/status.enum';
+import queryClient from '@/api/config.react-query';
 
 interface UseProspectPostProps {
   route: any; 
@@ -15,13 +14,11 @@ interface UseProspectPostProps {
 const useProspectPost = ({ route }: UseProspectPostProps) => {
   const prospect = route?.params?.prospect as ProspectsProps;
   const prospectsApi = useProspectsApi();
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
-console.log(me);
-console.log(prospect);
 
+  console.log("me", me?.customer?._id);
+  
   const {
     control,
     handleSubmit,
@@ -35,17 +32,16 @@ console.log(prospect);
       phone: prospect ? prospect.phone : '',
       address: prospect ? prospect.address : '',
       status: prospect ? prospect.status : StatusEnum.ACTIVE,
-      lastContactDate: prospect ? prospect.lastContactDate : undefined,
+      lastContactDate: prospect && prospect.lastContactDate ? new Date(prospect.lastContactDate).toISOString().split('T')[0] : undefined,
       marketSegment: prospect ? prospect.marketSegment : undefined,
       needs: prospect ? prospect.needs : undefined,
       leadSource: prospect ? prospect.leadSource : undefined,
       companySize: prospect ? prospect.companySize : undefined,
       estimatedBudget: prospect ? prospect.estimatedBudget : undefined,
       customFieldValues: prospect ? prospect.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.datas?.me?.customer?._id
     },
   });
-
 
   const navigation = useNavigation();
 
@@ -54,7 +50,8 @@ console.log(prospect);
 
   const handleCreate = async (data: FieldValues) => {
     try {
-      const createdProspect = await prospectsApi.create(data);
+      const createdProspect = await prospectsApi.create({...data, ownerId: me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -63,7 +60,8 @@ console.log(prospect);
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      const updatedProspect = await prospectsApi.update(prospect?._id, data);
+      const updatedProspect = await prospectsApi.update(prospect?._id, {...data, ownerId: me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);

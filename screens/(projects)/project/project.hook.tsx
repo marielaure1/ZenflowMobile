@@ -36,9 +36,9 @@ const useProject = ({id}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    console.log("responseresponse", response?.datas["projects/tasks"].data)
     if (!fetchIsLoading && response) {
-
-      console.log("responseresponse", response);
+;
       setProject(response?.datas["projects/tasks"].data);
       setTaskCategories(response?.datas["projects/tasks"].taskCategories)
       setIsLoading(false);

@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useProspectsApi } from '@api/api';
 import ProspectsProps from '@interfaces/prospects.interface';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@/api/config.react-query';
 
 const useProspects = () => {
   const prospectsApi = useProspectsApi();
@@ -20,8 +21,8 @@ const useProspects = () => {
     {
       id: 2,
       text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
+      foreground: "#FB923C",
+      background: "#FFEDD5",
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);
@@ -32,20 +33,21 @@ const useProspects = () => {
   const fields = ['society', 'firstName', 'lastName'];
 
   const handleSearch = (filteredData) => {
-    console.log("filteredData", filteredData);
-    
     setFilteredProspects(filteredData);
   };
-  console.log(response);
+
+
   useEffect(() => {
-    if (!fetchIsLoading && response) {
+queryClient.invalidateQueries({queryKey: ["prospects"]})
+    
+    if (!fetchIsLoading) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de prospect");
         setProspectsList([]);
         setFilteredProspects([]); 
-      } else {
-        setProspectsList(response?.datas?.prospects || []); 
-        setFilteredProspects(response?.datas?.prospects || []); 
+      } else if(response?.datas?.prospects){
+        setProspectsList(response?.datas?.prospects); 
+        setFilteredProspects(response?.datas?.prospects); 
         setError("");
       }
       setIsLoading(false);

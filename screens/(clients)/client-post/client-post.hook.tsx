@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
 import { useClientsApi, useCustomersApi } from '@api/api';
+import { useClientsApi, useCustomersApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ClientsProps from '@interfaces/clients.interface';
+import StatusEnum from '@enums/status.enum';
+import queryClient from '@api/config.react-query';
+import useFetchData from '@hooks/useFetchData';
 import StatusEnum from '@enums/status.enum';
 import queryClient from '@api/config.react-query';
 import useFetchData from '@hooks/useFetchData';
@@ -21,6 +25,8 @@ const useClientPost = ({ route }: UseClientPostProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
   const customerApi = useCustomersApi();
+  
+  // const me = useSelector((state: any) => state?.auth?.customer);
   const { response: me, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => customerApi.findMe(), ["me"]);
 
   const {
@@ -37,6 +43,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
       address: client ? client.address : '',
       status: client ? client.status : StatusEnum.ACTIVE,
       lastContactDate: client && client.lastContactDate ? new Date(client.lastContactDate).toISOString().split('T')[0] : undefined,
+      lastContactDate: client && client.lastContactDate ? new Date(client.lastContactDate).toISOString().split('T')[0] : undefined,
       marketSegment: client ? client.marketSegment : undefined,
       needs: client ? client.needs : undefined,
       leadSource: client ? client.leadSource : undefined,
@@ -46,8 +53,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
       ownerId: me?.datas?.me?.customer?._id
     },
   });
-
-
+  
   const navigation = useNavigation();
 
   let title = client?._id ? 'Modifier' : 'Créer';
@@ -58,7 +64,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
 
       console.log(data);
       
-      const createdClient = await clientsApi.create({...data, ownerId: me?.datas?.me?.customer?._id});
+      const createdClient = await clientsApi.create({...data, ownerId: me?.customer?._id});
       queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {
@@ -68,7 +74,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      const updatedClient = await clientsApi.update(client._id, {...data, ownerId: me?.datas?.me?.customer?._id});
+      const updatedClient = await clientsApi.update(client._id, {...data, ownerId: me?.customer?._id});
       queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {

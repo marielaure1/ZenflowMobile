@@ -13,7 +13,6 @@ import StatusEnum from '@/common/enums/status.enum';
 const ClientPostScreen = ({ route, navigation }) => {
   const { client, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
-
   return (
     <>    
       <Template>

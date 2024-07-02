@@ -1,27 +1,20 @@
-import { useEffect, useState } from 'react';
-import { auth } from '@config/firebase';
-import { signOut } from 'firebase/auth';
-import { useSelector } from 'react-redux';
-import useFetchData from '@/common/hooks/useFetchData';
-import { useCustomersApi } from '@api/api';
 import queryClient from '@/api/config.react-query';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useHome = () => {
-  const customersApi = useCustomersApi();
-  const [ me, setMe ] = useState(null)
-  const token = useSelector((state) => state.auth.token)
-  const { response, isLoading: isLoadingMe, error: fetchError, refetch } = useFetchData(() => customersApi.findMe(), ["me"]);
+  const dispatch = useDispatch();
+  const customer = useSelector((state) => state.auth.customer);
+  const [me, setMe] = useState(customer);
 
   useEffect(() => {
-    // console.log(token);
-    // console.log(response);
-    
-    
-    setMe(response?.datas?.me)
-  }, [response])
-  
+    setMe(customer);
+    if(!customer){
+      queryClient.clear()
+    }
+  }, [customer]);
 
-    return { me }
+  return { me };
 }
 
 export default useHome;

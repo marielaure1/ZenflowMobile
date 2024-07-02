@@ -103,6 +103,7 @@ const useGeneral = () => {
   };
 
   const handleUpdatePassword = async (data) => {
+    
     try{
       const updatedPasswordClient = await customersApi.updateMePassword(data);
     } catch(error){

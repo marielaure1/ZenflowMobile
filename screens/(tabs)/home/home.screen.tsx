@@ -50,76 +50,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <CardCatagory title="Notes" link="Note" icon={<Note size="20" color="#A78BFA"/>} color={{ background: "#EDE9FE", foreground: "#A78BFA" }}/>
       </View>
 
-      {/* <GestureHandlerRootView style={{ flex: 1 }}>
-      
-        <LineChart data={data} />
-    </GestureHandlerRootView> */}
-
-      {/* <Text>Your expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Title: {notification && notification.request.content.title} </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-      </View>
-      <Button
-        title="Press to schedule a notification"
-        onPress={async () => {
-          await schedulePushNotification({
-            title: "You've got mail! 📬",
-            body: 'Here is the notification body',
-            data: { data: 'goes here' },
-          });
-        }}
-      /> */}
-      {/* <View>
-        {notifications.map((notification, index) => (
-          <Text key={index}>{notification?.message}</Text>
-        ))}
-      </View> */}
     </Template>
   );
 };
 
 export default Home;
-
-// async function schedulePushNotification(notification) {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: notification.title || "You've got mail! 📬",
-//       body: notification.body || 'Here is the notification body',
-//       data: notification.data || { data: 'goes here' },
-//     },
-//     trigger: { seconds: 2 },
-//   });
-// }
-
-// async function registerForPushNotificationsAsync() {
-//   let token;
-//   if (Constants.isDevice) {
-//     const { status: existingStatus } = await Notifications.getPermissionsAsync();
-//     let finalStatus = existingStatus;
-//     if (existingStatus !== 'granted') {
-//       const { status } = await Notifications.requestPermissionsAsync();
-//       finalStatus = status;
-//     }
-//     if (finalStatus !== 'granted') {
-//       alert('Failed to get push token for push notification!');
-//       return;
-//     }
-//     token = (await Notifications.getExpoPushTokenAsync()).data;
-//     console.log(token);
-//   } else {
-//     alert('Must use physical device for Push Notifications');
-//   }
-
-//   if (Platform.OS === 'android') {
-//     Notifications.setNotificationChannelAsync('default', {
-//       name: 'default',
-//       importance: Notifications.AndroidImportance.MAX,
-//       vibrationPattern: [0, 250, 250, 250],
-//       lightColor: '#FF231F7C',
-//     });
-//   }
-
-//   return token;
-// }

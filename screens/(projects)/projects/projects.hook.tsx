@@ -4,19 +4,18 @@ import { useProjectsApi } from '@api/api';
 import ProjectsProps from '@interfaces/projects.interface';
 import useFetchData from '@hooks/useFetchData';
 import { useSelector } from 'react-redux';
-import queryClient from '@/api/config.react-query';
 
 const useProjects = () => {
   const projectsApi = useProjectsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [projectsList, setProjectsList] = useState<ProjectsProps[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<ProjectsProps[]>([]); 
+  const [filteredProjects, setFilteredProjects] = useState<ProjectsProps[]>([]);
   const state = useSelector((state) => state.auth.token);
   const [tabs, setTabs] = useState([
     {
       id: 1,
-      text: "Liste des projects",
+      text: "Liste des projets",
       foreground: "#35BFFF",
       background: "#CEF0FF",
     },
@@ -37,16 +36,16 @@ const useProjects = () => {
   const handleSearch = (filteredData) => {
     setFilteredProjects(filteredData);
   };
+
   useEffect(() => {
-    
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
-        setError("Vous n'avez pas encore de project");
+        setError("Vous n'avez pas encore de projet");
         setProjectsList([]);
-        setFilteredProjects([]); 
+        setFilteredProjects([]);
       } else {
-        setProjectsList(response?.datas?.projects || []); 
-        setFilteredProjects(response?.datas?.projects || []); 
+        setProjectsList(response?.datas?.projects || []);
+        setFilteredProjects(response?.datas?.projects || []);
         setError("");
       }
       setIsLoading(false);
@@ -60,18 +59,18 @@ const useProjects = () => {
     }
   }, [fetchError]);
 
-  return { 
-    currentTab, 
-    setCurrentTab, 
-    fields, 
-    filteredProjects, 
-    handleSearch, 
-    error, 
-    isLoading, 
-    projectsList, 
-    refetch, 
-    tabs, 
-    setTabs 
+  return {
+    currentTab,
+    setCurrentTab,
+    fields,
+    filteredProjects,
+    handleSearch,
+    error,
+    isLoading,
+    projectsList,
+    refetch,
+    tabs,
+    setTabs
   };
 };
 

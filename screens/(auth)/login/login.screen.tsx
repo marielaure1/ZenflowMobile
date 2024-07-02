@@ -17,8 +17,8 @@ const LoginScreen = ({navigation}) => {
     <View className='p-md gap-md'>
        <Banner title='Connexion' btnBack />
 
-        {error ? <Alert error={error} message={"Identifiants incorrects."} />: null}
-        
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+        {/* <Alert error={error} message={"Identifiants incorrects."} /> */}
 
         <Field get={email} set={setEmail} name="Email"/>
         <Field get={password} set={setPassword} name="Password" secureTextEntry={true}/>

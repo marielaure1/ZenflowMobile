@@ -5,6 +5,9 @@ import CustomField from '@interfaces/custom-fields.interface';
 import useDateFormatter from '@hooks/useDateFormatter';
 import StatusEnum from '@enums/status.enum';
 import Priority from '@enums/priority.enum';
+import statusList from '@constants/flags';
+import priorityList from '@constants/priority';
+import Flag from '@/components/flag/flag';
 
 interface ProjectInfosProps {
   project: {
@@ -23,7 +26,11 @@ interface ProjectInfosProps {
 }
 
 const ProjectInfos: React.FC<ProjectInfosProps> = ({ project, customFields }) => {
-  // TODO: proprietaire moi ou nom prenom membre equipe
+
+  const status = statusList.filter((val) => val?.status.includes(project?.status))
+  const priority = priorityList.filter((val) => val?.type.includes(project?.priority))
+  
+
   return (
     <>
       <View className='flex-col gap-xl'>
@@ -47,25 +54,25 @@ const ProjectInfos: React.FC<ProjectInfosProps> = ({ project, customFields }) =>
 
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Statut:</Text>
-            <Text className='text-md font-[Poppins600]'>{project.status}</Text>
+            {project?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
           </View>
 
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Priorité:</Text>
-            <Text className='text-md font-[Poppins600]'>{project.priority}</Text>
+            {project?.priority && <Flag text={priority[0].text} colors={{"background": priority[0].background, "foreground": priority[0].foreground}}/>}
           </View>
 
-          <View className='flex-row gap-md justify-between'>
+          {/* <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Propriétaire:</Text>
             <Text className='text-md font-[Poppins600]'>{project.ownerId}</Text>
-          </View>
+          </View> */}
 
-          {project.teamId && (
+          {/* {project.teamId && (
             <View className='flex-row gap-md justify-between'>
               <Text className='text-md font-[Poppins400]'>Équipe:</Text>
               <Text className='text-md font-[Poppins600]'>{project.teamId}</Text>
             </View>
-          )}
+          )} */}
 
           {project.createdAt && (
             <View className='flex-row gap-md justify-between'>

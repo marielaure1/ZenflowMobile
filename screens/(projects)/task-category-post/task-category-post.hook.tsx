@@ -39,9 +39,9 @@ console.log(projectId);
 
   const handleCreate = async (data: TaskCategoriesProps) => {
     try {
-      console.log("fgggggggggggggggggggggg", data);
       
       const createdTaskCategory = await taskCategoriesApi.create(data);
+      
       navigation.goBack();
     } catch (error) {
       console.log(error);

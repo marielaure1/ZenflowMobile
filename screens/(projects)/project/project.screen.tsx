@@ -59,6 +59,14 @@ const Project = ({ navigation, route }) => {
 
       <Fabs
       btns={[
+        {
+          icon: <Add size="24" color="#38BDF8" />,
+          text: 'Créer une section',
+          delay: 260,
+          value: 320,
+          action: () => navigation.navigate("TaskCategoriesPost", { projectId: project?._id }),
+          colors: { background: "#E2F6FE", foreground: "#38BDF8" }
+        },
         { 
           icon: <Magicpen size="24" color="#FB923C" />,
           text: 'Modifier le project', 

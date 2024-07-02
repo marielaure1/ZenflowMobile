@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Card from '../../../components/cards/card/card';
+import Card from '@components/cards/card/card';
 import { CustomField } from '@interfaces/clients.interface';
-import useDateFormatter from '@/common/hooks/useDateFormatter';
-import StatusEnum from '@/common/enums/status.enum';
-import { data } from '@/components/charts/data/data';
-import Flag from '@/components/flag/flag';
+import useDateFormatter from '@hooks/useDateFormatter';
+import statusList from "@constants/flags";
+import Flag from '@components/flag/flag';
 
 interface ClientInfosProps {
   client: {
@@ -27,46 +26,7 @@ interface ClientInfosProps {
 }
 
 const ClientInfos: React.FC<ClientInfosProps> = ({ client, customFields }) => {
-  console.log(customFields);
-  const statusList = [
-    {
-      status: StatusEnum.ACTIVE,
-      text: 'Actif',
-      foreground: '#35BFFF',
-      background: '#E5F7FF'
-    },
-    {
-      status: StatusEnum.INACTIVE,
-      text: 'Inactif',
-      foreground: '#FF6666',
-      background: '#FFE5E5'
-    },
-    {
-      status: StatusEnum.PENDING,
-      text: 'En attente',
-      foreground: '#FFC045',
-      background: '#FFF0D5'
-    },
-    {
-      status: StatusEnum.SUSPENDED,
-      text: 'Suspendu',
-      foreground: '#545454',
-      background: '#DEDEDE'
-    },
-    {
-      status: StatusEnum.LOST,
-      text: 'Perdu',
-      foreground: '#FF6666',
-      background: '#FFE5E5'
-    },
-    {
-      status: StatusEnum.CALL_AGAIN,
-      text: 'A recontacter',
-      foreground: '#FFC045',
-      background: '#FFF0D5'
-    }
-];
-
+  
   const status = statusList.filter((val) => val?.status.includes(client?.status))
   
 
@@ -100,6 +60,7 @@ const ClientInfos: React.FC<ClientInfosProps> = ({ client, customFields }) => {
           </View>
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Statut:</Text>
+            {client?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
             {client?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
           </View>
           {client?.lastContactDate && (

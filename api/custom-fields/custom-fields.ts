@@ -18,18 +18,7 @@ class CustomFieldsReactQuery extends ApiReactQuery<CustomFieldsProps> {
   async findAllOwnerCustomsFields(schema: string){
     this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
     const data = await this.apiAxios.findAllOwnerCustomsFields(schema);
-
-    console.log(data);
-    
-    if(data.datas){
-      console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-      
-      this.queryClient.setQueryData([`${schema}-customs-fields`], data);
-    } else {
-      console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-      
-      this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
-    }
+    this.queryClient.setQueryData([`${schema}-all-customs-fields`], data);
     return data;
   }
 
@@ -39,10 +28,26 @@ class CustomFieldsReactQuery extends ApiReactQuery<CustomFieldsProps> {
     return data;
   }
 
+  async updatePositionsAll(schema: string, datas: CustomFieldsProps[]){
+    const data = await this.apiAxios.updatePositions(schema, datas);
+    this.queryClient.invalidateQueries({ queryKey: [`${schema}-all-customs-fields`] });
+    return data;
+  }
+
   async updatePositions(schema: string, datas: CustomFieldsProps[]){
     const data = await this.apiAxios.updatePositions(schema, datas);
     this.queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
     return data;
+  }
+
+  async createForAll(schema: string, data: CustomFieldsProps){
+    try {
+      const response = await this.apiAxios.createAxios(data);
+      this.queryClient.invalidateQueries({ queryKey: [`${schema}-all-customs-fields`] });
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
   }
 
   async createForOne(schema: string, data: CustomFieldsProps){

@@ -7,7 +7,7 @@ const defaultConfig = getDefaultConfig(__dirname, {
 
 const config = withNativeWind(defaultConfig, {
   input: "./theme/global.css", 
-  outputDir: "./theme"
+  outputDir: "./theme", 
 });
 
 module.exports = {

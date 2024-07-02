@@ -1,4 +1,13 @@
+import { Reducer } from 'redux';
 import { AuthActionTypes } from '@stores/auth/auth.enum';
+
+interface AuthState {
+  isAuthenticated: boolean;
+  token: string | null;
+  customer: object | null;
+  loading: boolean;
+  error: string | null;
+}
 
 const initialState = {
   isAuthenticated: false,
@@ -7,7 +16,7 @@ const initialState = {
   error: null,
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer: Reducer<AuthState> = (state = initialState, action) => {
   switch (action.type) {
     case AuthActionTypes.LOGIN_REQUEST:
       return {

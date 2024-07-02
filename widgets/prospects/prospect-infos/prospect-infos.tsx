@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Card from '@components/cards/card/card';
-import CustomFields from '@interfaces/custom-fields.interface';
-import useDateFormatter from '@/common/hooks/useDateFormatter';
+import { CustomField } from '@interfaces/clients.interface';
+import useDateFormatter from '@hooks/useDateFormatter';
+import statusList from "@constants/flags";
+import Flag from '@components/flag/flag';
 
 interface ProspectInfosProps {
   prospect: {
@@ -20,11 +22,11 @@ interface ProspectInfosProps {
     companySize?: string;
     estimatedBudget?: number;
   };
-  customFields?: CustomFields[];
+  customFields?: CustomField[];
 }
 
 const ProspectInfos: React.FC<ProspectInfosProps> = ({ prospect, customFields }) => {
-  console.log(customFields);
+  const status = statusList.filter((val) => val?.status.includes(prospect?.status));
 
   return (
     <>
@@ -56,7 +58,7 @@ const ProspectInfos: React.FC<ProspectInfosProps> = ({ prospect, customFields })
           </View>
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Statut:</Text>
-            <Text className='text-md font-[Poppins600]'>{prospect?.status}</Text>
+            {prospect?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}} />}
           </View>
           {prospect?.lastContactDate && (
             <View className='flex-row gap-md justify-between'>
@@ -100,15 +102,7 @@ const ProspectInfos: React.FC<ProspectInfosProps> = ({ prospect, customFields })
             {customFields.map((customField, key) => (
               <View className='flex-row gap-md justify-between' key={key}>
                 <Text className='text-md font-[Poppins400]'>{customField?.name}:</Text>
-                {customField?.type === "text" && (
-                  <Text className='text-md font-[Poppins600]'>{customField?.value}</Text>
-                )}
-                {customField?.type === "number" && (
-                  <Text className='text-md font-[Poppins600]'>{customField?.value}</Text>
-                )}
-                {customField?.type === "select" && (
-                  <Text className='text-md font-[Poppins600]'>{customField?.value}</Text>
-                )}
+                <Text className='text-md font-[Poppins600]'>{customField?.value}</Text>
               </View>
             ))}
           </Card>

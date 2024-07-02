@@ -1,42 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text } from 'react-native';
-import { auth } from '@config/firebase';
-import { signOut } from 'firebase/auth';
+import { supabase } from '@config/supabase';
 import { loginRequest, loginSuccess, loginFailure, logout } from '@stores/auth/auth.actions';
 import AuthNavigator from '@navigators/auth.navigator';
 import MainNavigator from '@navigators/main.navigator';
 import { createNavigationContainerRef } from '@react-navigation/native';
-import queryClient from '@/api/config.react-query';
+import { useCustomersApi } from '@api/api';
+import { useQuery } from '@tanstack/react-query';
+import useFetchData from '@hooks/useFetchData';
+import queryClient from '@api/config.react-query';
 
 export const navigationRef = createNavigationContainerRef();
 
 const AuthProvider = () => {
   const dispatch = useDispatch();
+  const [token, setToken] = useState('');
   const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
+  const { response, refetch } = useFetchData(() => customersApi.findMe(), ['me']);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        queryClient.clear()
-        user.getIdToken(true).then((token) => {
-          dispatch(loginSuccess(token));
-        });
-      } else {
+    queryClient.clear();
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        dispatch(loginRequest());
+
+        try {
+          const newToken = session.access_token;
+          setToken(newToken);
+          dispatch(loginSuccess(newToken));
+
+          const refreshTokenInterval = setInterval(async () => {
+            const { error, data } = await supabase.auth.refreshSession();
+            if (error) {
+              console.error('Error refreshing token', error);
+              dispatch(logout());
+            } else {
+              setToken(data?.session?.access_token);
+              dispatch(loginSuccess(data?.session?.access_token));
+            }
+          }, (session.expires_in - 60) * 1000);
+
+          return () => clearInterval(refreshTokenInterval);
+        } catch (err) {
+          dispatch(loginFailure(err.message));
+        }
+      } catch (err) {
         dispatch(logout());
+        dispatch(loginFailure(err.message));
       }
     });
-  
-    return unsubscribe;
-  }, []);
-  
+
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const handleMe = async () => {
+        const result = await refetch();
+        if (result) {
+          dispatch(loginSuccess(token, result?.data?.datas?.me));
+        } else {
+          dispatch(logout());
+        }
+      };
+
+      handleMe();
+    }
+  }, [isAuthenticated]);
 
   if (loading) {
-    return <Text>Loading</Text>;
+    return null;
   }
 
   if (error) {
-    return <Text>Erreur</Text>;
+    return null;
   }
 
   return isAuthenticated ? <MainNavigator /> : <AuthNavigator />;

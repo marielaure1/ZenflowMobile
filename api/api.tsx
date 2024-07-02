@@ -23,7 +23,7 @@ import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 export const getToken = () => {
   const token = useSelector((state) => state?.auth?.token);
-  // console.log(token);
+  console.log(token);
   
   return token;
   

@@ -3,9 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useClientsApi } from '@api/api';
 import ClientsProps from '@interfaces/clients.interface';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@/api/config.react-query';
 
 const useClients = () => {
   const clientsApi = useClientsApi();
+  const dispatch = useDispatch();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [clientsList, setClientsList] = useState<ClientsProps[]>([]);
@@ -20,8 +22,8 @@ const useClients = () => {
     {
       id: 2,
       text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
+      foreground: "#FB923C",
+      background: "#FFEDD5",
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);
@@ -36,16 +38,12 @@ const useClients = () => {
   };
 
   useEffect(() => {
-    
-    if (!fetchIsLoading) {
-
-      console.log(response.response);
-      
+    if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");
         setClientsList([]);
         setFilteredClients([]); 
-      } else {
+      } else if(response?.datas?.clients){
         setClientsList(response?.datas?.clients); 
         setFilteredClients(response?.datas?.clients); 
         setError("");

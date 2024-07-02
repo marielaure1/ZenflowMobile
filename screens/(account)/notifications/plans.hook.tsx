@@ -25,10 +25,10 @@ const usePlans = () => {
           const subscription = await subscriptionsApi.create({ plan: planId, customer: customer.customer._id});
           console.log(subscription.datas.subscriptions.subscription.stripeCustomerId);
 
-          const response = await fetch('http://192.168.1.80:3001/api/payments/create-checkout-session', {
+          const response = await fetch('https://84e2-89-84-44-89.ngrok-free.app/api/payments/create-checkout-session', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json', // Spécifiez le type de contenu
+    'Content-Type': 'application/json', 
   },
   body: JSON.stringify({
     amount: 2000,

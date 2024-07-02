@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { auth } from '@config/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+// import { auth } from '@config/firebase';
+// import { signInWithEmailAndPassword } from 'firebase/auth';
+import { supabase } from '@config/supabase';
 
 const useLogin = () => {
-    const [email, setEmail] = useState('edjour.marielaure@gmail.com');
-    const [password, setPassword] = useState('@MIm131609Dev');
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [error, setError] = useState('');
   
     const handleLogin = async () => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log(userCredential.user);
-      } catch (err) {
-        setError(err.message);
-      }
+      const { user, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        alert(error.message);
+      } 
     };
 
     return { email, setEmail, password, setPassword, error, handleLogin}
