@@ -4,19 +4,18 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import useClients from '@screens/(clients)/client/client.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
-import useStyles from "@screens/(clients)/client/client.styles";
 import FabsClient from '@/components/fabs/fabs-client/fabs-client';
-import BackgroundBanner from "@img/banner/banner-2.png";
 import ClientInfos from '@/widgets/clients/client-infos/client-infos';
 import FetchPending from '@/components/fetch-pending/fetch-pending';
 import Fabs from '@/components/fabs/fabs';
 import { Add, ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
 
 const Client = ({ navigation, route }) => {
-  const styles = useStyles();
   const { id } = route.params;
-  const {  client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields  } = useClients({ id });
+  const { handleDelete, client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields, customFieldsAll  } = useClients({ id });
   
+ console.log("customFieldsAll", customFieldsAll);
+ 
   if(isLoading || error){
     return(
       <FetchPending isLoading={isLoading} error={error?.message} type="Not Found"/>
@@ -33,8 +32,6 @@ const Client = ({ navigation, route }) => {
         {isLoadingCustomFields || fetchErrorCustomFields && 
         <FetchPending isLoading={isLoadingCustomFields} error={"Aucun champ personnalisé n'as été trouvé."} type="Not Found"/>
         }
-        
-
       </Template>
 
       <Fabs
@@ -52,7 +49,7 @@ const Client = ({ navigation, route }) => {
           text: 'Supprimer le client', 
           delay: 220, 
           value: 200, 
-          action: () => navigation.navigate("ClientPost"), 
+          action: () => handleDelete(client?.datas?.clients?._id), 
           colors: {background: "#FFE5E5", foreground: "#FF6666"}
         },
         { 
@@ -60,7 +57,7 @@ const Client = ({ navigation, route }) => {
           text: 'Gérer les champs personnalisés', 
           delay: 200, 
           value: 140, 
-          action: () => navigation.navigate("CustomFieldManage", {parentId: client._id, schema: "client"}), 
+          action: () => navigation.navigate("CustomFieldManage", {parentId: client?.datas?.clients?._id, schema: "client"}), 
           colors: {background: "#EDE9FE", foreground: "#A78BFA"}
         },
       ]}
@@ -72,7 +69,3 @@ const Client = ({ navigation, route }) => {
 };
 
 export default Client;
-
-    
-
-      

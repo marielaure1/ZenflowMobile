@@ -8,7 +8,7 @@ class TaskCategoriessReactQuery extends ApiReactQuery<TaskCategoriesProps> {
   protected apiAxios: TaskCategorieAxios;
 
   constructor(token?: string) {
-    const path = 'taskCategories';
+    const path = 'tasks-categories';
     const invalidateQueryFiltersTaskCategories: InvalidateQueryFilters = { queryKey: [path] };
     super(invalidateQueryFiltersTaskCategories, path, token);
     this.apiAxios = new TaskCategorieAxios(path, token);

@@ -28,6 +28,8 @@ export default function Clients({navigation}) {
     setTabs 
    } = useClients();
   
+   console.log("filteredClients",filteredClients);
+   
   return (
     <>
       <Template>

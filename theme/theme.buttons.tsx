@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     buttonRed: {
         backgroundColor: colors.colorRed100,
-        borderColor: colors.colorRed900
+        borderColor: colors.colorRed100
     },
     buttonRedText: {
         color: colors.colorRed900,

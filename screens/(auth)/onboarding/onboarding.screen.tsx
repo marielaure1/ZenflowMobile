@@ -30,7 +30,6 @@ const OnboardingScreen = () => {
     },
   });
 
-  // eslint-disable-next-line react/no-unstable-nested-components
   const RenderItem = ({item, index}) => {
     const imageAnimationStyle = useAnimatedStyle(() => {
       const opacityAnimation = interpolate(
@@ -120,7 +119,7 @@ const OnboardingScreen = () => {
       </Animated.View>
         <Animated.View style={textAnimationStyle}>
           <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemText}>{item.text}</Text>
+          <Text style={[styles.itemText, {color: item.textColor}]}>{item.text}</Text>
         </Animated.View>
       </View>
     );
@@ -177,13 +176,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'black',
   },
   itemText: {
     textAlign: 'center',
     marginHorizontal: 35,
+    fontSize: 18,
     color: 'black',
-    lineHeight: 20,
   },
   bottomContainer: {
     flexDirection: 'row',

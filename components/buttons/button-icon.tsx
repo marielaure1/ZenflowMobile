@@ -42,7 +42,7 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, 
             btnStyle = buttons.buttonGreen;
             break;
         case "Trash":
-            iconTag = <Trash color={'#344051'} variant="Linear" size={18} />;
+            iconTag = <Trash color={'#FD4949'} variant="Linear" size={18} />;
             btnStyle = buttons.buttonRed;
             break;
         case "Back":

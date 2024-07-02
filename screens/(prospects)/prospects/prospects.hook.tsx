@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useProspectsApi } from '@api/api';
 import ProspectsProps from '@interfaces/prospects.interface';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@/api/config.react-query';
 
 const useProspects = () => {
   const prospectsApi = useProspectsApi();
@@ -32,20 +33,18 @@ const useProspects = () => {
   const fields = ['society', 'firstName', 'lastName'];
 
   const handleSearch = (filteredData) => {
-    console.log("filteredData", filteredData);
-    
     setFilteredProspects(filteredData);
   };
-  console.log(response);
+
   useEffect(() => {
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de prospect");
         setProspectsList([]);
         setFilteredProspects([]); 
-      } else {
-        setProspectsList(response?.datas?.prospects || []); 
-        setFilteredProspects(response?.datas?.prospects || []); 
+      } else if(response?.datas?.prospects){
+        setProspectsList(response?.datas?.prospects); 
+        setFilteredProspects(response?.datas?.prospects); 
         setError("");
       }
       setIsLoading(false);

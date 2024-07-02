@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 let LOCATION = "Maison";
-let IP = LOCATION === "Maison" ? 'http://192.168.1.80:3001/api' : 'http://10.2.106.6:3001/api';
+let IP = LOCATION === "Maison" ? 'https://84e2-89-84-44-89.ngrok-free.app/api' : 'http://10.2.106.6:3001/api';
 
 class ApiAxios<DataInterface> {
   protected apiClient: AxiosInstance;
@@ -11,7 +11,7 @@ class ApiAxios<DataInterface> {
     this.token = token;
     this.apiClient = axios.create({
       baseURL: IP,
-      timeout: 10000,
+      timeout: 1000,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -84,7 +84,9 @@ class ApiAxios<DataInterface> {
 
   async findAllOwner(){
     try {
-      const response = await this.apiClient.get(`${this.path}/me`)
+      const response = await this.apiClient.get(`${this.path}/me/all`)
+      console.log(response);
+      
       return response?.data;
     } catch (error) {
       return error?.response?.data;

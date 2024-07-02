@@ -32,6 +32,10 @@ class CustomerAxios extends ApiAxios<CustomersProps> {
       return error.response.data;
     }
   }
+  async register(data) {
+    const response = await this.apiClient.post(`/${this.path}/register`, data);
+    return response.data;
+  }
 }
 
 export default CustomerAxios;

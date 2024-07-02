@@ -8,7 +8,6 @@ import Button from '@components/buttons/button';
 
 const TaskPostScreen = ({ route }) => {
   const { tabs, setTabs, title, handleInputChange, handleSubmit, form } = useTasks({ route });
-console.log(form);
 
   return (
     <>    
@@ -26,12 +25,6 @@ console.log(form);
             onChangeText={(value) => handleInputChange('description', value)}
             value={form.description}
             placeholder="Description"
-          />
-           <TextInput
-            style={styles.input}
-            onChangeText={(value) => handleInputChange('status', value)}
-            value={form.status}
-            placeholder="Status"
           />
           <Button text="Valider" type="blue" action={handleSubmit} />
         </View>

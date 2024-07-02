@@ -26,7 +26,6 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
         name={name}
         rules={rules}
         render={({ field: { onChange, onBlur, value } }) => {
-          console.log(value);
           
           return(
           <>
@@ -59,25 +58,28 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
             )}
 
 
-            {type === "date" && (
-              <>
-                <TextInput
-                  style={styles.input}
-                  placeholder={placeholder || label}
-                  onFocus={() => setOpen(true)}
-                  value={value ? value?.toDateString() : ''}
-                  {...props}
-                />
-                <DatePickerModal
-                  mode="single"
-                  visible={open}
-                  onDismiss={onDismiss}
-                  date={value}
-                  onConfirm={(params) => onConfirm(params, onChange)}
-                  locale="fr" // Vous pouvez changer la locale si nécessaire
-                />
-              </>
-            )}
+{type === "date" && (
+  <>
+    <TextInput
+      style={styles.input}
+      placeholder={placeholder || label}
+      onFocus={() => setOpen(true)}
+      value={value ? value : ''}
+      {...props}
+    />
+    <DatePickerModal
+      mode="single"
+      visible={open}
+      onDismiss={onDismiss}
+      date={value ? new Date(value) : undefined}
+      onConfirm={(params) => onConfirm(params, onChange)}
+      locale="fr"
+    />
+  </>
+)}
+
+
+          
           </>
         )}}
       />

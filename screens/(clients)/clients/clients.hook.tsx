@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useClientsApi } from '@api/api';
 import ClientsProps from '@interfaces/clients.interface';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@/api/config.react-query';
 
 const useClients = () => {
   const clientsApi = useClientsApi();
@@ -32,19 +33,16 @@ const useClients = () => {
   const fields = ['society', 'firstName', 'lastName'];
 
   const handleSearch = (filteredData) => {
-    console.log("filteredData", filteredData);
-    
     setFilteredClients(filteredData);
   };
 
   useEffect(() => {
-    
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");
         setClientsList([]);
         setFilteredClients([]); 
-      } else {
+      } else if(response?.datas?.clients){
         setClientsList(response?.datas?.clients); 
         setFilteredClients(response?.datas?.clients); 
         setError("");

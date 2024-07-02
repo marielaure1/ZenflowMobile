@@ -13,7 +13,7 @@ const useCustomFieldManage = ({ route }) => {
   const customFieldsApi = useCustomFieldsApi();
   const [customField, setCustomField] = useState([]);
   const [tabs, setTabs] = useState("Infos");
-  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => parentId ?  customFieldsApi.findOneOwnerCustomsFields(parentId, schema) : customFieldsApi.findAllOwnerCustomsFields(schema), [`${schema}-customs-fields`]);
+  const { response: initialCustomField, isLoading: fetchIsLoading, error: fetchError } = useFetchData(() => parentId ?  customFieldsApi.findOneOwnerCustomsFields(parentId, schema) : customFieldsApi.findAllOwnerCustomsFields(schema), [`${schema}-all-customs-fields`]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();

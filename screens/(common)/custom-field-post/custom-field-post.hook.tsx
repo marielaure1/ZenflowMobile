@@ -29,7 +29,7 @@ const useCustomFieldPost = ({ route }) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors  }
+    formState: { errors }
   } = useForm<CustomFieldProps>({
     defaultValues: {
       name: item ? item?.name : "",
@@ -54,8 +54,14 @@ const useCustomFieldPost = ({ route }) => {
   const handleCreate = async (data: CustomFieldProps) => {
     
     try {
-        const updatedCustomFieldsApi = await customFieldsApi.createForOne(schema, {...data, ownerId: me?.customer?._id});
-        queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+        
+        if(parentId) {
+          const updatedCustomFieldsApi = await customFieldsApi.createForAll(schema, {...data, ownerId: me?.customer?._id});
+          queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+        } else {
+          const updatedCustomFieldsApi = await customFieldsApi.createForOne(schema, {...data, ownerId: me?.customer?._id});
+          queryClient.invalidateQueries({ queryKey: [`${schema}-all-customs-fields`] });
+        }
         navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -66,7 +72,11 @@ const useCustomFieldPost = ({ route }) => {
   const handleUpdate = async (data: CustomFieldProps) => {
     try {
         const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, ownerId: me?.customer?._id});
-        queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+        if(parentId) {
+          queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
+        } else {
+          queryClient.invalidateQueries({ queryKey: [`${schema}-all-customs-fields`] });
+        }
         navigation.goBack();
     } catch (error) {
       console.log(error);

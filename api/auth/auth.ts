@@ -14,7 +14,7 @@ class AuthReactQuery extends ApiReactQuery<CustomersProps> {
     this.apiAxios = new AuthAxios(path, token);
   }
 
-  async register(data: CustomersProps) {
+  async register(data) {
     const response = await this.apiAxios.register(data);
     queryClient.setQueryData([this.type], response); 
     return response;

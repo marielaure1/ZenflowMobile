@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useClientsApi } from '@api/api';
+import { useClientsApi, useCustomersApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ClientsProps from '@interfaces/clients.interface';
-import StatusEnum from '@/common/enums/status.enum';
+import StatusEnum from '@enums/status.enum';
+import queryClient from '@api/config.react-query';
+import useFetchData from '@hooks/useFetchData';
 
 interface UseClientPostProps {
   route: any; 
@@ -18,8 +20,10 @@ const useClientPost = ({ route }: UseClientPostProps) => {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
-  const me = useSelector((state: any) => state?.auth?.customer); 
-console.log(client);
+  const customerApi = useCustomersApi();
+  
+  // const me = useSelector((state: any) => state?.auth?.customer);
+  const { response: me, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => customerApi.findMe(), ["me"]);
 
   const {
     control,
@@ -34,7 +38,7 @@ console.log(client);
       phone: client ? client.phone : '',
       address: client ? client.address : '',
       status: client ? client.status : StatusEnum.ACTIVE,
-      lastContactDate: client ? client.lastContactDate : undefined,
+      lastContactDate: client && client.lastContactDate ? new Date(client.lastContactDate).toISOString().split('T')[0] : undefined,
       marketSegment: client ? client.marketSegment : undefined,
       needs: client ? client.needs : undefined,
       leadSource: client ? client.leadSource : undefined,
@@ -44,8 +48,7 @@ console.log(client);
       ownerId: me?.customer?._id
     },
   });
-
-
+  
   const navigation = useNavigation();
 
   let title = client?._id ? 'Modifier' : 'Créer';
@@ -53,7 +56,11 @@ console.log(client);
 
   const handleCreate = async (data: FieldValues) => {
     try {
-      const createdClient = await clientsApi.create(data);
+
+      console.log(data);
+      
+      const createdClient = await clientsApi.create({...data, ownerId: me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -62,7 +69,8 @@ console.log(client);
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      const updatedClient = await clientsApi.update(client._id, data);
+      const updatedClient = await clientsApi.update(client._id, {...data, ownerId: me?.customer?._id});
+      queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);

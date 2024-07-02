@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useProjectsApi, useTaskCategoriesApi } from '@api/api';
-import { useQuery } from '@tanstack/react-query';
-import ProjectsProps from '@interfaces/projects.interface';
-import TasksProps from '@interfaces/tasks.interface';
+import { useProjectsApi } from '@api/api';
 import useFetchData from '@hooks/useFetchData';
+import ProjectsProps from '@interfaces/projects.interface';
 
-const useCardProject = ({id}) => {
+const useCardProject = ({ id }) => {
   const projectsApi = useProjectsApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -19,14 +17,12 @@ const useCardProject = ({id}) => {
 
   useEffect(() => {
     if (!fetchIsLoading && response) {
+      const totalTasks = response?.datas["projects/tasks"].tasks?.length || 0;
+      const completedTasks = response?.datas["projects/tasks"].tasks?.filter(task => task.completed).length || 0;
+      const completionPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
-        const totalTasks = response?.datas["projects/tasks"].tasks?.length;
-        const completedTasks = response?.datas["projects/tasks"].tasks?.filter(task => task.completed).length;
-        const completionPercentage = totalTasks > 0 ? completedTasks / totalTasks : 0;
-        
-    
-      setProject(response?.datas["projects/tasks"].data);
-      setTaskPourcent(completionPercentage)
+      setProject(response?.datas["projects/tasks"].data || []);
+      setTaskPourcent(completionPercentage);
       setIsLoading(false);
     }
   }, [fetchIsLoading, response]);

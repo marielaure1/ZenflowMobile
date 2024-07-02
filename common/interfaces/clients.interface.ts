@@ -8,7 +8,7 @@ interface ClientsProps{
     address: string;
     status: string;
     ownerId: string;
-    lastContactDate?: Date;
+    lastContactDate?: Date | string;
     marketSegment?: string;
     needs?: string;
     leadSource?: string;

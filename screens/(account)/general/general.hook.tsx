@@ -106,7 +106,6 @@ console.log(me);
   };
 
   const handleUpdatePassword = async (data) => {
-    console.log("eeeeeeee", data);
     
     try{
       const updatedPasswordClient = await customersApi.updateMePassword(data);

@@ -15,14 +15,6 @@ const ClientPostScreen = ({ route, navigation }) => {
   const styles = useStyles();
   const { client, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
-
-  console.log(client);
-  
-
-const handleChipChange = (selected: string[]) => {
-  console.log('Selected Chips:', selected);
-};
-
   return (
     <>    
       <Template>

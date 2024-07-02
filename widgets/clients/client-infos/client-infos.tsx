@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Card from '../../../components/cards/card/card';
+import Card from '@components/cards/card/card';
 import { CustomField } from '@interfaces/clients.interface';
-import useDateFormatter from '@/common/hooks/useDateFormatter';
+import useDateFormatter from '@hooks/useDateFormatter';
+import statusList from "@constants/flags";
+import Flag from '@components/flag/flag';
 
 interface ClientInfosProps {
   client: {
@@ -24,7 +26,9 @@ interface ClientInfosProps {
 }
 
 const ClientInfos: React.FC<ClientInfosProps> = ({ client, customFields }) => {
-  console.log(customFields);
+  
+  const status = statusList.filter((val) => val?.status.includes(client?.status))
+  
 
   return (
     <>
@@ -56,7 +60,7 @@ const ClientInfos: React.FC<ClientInfosProps> = ({ client, customFields }) => {
           </View>
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Statut:</Text>
-            <Text className='text-md font-[Poppins600]'>{client?.status}</Text>
+            {client?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
           </View>
           {client?.lastContactDate && (
             <View className='flex-row gap-md justify-between'>

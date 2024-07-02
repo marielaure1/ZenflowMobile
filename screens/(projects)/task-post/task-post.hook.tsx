@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTasksApi } from '@api/api';
 import ProjectsProps from '@interfaces/projects.interface';
+import queryClient from '@/api/config.react-query';
 // import useFetchData from '@hooks/useFetchData';
 
 const useProject = ({ route }) => {
   const id = route?.params?.id;
-  const taskCategoriesId = route?.params?.taskCategoriesId;
+  const taskCategoryId = route?.params?.taskCategoryId;
   const tasksApi = useTasksApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -23,14 +24,14 @@ const useProject = ({ route }) => {
 
   const handleSubmit = async () => {
     try{
-      console.log("tasks", { ...form, taskCategoriesId });
       
-      const taskCategories = await tasksApi.create({ ...form, taskCategoriesId });
+      const taskCategories = await tasksApi.create({ ...form, taskCategoryId });
+      queryClient.invalidateQueries({queryKey: ["projects"]})
+      queryClient.invalidateQueries({queryKey: ["tasks"]})
       navigation.goBack();
       
     } catch(error){
       console.log(error);
-      
     }
   };
   // useEffect(() => {

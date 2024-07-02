@@ -31,6 +31,12 @@ class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
     queryClient.invalidateQueries({ queryKey: ["me"] });
     return response;
   }
+
+  async register(data: CustomersProps) {
+    const response = await this.apiAxios.register(data);
+    queryClient.setQueryData([this.type], response); 
+    return response;
+  }
 }
 
 export default CustomersReactQuery;

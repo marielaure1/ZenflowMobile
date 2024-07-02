@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthApi } from '@/api/api';
-import { auth } from '@config/firebase';
-import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { useAuthApi } from '@api/api';
+// import { auth } from '@config/firebase';
+// import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { supabase } from '@config/supabase';
 
 type FormData = {
   firstName: string;
@@ -37,19 +38,17 @@ const useRegister = () => {
 
   const handleRegister = async (data: FormData) => {
     try {
-      // Enregistrer l'utilisateur ou faire d'autres opérations nécessaires
-      const customers = await customersApi.register(data);
-      console.log(customers);
+      const { user, error } = await supabase.auth.signUp({ email: data.email, password: data.password });
 
-      // Envoyer un e-mail de vérification à l'utilisateur
-      // if (auth.currentUser) {
-      //   const sendEmail = await sendEmailVerification(customers.datas.auth.firestore);
-      //   console.log(sendEmail);
-      // }
+      user
+      if (error) {
+        alert(error.message);
+      } else {
+        //register
+      }
 
-      // Connexion de l'utilisateur après l'inscription
-      const signIn = await signInWithEmailAndPassword(auth, data.email, data.password);
-      console.log(signIn);
+      // const signIn = await signInWithEmailAndPassword(auth, data.email, data.password);
+      // console.log(signIn);
     } catch (error) {
       console.log(error);
     }

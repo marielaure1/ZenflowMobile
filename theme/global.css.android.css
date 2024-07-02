@@ -1,0 +1,546 @@
+@cssInterop set darkMode class dark;
+
+@cssInterop set nativewind;
+
+*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-rotate: 0deg;
+  --tw-skew-x: 0deg;
+  --tw-skew-y: 0deg
+}
+
+::-webkit-backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-rotate: 0deg;
+  --tw-skew-x: 0deg;
+  --tw-skew-y: 0deg
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-rotate: 0deg;
+  --tw-skew-x: 0deg;
+  --tw-skew-y: 0deg
+}
+
+.container {
+  width: 100%
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px
+  }
+}
+
+.fixed {
+  position: fixed
+}
+
+.absolute {
+  position: absolute
+}
+
+.bottom-\[100\] {
+  bottom: 100
+}
+
+.bottom-\[15\] {
+  bottom: 15
+}
+
+.left-\[0\] {
+  left: 0
+}
+
+.right-4 {
+  right: 1rem
+}
+
+.right-\[15\] {
+  right: 15
+}
+
+.top-\[40px\] {
+  top: 40px
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem
+}
+
+.mb-\[10px\] {
+  margin-bottom: 10px
+}
+
+.mb-\[20px\] {
+  margin-bottom: 20px
+}
+
+.flex {
+  display: flex
+}
+
+.grid {
+  display: grid
+}
+
+.hidden {
+  display: none
+}
+
+.h-12 {
+  height: 3rem
+}
+
+.h-\[100\] {
+  height: 100
+}
+
+.h-\[130px\] {
+  height: 130px
+}
+
+.h-\[30px\] {
+  height: 30px
+}
+
+.h-\[50px\] {
+  height: 50px
+}
+
+.h-\[80px\] {
+  height: 80px
+}
+
+.h-full {
+  height: 100%
+}
+
+.h-screen {
+  height: 100vh
+}
+
+.w-12 {
+  width: 3rem
+}
+
+.w-\[30px\] {
+  width: 30px
+}
+
+.w-\[47\%\] {
+  width: 47%
+}
+
+.w-\[50px\] {
+  width: 50px
+}
+
+.w-\[70\%\] {
+  width: 70%
+}
+
+.w-full {
+  width: 100%
+}
+
+.w-screen {
+  width: 100vw
+}
+
+.transform {
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.flex-row {
+  flex-direction: row
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.flex-wrap {
+  flex-wrap: wrap
+}
+
+.items-center {
+  align-items: center
+}
+
+.justify-start {
+  justify-content: flex-start
+}
+
+.justify-end {
+  justify-content: flex-end
+}
+
+.justify-center {
+  justify-content: center
+}
+
+.justify-between {
+  justify-content: space-between
+}
+
+.gap-md {
+  gap: 15px
+}
+
+.gap-sm {
+  gap: 10px
+}
+
+.gap-xl {
+  gap: 25px
+}
+
+.gap-xs {
+  gap: 5px
+}
+
+.overflow-hidden {
+  overflow: hidden
+}
+
+.rounded-\[15px\] {
+  border-radius: 15px
+}
+
+.rounded-\[20\] {
+  border-radius: 20
+}
+
+.rounded-\[25px\] {
+  border-radius: 25px
+}
+
+.rounded-full {
+  border-radius: 9999px
+}
+
+.rounded-lg {
+  border-radius: 20px
+}
+
+.rounded-md {
+  border-radius: 15px
+}
+
+.rounded-sm {
+  border-radius: 10px
+}
+
+.bg-\[\#06A5FF\] {
+  background-color: #06A5FF
+}
+
+.bg-background {
+  background-color: #F4F7FE
+}
+
+.bg-base-0 {
+  background-color: #FFFFFF
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6
+}
+
+.bg-orange-400 {
+  background-color: #fb923c
+}
+
+.bg-sky-100 {
+  background-color: #e2f6fe
+}
+
+.bg-zinc-100 {
+  background-color: #f4f4f5
+}
+
+.p-\[10px\] {
+  padding: 10px
+}
+
+.p-\[15px\] {
+  padding: 15px
+}
+
+.p-\[20px\] {
+  padding: 20px
+}
+
+.p-md {
+  padding: 15px
+}
+
+.p-sm {
+  padding: 10px
+}
+
+.p-xs {
+  padding: 5px
+}
+
+.py-\[30px\] {
+  padding-top: 30px;
+  padding-bottom: 30px
+}
+
+.pb-\[10px\] {
+  padding-bottom: 10px
+}
+
+.pb-\[30px\] {
+  padding-bottom: 30px
+}
+
+.pt-\[50px\] {
+  padding-top: 50px
+}
+
+.pt-\[70px\] {
+  padding-top: 70px
+}
+
+.text-center {
+  text-align: center
+}
+
+.font-\[Poppins400\] {
+  font-family: Poppins400
+}
+
+.font-\[Poppins600\] {
+  font-family: Poppins600
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem
+}
+
+.text-\[14px\] {
+  font-size: 14px
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
+}
+
+.text-base-500 {
+  color: #637083
+}
+
+.text-neutral-900 {
+  color: #171717
+}
+
+.text-white {
+  color: #fff
+}
+
+.text-zinc-500 {
+  color: #71717a
+}
+
+.text-zinc-900 {
+  color: #18181b
+}
+
+.filter {
+  -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+          filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+}
+
+.elevation {
+  -rn-elevation: 3
+}
+
+.visible {
+  opacity: 1
+}
