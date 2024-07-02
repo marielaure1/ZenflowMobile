@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useProspectsApi } from '@api/api';
+import { useCustomersApi, useProspectsApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ProspectsProps from '@interfaces/prospects.interface';
 import StatusEnum from '@/common/enums/status.enum';
@@ -14,8 +14,6 @@ interface UseProspectPostProps {
 const useProspectPost = ({ route }: UseProspectPostProps) => {
   const prospect = route?.params?.prospect as ProspectsProps;
   const prospectsApi = useProspectsApi();
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
 
@@ -41,7 +39,7 @@ const useProspectPost = ({ route }: UseProspectPostProps) => {
       companySize: prospect ? prospect.companySize : undefined,
       estimatedBudget: prospect ? prospect.estimatedBudget : undefined,
       customFieldValues: prospect ? prospect.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.datas?.me?.customer?._id
     },
   });
 

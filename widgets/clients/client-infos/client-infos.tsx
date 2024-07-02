@@ -61,6 +61,7 @@ const ClientInfos: React.FC<ClientInfosProps> = ({ client, customFields }) => {
           <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Statut:</Text>
             {client?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
+            {client?.status && <Flag text={status[0].text} colors={{"background": status[0].background, "foreground": status[0].foreground}}/>}
           </View>
           {client?.lastContactDate && (
             <View className='flex-row gap-md justify-between'>

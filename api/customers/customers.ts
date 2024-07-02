@@ -15,7 +15,9 @@ class CustomersReactQuery extends ApiReactQuery<CustomersProps> {
   }
 
   async findMe() {
+    
     const response = await this.apiAxios.findMe();
+    
     queryClient.setQueryData(["me"], response);
     return response;
   }

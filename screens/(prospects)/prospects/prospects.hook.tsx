@@ -21,8 +21,8 @@ const useProspects = () => {
     {
       id: 2,
       text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
+      foreground: "#FB923C",
+      background: "#FFEDD5",
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);
@@ -36,8 +36,11 @@ const useProspects = () => {
     setFilteredProspects(filteredData);
   };
 
+
   useEffect(() => {
-    if (!fetchIsLoading && response) {
+queryClient.invalidateQueries({queryKey: ["prospects"]})
+    
+    if (!fetchIsLoading) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de prospect");
         setProspectsList([]);

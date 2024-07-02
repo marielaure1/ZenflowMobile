@@ -9,7 +9,6 @@ import CustomFieldEnum from '@/common/enums/custom-field.enum';
 import queryClient from '@/api/config.react-query';
 const useCustomFieldPost = ({ route }) => {
   const parentId = route?.params?.parentId;
-  console.log("parentIdx", parentId);
   const item = route?.params?.item;
   const schema = route?.params?.schema;
   const customFieldsApi = useCustomFieldsApi();
@@ -23,7 +22,6 @@ const useCustomFieldPost = ({ route }) => {
   
   let title = item ? "Modifier" : "Créer";
   title += " un champ";
-  console.log(schema);
 
   const {
     control,
