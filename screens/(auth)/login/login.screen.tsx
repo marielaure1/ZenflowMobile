@@ -17,7 +17,7 @@ const LoginScreen = ({navigation}) => {
        <Text style={styles.title}>Connexion</Text>
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
-        <Alert error={error} message={"Identifiants incorrects."} />
+        {/* <Alert error={error} message={"Identifiants incorrects."} /> */}
 
         <Field get={email} set={setEmail} name="Email"/>
         <Field get={password} set={setPassword} name="Password" secureTextEntry={true}/>

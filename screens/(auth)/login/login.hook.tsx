@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { supabase } from '@config/supabase';
 
 const useLogin = () => {
-    const [email, setEmail] = useState('edjour.marielaure@gmail.com');
-    const [password, setPassword] = useState('@Test123456');
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [error, setError] = useState('');
   
     const handleLogin = async () => {
