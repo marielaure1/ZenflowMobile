@@ -19,13 +19,6 @@ class AuthReactQuery extends ApiReactQuery<CustomersProps> {
     queryClient.setQueryData([this.type], response); 
     return response;
   }
-
-  async verifToken(token: string) {
-    console.log("token", token);
-    
-    const response = await this.apiAxios.verifToken(token);
-    return response;
-  }
 }
 
 export default AuthReactQuery;

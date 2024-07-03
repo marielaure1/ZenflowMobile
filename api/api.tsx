@@ -22,11 +22,7 @@ import CustomFieldsProps from '@interfaces/custom-fields.interface';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 export const getToken = () => {
-  const token = useSelector((state) => state?.auth?.token);
-  console.log(token);
-  
-  return token;
-  
+  return useSelector((state) => state?.auth?.token);
 }
 export const useAuthApi = () => {
   return new AuthReactQuery(getToken());

@@ -23,6 +23,7 @@ const usePlans = () => {
         
         try {
           const subscription = await subscriptionsApi.create({ plan: planId, customer: customer.customer._id});
+          console.log(subscription.datas.subscriptions.subscription.stripeCustomerId);
 
           const response = await fetch('https://84e2-89-84-44-89.ngrok-free.app/api/payments/create-checkout-session', {
   method: 'POST',
@@ -38,6 +39,10 @@ const usePlans = () => {
 
 
           const jsonData = await response.json()
+
+          console.log(jsonData);
+          
+          
 
           const { error } = await initPaymentSheet({
             merchantDisplayName: "Example, Inc.",

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useProjectsApi, useCustomersApi } from '@api/api';
+import { useProjectsApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ProjectsProps from '@interfaces/projects.interface';
 import StatusEnum from '@/common/enums/status.enum';
 import PriorityEnum from '@/common/enums/priority.enum';
 import queryClient from '@/api/config.react-query';
-import useFetchData from '@/common/hooks/useFetchData';
 
 interface UseProjectPostProps {
   route: any; 
@@ -16,9 +15,10 @@ interface UseProjectPostProps {
 const useProjectPost = ({ route }: UseProjectPostProps) => {
   const project = route?.params?.project as ProjectsProps;
   const projectsApi = useProjectsApi();
-  const customerApi = useCustomersApi()
+  const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
-  const { response: me, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => customerApi.findMe(), ["me"]);
+  const me = useSelector((state: any) => state?.auth?.customer); 
 
   const {
     control,
@@ -32,7 +32,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
       priority: project ? project.priority : PriorityEnum.MEDIUM,
       picture: project ? project.picture : '',
       customFieldValues: project ? project.customFieldValues : [],
-      ownerId: me?.datas?.me?.customer?._id
+      ownerId: me?.customer?._id
     },
   });
 
@@ -42,9 +42,8 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
   title += ' un projet';
 
   const handleCreate = async (data: FieldValues) => {
-    
     try {
-      const createdProject = await projectsApi.create({...data, ownerId: me?.datas?.me?.customer?._id});
+      const createdProject = await projectsApi.create(data);
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
     } catch (error) {
@@ -57,7 +56,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
 
       console.log(data);
       
-      const updatedProject = await projectsApi.update(project._id, {...data, ownerId: me?.datas?.me?.customer?._id});
+      const updatedProject = await projectsApi.update(project._id, data);
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
     } catch (error) {

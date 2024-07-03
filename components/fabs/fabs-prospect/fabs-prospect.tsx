@@ -17,6 +17,8 @@ const FabsProspect = ({prospect}) => {
   const handleDelete = async () => {
     try {
       const deletedProspect = await prospectsApi.delete(prospect._id);
+      console.log(deletedProspect);
+
       navigation.navigate("Prospects")
       
     } catch (error) {

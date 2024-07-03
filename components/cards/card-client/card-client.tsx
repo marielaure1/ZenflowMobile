@@ -22,7 +22,6 @@ interface CardClientsProps {
 }
 
 
-
 const CardClients: React.FC<CardClientsProps> = ({ data }) => {
   const { navigation } = useCardClient();
   
@@ -45,11 +44,7 @@ const CardClients: React.FC<CardClientsProps> = ({ data }) => {
 
             <Text className={`text-lg text-neutral-900 ${data?.society ? "font-[Poppins400]" : "font-[Poppins600]"}`}>
               {data?.society && "Nom complet : "} {data?.firstName} {data?.lastName}
-              {data?.society && "Nom complet : "} {data?.firstName} {data?.lastName}
             </Text>
-
-            {data?.email && <Text className={`text-lg text-neutral-900 font-[Poppins400]`}>Email : {data?.email}</Text>}
-            {data?.phone && <Text className={`text-lg text-neutral-900 font-[Poppins400]`}>Téléphone : {data?.phone}</Text>}
 
             {data?.email && <Text className={`text-lg text-neutral-900 font-[Poppins400]`}>Email : {data?.email}</Text>}
             {data?.phone && <Text className={`text-lg text-neutral-900 font-[Poppins400]`}>Téléphone : {data?.phone}</Text>}

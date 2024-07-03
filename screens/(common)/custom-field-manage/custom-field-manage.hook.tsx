@@ -18,9 +18,6 @@ const useCustomFieldManage = ({ route }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
-  console.log("eeeeeee", initialCustomField);
-  
-
   const {
     control,
     handleSubmit,
@@ -33,11 +30,6 @@ const useCustomFieldManage = ({ route }) => {
       schema: route?.params?.schema
     }
   });
-
-  useEffect(() => {
-    // queryClient.invalidateQueries({queryKey: ["clients-customs-fields"]})
-  }, [])
-  
 
   useEffect(() => {
     if (!fetchIsLoading && initialCustomField) {

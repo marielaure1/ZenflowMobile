@@ -61,6 +61,6 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "global.d.ts", 
-    "screens/(notes)/note"  ]
+    "global.d.ts"
+, "screens/(notes)/note"  ]
 }

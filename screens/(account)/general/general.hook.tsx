@@ -42,6 +42,7 @@ const useGeneral = () => {
     },
   ]);
   const [currentTab, setCurrentTab] = useState(1);
+console.log(me);
 
   const {
     control: controlProfil,
@@ -92,6 +93,8 @@ const useGeneral = () => {
   };
 
   const handleUpdateEmail = async (data) => {
+    console.log(data);
+    
     try{
       const updatedEmailClient = await customersApi.updateMeEmail(data.email);
       // navigation.goBack();
@@ -106,6 +109,11 @@ const useGeneral = () => {
     
     try{
       const updatedPasswordClient = await customersApi.updateMePassword(data);
+      // navigation.goBack();
+
+      console.log("updatedPasswordClient :", updatedPasswordClient);
+      
+      
     } catch(error){
       console.log(error);
       

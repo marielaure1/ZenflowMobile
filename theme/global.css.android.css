@@ -452,6 +452,10 @@
   padding: 15px
 }
 
+.p-sm {
+  padding: 10px
+}
+
 .p-xs {
   padding: 5px
 }
@@ -503,11 +507,6 @@
   line-height: 1.75rem
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem
-}
-
 .text-base-500 {
   color: #637083
 }
@@ -518,10 +517,6 @@
 
 .text-white {
   color: #fff
-}
-
-.text-zinc-500 {
-  color: #71717a
 }
 
 .text-zinc-900 {

@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build-css": "node-sass theme/sass -o theme/css --recursive"
   },
   "dependencies": {
     "@10play/tentap-editor": "^0.5.7",

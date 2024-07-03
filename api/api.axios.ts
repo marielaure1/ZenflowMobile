@@ -21,32 +21,13 @@ class ApiAxios<DataInterface> {
 
   private init() {
     this.apiClient.interceptors.request.use(
-      async (config) => {
-        if (!this.token) {
-          this.token = await auth.currentUser?.getIdToken(true);
-        }
+      (config) => {
         if (this.token) {
           config.headers.Authorization = `Bearer ${this.token}`;
         }
         return config;
       },
       (error) => {
-        return Promise.reject(error);
-      }
-    );
-
-    this.apiClient.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      async (error) => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-          this.token = await auth.currentUser?.getIdToken(true);
-          originalRequest.headers.Authorization = `Bearer ${this.token}`;
-          return this.apiClient(originalRequest);
-        }
         return Promise.reject(error);
       }
     );

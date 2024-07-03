@@ -50,7 +50,6 @@ const Client = ({ navigation, route }) => {
           delay: 220, 
           value: 200, 
           action: () => handleDelete(client?.datas?.clients?._id), 
-          action: () => handleDelete(client?.datas?.clients?._id), 
           colors: {background: "#FFE5E5", foreground: "#FF6666"}
         },
         { 
@@ -58,7 +57,6 @@ const Client = ({ navigation, route }) => {
           text: 'Gérer les champs personnalisés', 
           delay: 200, 
           value: 140, 
-          action: () => navigation.navigate("CustomFieldManage", {parentId: client?.datas?.clients?._id, schema: "client"}), 
           action: () => navigation.navigate("CustomFieldManage", {parentId: client?.datas?.clients?._id, schema: "client"}), 
           colors: {background: "#EDE9FE", foreground: "#A78BFA"}
         },
