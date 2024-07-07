@@ -7,7 +7,7 @@ function PaymentScreen() {
   /// TODO : Cet page doit passer en prio apres la connexion, il ne faut pas en sortir sans avoir payer!
 
   const fetchCheckoutSession = async () => {
-    const response = await fetch('https://84e2-89-84-44-89.ngrok-free.app/api/payments/create-checkout-session', { 
+    const response = await fetch('http://192.168.1.80:3001/api/payments/create-checkout-session', { 
       method: 'POST',
       
     });

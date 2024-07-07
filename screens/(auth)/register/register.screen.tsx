@@ -5,6 +5,7 @@ import styles from '@screens/(auth)/register/register.styles';
 import Button from "@components/buttons/button";
 import FieldControl from "@components/fields/field-control";
 import Regex from "@constants/regex";
+import Template from '@/components/layout/template/template';
 
 
 
@@ -12,7 +13,7 @@ const RegisterScreen = ({ navigation }) => {
   const { control, handleSubmit, handleRegister, errors, validatePasswordConfirm } = useRegister();
 
   return (
-    <View style={styles.container}>
+    <Template>
       <Text style={styles.title}>Inscription</Text>
       
       <FieldControl 
@@ -81,7 +82,7 @@ const RegisterScreen = ({ navigation }) => {
 
       <Button text="Inscription" type="primary" action={handleSubmit(handleRegister)} />
       <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgetPassword')}>Mot de passe oublié</Text>
-    </View>
+    </Template>
   );
 };
 

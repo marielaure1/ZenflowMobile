@@ -32,7 +32,7 @@ const useProspects = () => {
 
   const fields = ['society', 'firstName', 'lastName'];
 
-  const handleSearch = (filteredData) => {
+  const handleSearch = (filteredData: ProspectsProps[]) => {
     setFilteredProspects(filteredData);
   };
 

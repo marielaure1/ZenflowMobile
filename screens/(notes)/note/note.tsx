@@ -8,18 +8,25 @@ import {
   TextInput,
 } from 'react-native';
 import { RichText, Toolbar, useEditorBridge } from '@10play/tentap-editor';
+import useNote from './note.hook';
 
-const Basic = () => {
-  const editor = useEditorBridge({
-    autofocus: true,
-    avoidIosKeyboard: true
-  });
+const Basic = ({ route }) => {
+  const { id } = route.params || {};
+  const { title, setTitle, content, setContent, isLoading, error, editor } = useNote({ id });
 
   return (
     <SafeAreaView className="bg-sky-100 pt-[50px] p-[20px]" style={[styles.fullScreen]}>
-      <TextInput placeholder='Titre' className='text-2xl mb-5'/>
-      
-      <RichText editor={editor} />
+      <TextInput
+        placeholder="Titre"
+        className="text-2xl mb-5"
+        value={title}
+        onChangeText={setTitle}
+      />
+
+      <RichText
+        editor={editor}
+      />
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
@@ -28,6 +35,7 @@ const Basic = () => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+
 };
 
 export default Basic;

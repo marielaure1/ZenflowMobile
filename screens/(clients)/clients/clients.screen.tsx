@@ -27,9 +27,7 @@ export default function Clients({navigation}) {
     tabs, 
     setTabs 
    } = useClients();
-  
-   console.log("filteredClients",filteredClients);
-   
+
   return (
     <>
       <Template>

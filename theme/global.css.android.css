@@ -408,6 +408,10 @@
   border-radius: 10px
 }
 
+.rounded-xs {
+  border-radius: 5px
+}
+
 .bg-\[\#06A5FF\] {
   background-color: #06A5FF
 }
@@ -430,6 +434,10 @@
 
 .bg-sky-100 {
   background-color: #e2f6fe
+}
+
+.bg-white {
+  background-color: #fff
 }
 
 .bg-zinc-100 {
@@ -460,9 +468,24 @@
   padding: 5px
 }
 
+.px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+.py-\[15px\] {
+  padding-top: 15px;
+  padding-bottom: 15px
+}
+
 .py-\[30px\] {
   padding-top: 30px;
   padding-bottom: 30px
+}
+
+.py-\[5px\] {
+  padding-top: 5px;
+  padding-bottom: 5px
 }
 
 .pb-\[10px\] {
@@ -489,6 +512,10 @@
   font-family: Poppins400
 }
 
+.font-\[Poppins500\] {
+  font-family: Poppins500
+}
+
 .font-\[Poppins600\] {
   font-family: Poppins600
 }
@@ -496,6 +523,10 @@
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
+}
+
+.text-\[12px\] {
+  font-size: 12px
 }
 
 .text-\[14px\] {

@@ -4,11 +4,11 @@ import { supabase } from '@config/supabase';
 import { loginRequest, loginSuccess, loginFailure, logout } from '@stores/auth/auth.actions';
 import AuthNavigator from '@navigators/auth.navigator';
 import MainNavigator from '@navigators/main.navigator';
-import { createNavigationContainerRef } from '@react-navigation/native';
+import { createNavigationContainerRef, NavigationContainer } from '@react-navigation/native';
 import { useCustomersApi } from '@api/api';
-import { useQuery } from '@tanstack/react-query';
 import useFetchData from '@hooks/useFetchData';
 import queryClient from '@api/config.react-query';
+import Loading from '@/screens/(common)/loading/loading.screen';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -16,12 +16,13 @@ const AuthProvider = () => {
   const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
+  const [customer, setCustomer] = useState(null);
   const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
   const { response, refetch } = useFetchData(() => customersApi.findMe(), ['me']);
 
   useEffect(() => {
     queryClient.clear();
-    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: {subscription: authListener} } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
         dispatch(loginRequest());
 
@@ -51,27 +52,49 @@ const AuthProvider = () => {
     });
 
     return () => {
-      data.subscription.unsubscribe();
+      if (authListener) authListener.unsubscribe();
     };
   }, [dispatch]);
+
+  
+  const checkSession = async () => {
+    const { data } = await supabase.auth.getSession();
+
+    if (data?.session) {
+      const newToken = data?.session?.access_token;
+      setToken(newToken);
+      dispatch(loginSuccess(newToken));
+    } else {
+      dispatch(logout());
+    }
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
       const handleMe = async () => {
+        if (!token) {
+          checkSession();
+        }
+
         const result = await refetch();
-        if (result) {
-          dispatch(loginSuccess(token, result?.data?.datas?.me));
+        console.log("result", result);
+        
+        if (result?.data) {
+          setCustomer(result.data.datas.me);
+          dispatch(loginSuccess(token, result.data.datas.me));
         } else {
+          setCustomer(null);
+          setToken('');
           dispatch(logout());
         }
       };
 
       handleMe();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, refetch, token, dispatch]);
 
   if (loading) {
-    return null;
+    return <Loading/>;
   }
 
   if (error) {

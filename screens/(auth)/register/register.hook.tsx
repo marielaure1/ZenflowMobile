@@ -36,15 +36,17 @@ const useRegister = () => {
     return value === password || "Les mots de passe ne correspondent pas";
   };
 
-  const handleRegister = async (data: FormData) => {
+  const handleRegister = async (datas: FormData) => {
     try {
-      const { user, error } = await supabase.auth.signUp({ email: data.email, password: data.password });
+console.log(datas);
 
-      user
+      
+      const { data, error } = await supabase.auth.signUp({ email: datas.email, password: datas.password, options: { data: {...datas}} });
+      
       if (error) {
         alert(error.message);
       } else {
-        //register
+        
       }
 
       // const signIn = await signInWithEmailAndPassword(auth, data.email, data.password);

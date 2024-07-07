@@ -9,7 +9,7 @@ import FetchPending from '@components/fetch-pending/fetch-pending';
 
 const PlansScreen: React.FC = () => {
   const styles = useStyles();
-  const { myPlan, subscriptionState, navigation, response, error, isLoading, handleChangePlan, hangleCancelPlan, openPaymentSheet} = usePlans();
+  const { myPlan, subscriptionState, navigation, response, error, isLoading, handleChangePlan, hangleCancelPlan, openPaymentSheet} = usePlans();  
 
 // TODO/ résilier
 

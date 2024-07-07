@@ -10,7 +10,7 @@ const CardPlans = ({ action, plan, subscriptionState }: { action: () => void; pl
     <Card className="w-[250px]">
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <LottieView
-          source={require("@icons/lottie/starter.json")}
+          source={require("@icons/lottie/starter.icon.json")}
           style={{
             width: 100 * 0.9,
             height: 100 * 0.9,

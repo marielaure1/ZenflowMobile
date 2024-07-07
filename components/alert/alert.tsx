@@ -2,8 +2,6 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 
 const Alert = ({message = "Une erreur c'est produite", type ="error", error =""}) => {
-    console.log(error);
-
     let backgroundColor = "#FFE1E1";
     let color = "#FD4949";
 

@@ -36,7 +36,6 @@ const useProject = ({id}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log("responseresponse", response?.datas["projects/tasks"].data)
     if (!fetchIsLoading && response) {
 ;
       setProject(response?.datas["projects/tasks"].data);

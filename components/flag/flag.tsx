@@ -1,22 +1,16 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, ViewStyle, View } from 'react-native';
-// import texts from '@theme/theme.texts';
-// import ButtonSecondary from "@components/buttons/buttonSecondary";
-// import useHeader from "@components/layout/header/header.hook";
-import useStyles from "@/components/flag/flag.styles";
-import {colorsFlag} from '@theme/theme.colors';
-// import Menu from "@assets/icons/essentional/menu";
+import { Text, View } from 'react-native';
 
 interface FlagProps {
     text :string;
-    color :object;
+    colors : {background: string, foreground: string};
+    onPress: () => void
 }
 
-const Header: React.FC<FlagProps> = ({text, colors}) => {
-    const styles = useStyles();
+const Header: React.FC<FlagProps> = ({text, colors, onPress}) => {
 
     return (
-        <Text style={[styles.flag, {backgroundColor: colors.background, color: colors.foreground}]}> {text}</Text>
+        <Text className='px-[10px]  py-[5px] rounded-xs font-[Poppins500] text-[12px] text-center' style={[{backgroundColor: colors?.background, color: colors?.foreground}]} onPress={() => onPress}> {text}</Text>
     );
 };
 

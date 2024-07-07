@@ -14,8 +14,6 @@ import KanbanBoard from '@widgets/project/kanban/kanban';
 const Project = ({ navigation, route }) => {
   const { id } = route.params;
   const {  handleDelete, project, tabs, currentTab, setCurrentTab, taskCategories, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields  } = useProjects({ id });
-  console.log(project);
-  
 
   return (
     <>    

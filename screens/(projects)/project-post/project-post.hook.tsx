@@ -53,8 +53,6 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-
-      console.log(data);
       
       const updatedProject = await projectsApi.update(project._id, data);
       queryClient.invalidateQueries({ queryKey: ["projects"] });

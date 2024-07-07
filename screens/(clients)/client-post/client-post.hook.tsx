@@ -20,10 +20,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tabs, setTabs] = useState<string>('Infos');
-  const customerApi = useCustomersApi();
-  
-  // const me = useSelector((state: any) => state?.auth?.customer);
-  const { response: me, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => customerApi.findMe(), ["me"]);
+  const me = useSelector((state: any) => state?.auth?.customer); 
 
   const {
     control,
@@ -48,18 +45,15 @@ const useClientPost = ({ route }: UseClientPostProps) => {
       ownerId: me?.customer?._id
     },
   });
-  
+
   const navigation = useNavigation();
 
   let title = client?._id ? 'Modifier' : 'Créer';
   title += ' un client';
 
-  const handleCreate = async (data: FieldValues) => {
+  const handleCreate = async (datas: ClientsProps) => {
     try {
-
-      console.log(data);
-      
-      const createdClient = await clientsApi.create({...data, ownerId: me?.customer?._id});
+      const createdClient = await clientsApi.create(datas);
       queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {
@@ -67,9 +61,10 @@ const useClientPost = ({ route }: UseClientPostProps) => {
     }
   };
 
-  const handleUpdate = async (data: FieldValues) => {
+  const handleUpdate = async (datas: ClientsProps) => {
     try {
-      const updatedClient = await clientsApi.update(client._id, {...data, ownerId: me?.customer?._id});
+      const clientId = client?._id ?? "";
+      const updatedClient = await clientsApi.update(clientId, datas);
       queryClient.invalidateQueries({ queryKey: ["clients"]})
       navigation.goBack();
     } catch (error) {

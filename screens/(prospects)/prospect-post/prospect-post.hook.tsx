@@ -19,8 +19,6 @@ const useProspectPost = ({ route }: UseProspectPostProps) => {
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
 
-  console.log("me", me?.customer?._id);
-  
   const {
     control,
     handleSubmit,
@@ -52,7 +50,7 @@ const useProspectPost = ({ route }: UseProspectPostProps) => {
 
   const handleCreate = async (data: FieldValues) => {
     try {
-      const createdProspect = await prospectsApi.create({...data, ownerId: me?.customer?._id});
+      const createdProspect = await prospectsApi.create(data);
       queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {
@@ -62,7 +60,7 @@ const useProspectPost = ({ route }: UseProspectPostProps) => {
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      const updatedProspect = await prospectsApi.update(prospect?._id, {...data, ownerId: me?.customer?._id});
+      const updatedProspect = await prospectsApi.update(prospect?._id, data);
       queryClient.invalidateQueries({ queryKey: ["prospects"]})
       navigation.goBack();
     } catch (error) {

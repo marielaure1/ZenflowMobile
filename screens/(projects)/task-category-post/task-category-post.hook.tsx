@@ -18,7 +18,6 @@ const useTaskCategorie = ({ route }: UseTaskCategorieProps) => {
   const [taskCategorie, setTaskCategorie] = useState<TaskCategoriesProps[]>([]);
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
-console.log(projectId);
 
   const {
     control,

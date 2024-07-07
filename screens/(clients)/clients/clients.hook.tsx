@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useClientsApi } from '@api/api';
 import ClientsProps from '@interfaces/clients.interface';
 import useFetchData from '@hooks/useFetchData';
-import queryClient from '@/api/config.react-query';
 
 const useClients = () => {
   const clientsApi = useClientsApi();
@@ -32,7 +31,7 @@ const useClients = () => {
 
   const fields = ['society', 'firstName', 'lastName'];
 
-  const handleSearch = (filteredData) => {
+  const handleSearch = (filteredData: ClientsProps[]) => {
     setFilteredClients(filteredData);
   };
 

@@ -6,7 +6,7 @@ import ChipGroup from '@components/chip/chip-group';
 import ChipEditGroup from '@components/chip-edit/chip-edit-group';
 import { DatePickerModal } from 'react-native-paper-dates';
 
-const FieldControl = ({ control, name, label, error, item = {}, defaultSelected = [], rules = {}, defaultrules = {}, type = "input", placeholder = "", options = [], ...props }) => {
+const FieldControl = ({ control, name, label = "", error, item = {}, defaultSelected = [], rules = {}, defaultrules = {}, type = "input", placeholder = "", options = [], className = "", ...props }) => {
   const [open, setOpen] = useState(false);
 
   const onConfirm = (params, onChange) => {
@@ -25,13 +25,11 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
         control={control}
         name={name}
         rules={rules}
-        render={({ field: { onChange, onBlur, value } }) => {
-          
-          return(
+        render={({ field: { onChange, onBlur, value } }) => (
           <>
             {type === "input" && (
               <TextInput
-                style={styles.input}
+                className={`${className} bg-base-0 text-zinc-900 rounded-sm px-[10px] py-[15px] `}
                 placeholder={placeholder || label}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -57,31 +55,27 @@ const FieldControl = ({ control, name, label, error, item = {}, defaultSelected 
               />
             )}
 
-
-{type === "date" && (
-  <>
-    <TextInput
-      style={styles.input}
-      placeholder={placeholder || label}
-      onFocus={() => setOpen(true)}
-      value={value ? value : ''}
-      {...props}
-    />
-    <DatePickerModal
-      mode="single"
-      visible={open}
-      onDismiss={onDismiss}
-      date={value ? new Date(value) : undefined}
-      onConfirm={(params) => onConfirm(params, onChange)}
-      locale="fr"
-    />
-  </>
-)}
-
-
-          
+            {type === "date" && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  placeholder={placeholder || label}
+                  onFocus={() => setOpen(true)}
+                  value={value ? value : ''}
+                  {...props}
+                />
+                <DatePickerModal
+                  mode="single"
+                  visible={open}
+                  onDismiss={onDismiss}
+                  date={value ? new Date(value) : undefined}
+                  onConfirm={(params) => onConfirm(params, onChange)}
+                  locale="fr"
+                />
+              </>
+            )}
           </>
-        )}}
+        )}
       />
       {error && <Text style={{ color: 'red' }}>{error.message}</Text>}
     </View>

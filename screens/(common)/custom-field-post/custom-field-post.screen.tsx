@@ -12,9 +12,6 @@ import CustomFieldEnum from '@/common/enums/custom-field.enum';
 const CustomFieldPostScreen = ({ route }) => {
   const { control, selectedType, item, tabs, setTabs, title, errors, handleCreate, handleUpdate, handleSubmit } = useTasks({ route });
 
-console.log(item);
-console.log(item?.options);
-
   return (
     <>    
       <Template>

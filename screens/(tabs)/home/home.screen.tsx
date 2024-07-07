@@ -47,7 +47,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         <CardCatagory title="Clients" link="Clients" icon={<UserTick size="20" color="#34A853"/>} color={{ background: "#E6F4F1", foreground: "#34A853" }}/>
         <CardCatagory title="Prospects" link="Prospects" icon={<UserSearch size="20" color="#FFC045"/>} color={{ background: "#FFF0D5", foreground: "#FFC045" }}/>
         <CardCatagory title="Projets" link="Projects" icon={<TaskSquare size="20" color="#35BFFF"/>} color={{ background: "#CEF0FF", foreground: "#35BFFF" }}/>
-        <CardCatagory title="Notes" link="Note" icon={<Note size="20" color="#A78BFA"/>} color={{ background: "#EDE9FE", foreground: "#A78BFA" }}/>
+        <CardCatagory title="Notes" link="Notes" icon={<Note size="20" color="#A78BFA"/>} color={{ background: "#EDE9FE", foreground: "#A78BFA" }}/>
       </View>
 
     </Template>

@@ -18,8 +18,6 @@ const OnboardingScreen = () => {
     <Button text="Inscription" type="primary" link="Register"/>
     <Button text="Connexion" type="secondary" link="Login"/>
 
-    <Button text="Connexion" type="secondary" link="Login" icon={require("@icons/fournisseurs/Google.png")}/>
-   
   </View>
   );
 };
