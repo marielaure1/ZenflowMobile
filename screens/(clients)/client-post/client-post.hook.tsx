@@ -42,7 +42,7 @@ const useClientPost = ({ route }: UseClientPostProps) => {
       companySize: client ? client.companySize : undefined,
       estimatedBudget: client ? client.estimatedBudget : undefined,
       customFieldValues: client ? client.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.id
     },
   });
 

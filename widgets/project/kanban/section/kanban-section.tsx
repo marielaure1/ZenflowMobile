@@ -13,14 +13,19 @@ export default function KanbanSection({ projectId, title, data, keyExtractor, re
 
   return (
     <View style={[styles.container]}>
-      <View style={[styles.blocTitle]}>
-        <View style={[styles.blocTitleLeft]}>
-          <Text style={[styles.sectionTitle]}>{title}</Text>
-          <View style={[styles.count]}>
-            <Text style={[styles.countText]}>{tasks.length}</Text>
+      <View className='flex-col gap-sm'>
+        <View style={[styles.blocTitle]}>
+          <View style={[styles.blocTitleLeft]}>
+            <Text style={[styles.sectionTitle]}>{title}</Text>
+            <View style={[styles.count]}>
+              <Text style={[styles.countText]}>{tasks.length}</Text>
+            </View>
           </View>
+          <ButtonIcon icon={"Add"} link={"TaskPost"} linkParams={{ taskCategoryId: data._id }} />
         </View>
-        <ButtonIcon icon={"Add"} link={"TaskPost"} linkParams={{ taskCategoryId: data._id }} />
+        <View className='bg-purple-200 p-md '>
+          <Text className='text-sm text-purple-600 font-[Poppins400]'>{data?.description}</Text>
+        </View>
       </View>
 
       <NestableDraggableFlatList

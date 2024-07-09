@@ -54,14 +54,14 @@ const CardPlans = ({ action, plan, subscriptionState }: { action: () => void; pl
         />
       )}
 
-      {/* {(subscriptionState === "choose" || subscriptionState === "pending") && (
+      {(subscriptionState === "choose" || subscriptionState === "pending") && (
         <Button
           text="Choisir"
           type="blue"
           disabled={subscriptionState === "pending"}
           action={() => action()}
         />
-      )} */}
+      )}
 
     </Card>
   );

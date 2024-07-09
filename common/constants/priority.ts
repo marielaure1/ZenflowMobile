@@ -2,7 +2,7 @@ import PriorityEnum from "@enums/priority.enum";
 
 const priorityList = [
   {
-    type: PriorityEnum.HIGHT,
+    type: PriorityEnum.HIGH,
     text: "Haute",
     background: "#FFCDD2",
     foreground: "#D32F2F"

@@ -18,7 +18,7 @@ const KanbanTask = ({ item, drag, isActive, sectionId }) => {
       <TouchableOpacity
         activeOpacity={1}
         onLongPress={drag}
-        onPress={() => navigation.navigate("Task", { task: item, sectionId: sectionId })}
+        onPress={() => navigation.navigate("Task", { id: item._id, sectionId: sectionId })}
         disabled={isActive}
         style={[
           styles.container,

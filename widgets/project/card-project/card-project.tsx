@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import useStyles from '@components/cards/card-project/card-project.styles';
+import useStyles from '@widgets/project/card-project/card-project.styles';
 import Flag from '@components/flag/flag';
 import ProgressBar from '@components/progress-bar/progress-bar';
 import useDateFormatter from '@hooks/useDateFormatter';
-import useCardProject from '@components/cards/card-project/card-project.hook';
+import useCardProject from '@widgets/project/card-project/card-project.hook';
 import Card from '@components/cards/card/card';
 import StatusEnum from '@enums/status.enum';
 import statusList from '@constants/flags';

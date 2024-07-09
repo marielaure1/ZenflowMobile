@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 const useHome = () => {
-  const dispatch = useDispatch();
   const customer = useSelector((state) => state.auth.customer);
   const [me, setMe] = useState(customer);
 

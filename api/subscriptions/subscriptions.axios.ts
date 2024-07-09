@@ -8,10 +8,21 @@ class SubscriptionsAxios extends ApiAxios<SubscriptionsProps> {
 
   async findMySubscription() {
     try {
-      const response = await this.apiClient.get(`/${this.path}/me`);
+      const response = await this.apiClient.get(`/${this.path}/me/subscription`);
       return response.data;
     } catch (error) {
       return error.response.data;
+    }
+  }
+
+  async createSubscription(data: object) {
+    try {
+      console.log("eeeefdf", await this.apiClient.post(`/${this.path}`, data));
+      
+      const response = await this.apiClient.post(`/${this.path}`, data);
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
     }
   }
 

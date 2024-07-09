@@ -39,7 +39,7 @@ const useProspectPost = ({ route }: UseProspectPostProps) => {
       companySize: prospect ? prospect.companySize : undefined,
       estimatedBudget: prospect ? prospect.estimatedBudget : undefined,
       customFieldValues: prospect ? prospect.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.id
     },
   });
 

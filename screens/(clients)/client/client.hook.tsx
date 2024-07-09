@@ -48,7 +48,7 @@ const useClient = ({ id }: UseClientProps) => {
         companySize: client?.datas?.clients?.companySize || '',
         estimatedBudget: client?.datas?.clients?.estimatedBudget || '',
         customFieldValues: client?.datas?.clients?.customFieldValues || [],
-        ownerId: me?.customer?._id
+        ownerId: me?.id
       });
     }
   }, [client, reset, me]);

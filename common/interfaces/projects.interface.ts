@@ -4,7 +4,6 @@ import StatusEnum from '@enums/status.enum';
 interface Project {
   name: string;
   description: string;
-  picture?: string;
   status?: StatusEnum;
   priority?: Priority;
   ownerId: string;

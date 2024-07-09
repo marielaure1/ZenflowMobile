@@ -16,7 +16,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
   const project = route?.params?.project as ProjectsProps;
   const projectsApi = useProjectsApi();
   const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
 
@@ -30,9 +30,8 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
       description: project ? project.description : '',
       status: project ? project.status : StatusEnum.ACTIVE,
       priority: project ? project.priority : PriorityEnum.MEDIUM,
-      picture: project ? project.picture : '',
       customFieldValues: project ? project.customFieldValues : [],
-      ownerId: me?.customer?._id
+      ownerId: me?.id
     },
   });
 
@@ -53,16 +52,17 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
 
   const handleUpdate = async (data: FieldValues) => {
     try {
-      
+      setIsLoading(true)
       const updatedProject = await projectsApi.update(project._id, data);
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      setIsLoading(false)
       navigation.goBack();
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
+  return { isLoading, project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useProjectPost;

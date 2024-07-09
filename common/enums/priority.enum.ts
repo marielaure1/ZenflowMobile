@@ -1,7 +1,7 @@
 enum Priority {
     LOW = 'low',
     MEDIUM = 'medium',
-    HIGHT = 'hight',
+    HIGH = 'high',
     URGENT = 'urgent',
 }
 

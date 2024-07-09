@@ -20,6 +20,11 @@ class SubscriptionsReactQuery extends ApiReactQuery<SubscriptionsProps> {
     return response;
   }
 
+  async createSubscription(data: object) {
+    const response = await this.apiAxios.createSubscription(data);
+    return response;
+  }
+
   async cancelSubscription(subscriptionId: string) {
     const response = await this.apiAxios.cancelSubscription(subscriptionId);
     queryClient.setQueryData(["subscriptions"], response);

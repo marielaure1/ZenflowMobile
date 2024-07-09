@@ -38,7 +38,6 @@ const useRegister = () => {
 
   const handleRegister = async (datas: FormData) => {
     try {
-console.log(datas);
 
       
       const { data, error } = await supabase.auth.signUp({ email: datas.email, password: datas.password, options: { data: {...datas}} });

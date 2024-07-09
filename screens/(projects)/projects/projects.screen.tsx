@@ -7,7 +7,7 @@ import { ScrollView, View, Text } from 'react-native';
 import Fabs from '@components/fabs/fabs';
 import FetchPending from '@components/fetch-pending/fetch-pending';
 import ButtonPrimary from "@components/buttons/button";
-import CardProject from "@components/cards/card-project/card-project";
+import CardProject from "@widgets/project/card-project/card-project";
 import AnalyseNumber from "@components/analyse/analyse-number/analyse-number";
 import { Add, ChemicalGlass } from 'iconsax-react-native';
 import SearchBar from "@/components/search-bar/search-bar";
@@ -59,7 +59,7 @@ export default function Projects({ navigation }) {
               onSearch={handleSearch}
             />
             {filteredProjects?.length > 0 && (
-              <View className="w-full gap-md">
+              <View className="w-full flex-row flex-wrap gap-md">
                 {filteredProjects.map((project, key) => (
                   <CardProject key={key} data={project} />
                 ))}

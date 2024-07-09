@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { StatusEnum } from '@enums/status.enum';
 import { Priority } from '@enums/priority.enum';
 import CustomField from '@interfaces/custom-fields.interface';
+import queryClient from '@/api/config.react-query';
 
 interface Project {
   name: string;
@@ -57,6 +58,7 @@ const useProjectInfos = (project: Project) => {
   const onSubmit = async (data: Partial<Project>) => {
     try {
       await projectsApi.update(project.ownerId, data);
+       queryClient.invalidateQueries({queryKey: ["projects"]})
     } catch (error) {
       console.log(error);
     }

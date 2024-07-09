@@ -1,37 +1,73 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useProjectsApi } from '@api/api';
-import { useQuery } from '@tanstack/react-query';
-import ProjectsProps from '@interfaces/projects.interface';
+import { useForm } from 'react-hook-form';
+import { useTasksApi } from '@api/api';
+import { useSelector } from 'react-redux';
+import TasksProps from '@interfaces/tasks.interface';
 import useFetchData from '@hooks/useFetchData';
+import queryClient from '@api/config.react-query';
+import PriorityEnum from '@/common/enums/priority.enum';
 
-const useProject = ({id}) => {
-  const projectsApi = useProjectsApi();
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [project, setProject] = useState<ProjectsProps[]>([]);
-  const [tabs, setTabs] = useState("Infos");
+interface UseTaskProps {
+  route: object;
+}
 
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => projectsApi.findOne(id), ["projects", id]);
-
+const useTask = ({ route }: UseTaskProps) => {
+  const { id } = route.params;
+  const tasksApi = useTasksApi();
   const navigation = useNavigation();
+  const [editingField, setEditingField] = useState<string | null>(null);
+  const { response: task, isLoading, error, refetch } = useFetchData(() => tasksApi.findOne(id), ["tasks", id]);
+
+  console.log(task?.datas?.tasks?.title);
+  
+  const { control, watch, handleSubmit, formState: { errors }, reset } = useForm<TasksProps>();
 
   useEffect(() => {
-    if (!fetchIsLoading && response) {
-      
-      setProject(response?.datas?.projects);
-      setIsLoading(false);
+    if (task) {
+      reset({
+        title: task?.datas?.tasks?.title ?? '',
+        description: task?.datas?.task?.description ?? '',
+        dueDate: task?.datas?.task?.dueDate ? new Date(task?.datas?.task?.dueDate).toISOString().split('T')[0] : '',
+        priority: task?.datas?.task?.priority ?? PriorityEnum.MEDIUM,
+        // completed: task?.datas?.task?.completed || '',
+        // flags: task?.datas?.task?.flags || '',
+        // parentTaskId: task?.datas?.task?.parentTaskId || '',
+        // subTasks: task?.datas?.task?.subTasks || [],
+        // taskCategoryId: task?.datas?.task?.taskCategoryId || ''
+      });
     }
-  }, [fetchIsLoading, response]);
+  }, [task, reset]);
+
+  const handleUpdate = async (data: TasksProps) => {
+    try {
+      await tasksApi.update(id, data);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await tasksApi.delete(id);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    if (fetchError) {
-      setError(fetchError.message);
-      setIsLoading(false);
-    }
-  }, [fetchError]);
+    const subscription = watch((value, { name, type }) => {
+      if (type === 'change') {
+        handleSubmit(handleUpdate)();
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, handleSubmit]);
 
-  return { navigation, error, project, refetch, tabs, setTabs };
+  return { errors, control, task, isLoading, error, editingField, setEditingField, handleUpdate, handleDelete, refetch };
 };
 
-export default useProject;
+export default useTask;

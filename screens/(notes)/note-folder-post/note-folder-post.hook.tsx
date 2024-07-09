@@ -25,7 +25,7 @@ const useTaskCategorie = ({ route }: UseNoteFolderProps) => {
     defaultValues: {
       title: route?.params?.name || '',
       description: route?.params?.description || '',
-      ownerId: me?.customer?._id
+      ownerId: me?.id
     },
   });
 

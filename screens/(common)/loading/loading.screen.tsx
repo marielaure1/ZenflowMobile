@@ -1,20 +1,21 @@
 import React from "react";
 import { View } from "react-native";
 import LottieView from "lottie-react-native";
+import Template from "@/components/layout/template/template";
 
 const Loading = () => {
     return(
-        <View style={{ flex: 1 }} className="bg-white flex-col justify-center items-center">
+        <Template style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
             <LottieView
-            source={require("@icons/lottie/loading.icon.json")}
+            source={require("@icons/lottie/Animation - 1720553184158.json")}
             style={{
-                width: 100 * 0.9,
-                height: 100 * 0.9,
+                width: 300 * 0.9,
+                height: 300 * 0.9,
             }}
             autoPlay
             loop
             />
-        </View>
+        </Template>
     )
 }
 

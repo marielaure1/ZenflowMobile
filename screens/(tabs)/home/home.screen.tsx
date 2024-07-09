@@ -39,7 +39,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       <View className='pb-[10px] pt-[50px]'>
         <Text className='text-2xl'>
           Bonjour  
-          {me?.customer && <Text className='font-[Poppins600]'> {me?.customer?.firstName}</Text>}
+          {me && <Text className='font-[Poppins600]'> {me?.user_metadata?.firstName}</Text>}
         </Text>
       </View>
 

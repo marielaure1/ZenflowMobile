@@ -8,9 +8,14 @@ import Button from '@components/buttons/button';
 import FieldControl from '@components/fields/field-control';
 import StatusEnum from '@/common/enums/status.enum';
 import PriorityEnum from '@/common/enums/priority.enum';
+import Loading from '@/screens/(common)/loading/loading.screen';
 
 const ProjectPostScreen = ({ route, navigation }) => {
-  const { project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProjectPost({ route });
+  const {isLoading,  project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProjectPost({ route });
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <Template>
@@ -65,15 +70,6 @@ const ProjectPostScreen = ({ route, navigation }) => {
           ]}
           item={project}
         />
-
-        <FieldControl
-          control={control}
-          name="picture"
-          label="Image URL"
-          error={errors.picture}
-          rules={{ required: false }}
-        />
-
         <Button text="Valider" type="primary" action={handleSubmit(route?.params?.project ? handleUpdate : handleCreate)} />
       </View>
     </Template>

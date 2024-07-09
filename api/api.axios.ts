@@ -49,6 +49,8 @@ class ApiAxios<DataInterface> {
   async createAxios(datas: DataInterface) {
     try {
       const response = await this.apiClient.post(`/${this.path}`, datas);
+      console.log("response", response);
+      
       return response?.data;
     } catch (error) {
       return error?.response?.data;

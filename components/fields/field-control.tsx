@@ -6,7 +6,22 @@ import ChipGroup from '@components/chip/chip-group';
 import ChipEditGroup from '@components/chip-edit/chip-edit-group';
 import { DatePickerModal } from 'react-native-paper-dates';
 
-const FieldControl = ({ control, name, label = "", error, item = {}, defaultSelected = [], rules = {}, defaultrules = {}, type = "input", placeholder = "", options = [], className = "", ...props }) => {
+const FieldControl = ({ 
+  control, 
+  name, 
+  label = "", 
+  error, 
+  item = {}, 
+  defaultSelected = [], 
+  rules = {}, 
+  defaultrules = {}, 
+  type = "input", 
+  placeholder = "", 
+  options = [], 
+  className = "", 
+  multiline = false,
+  ...props 
+}) => {
   const [open, setOpen] = useState(false);
 
   const onConfirm = (params, onChange) => {
@@ -34,6 +49,7 @@ const FieldControl = ({ control, name, label = "", error, item = {}, defaultSele
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                multiline={multiline}
                 {...props}
               />
             )}

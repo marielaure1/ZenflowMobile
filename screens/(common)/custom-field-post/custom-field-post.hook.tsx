@@ -52,10 +52,10 @@ const useCustomFieldPost = ({ route }) => {
     try {
         
         if(parentId) {
-          const updatedCustomFieldsApi = await customFieldsApi.createForAll(schema, {...data, ownerId: me?.customer?._id});
+          const updatedCustomFieldsApi = await customFieldsApi.createForAll(schema, {...data, ownerId: me?.id});
           queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
         } else {
-          const updatedCustomFieldsApi = await customFieldsApi.createForOne(schema, {...data, ownerId: me?.customer?._id});
+          const updatedCustomFieldsApi = await customFieldsApi.createForOne(schema, {...data, ownerId: me?.id});
           queryClient.invalidateQueries({ queryKey: [`${schema}-all-customs-fields`] });
         }
         navigation.goBack();
@@ -67,7 +67,7 @@ const useCustomFieldPost = ({ route }) => {
 
   const handleUpdate = async (data: CustomFieldProps) => {
     try {
-        const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, ownerId: me?.customer?._id});
+        const updatedCustomFieldsApi = await customFieldsApi.update(item?._id, {...data, ownerId: me?.id});
         if(parentId) {
           queryClient.invalidateQueries({ queryKey: [`${schema}-customs-fields`] });
         } else {

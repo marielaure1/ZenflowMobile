@@ -8,8 +8,10 @@ import CustomersProps from '@/common/interfaces/customers.interface';
 import useFetchData from '@/common/hooks/useFetchData';
 import { supabase } from '@/config/supabase';
 import { logout } from '@/stores/auth/auth.actions';
+import { useDispatch } from 'react-redux';
 
 const useAccount = () => {
+  const dispatch = useDispatch()
   const customersApi = useCustomersApi();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +45,3 @@ const useAccount = () => {
 };
 
 export default useAccount;
-
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}

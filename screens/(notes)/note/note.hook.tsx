@@ -43,7 +43,7 @@ const useNote = ({ route }: UseNoteProps) => {
       console.log(content);
 
       if(title != "" && content != ""){
-        const createdNote = await notesApi.create({ title, content, ownerId: me?.customer?._id, folderId});
+        const createdNote = await notesApi.create({ title, content, ownerId: me?.id, folderId});
         console.log("createNote", createdNote);
         setCurrentId(createdNote?.datas?.notes?._id)
         
@@ -57,7 +57,7 @@ const useNote = ({ route }: UseNoteProps) => {
   const handleUpdate = async () => {
     try {
       if (currentId) {
-        await notesApi.update(currentId, { title, content, ownerId: me?.customer?._id, folderId });
+        await notesApi.update(currentId, { title, content, ownerId: me?.id, folderId });
         queryClient.invalidateQueries({ queryKey: ["notes"] });
       }
     } catch (error) {

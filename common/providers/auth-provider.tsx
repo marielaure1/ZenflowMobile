@@ -4,11 +4,11 @@ import { supabase } from '@config/supabase';
 import { loginRequest, loginSuccess, loginFailure, logout } from '@stores/auth/auth.actions';
 import AuthNavigator from '@navigators/auth.navigator';
 import MainNavigator from '@navigators/main.navigator';
-import { createNavigationContainerRef, NavigationContainer } from '@react-navigation/native';
+import { createNavigationContainerRef } from '@react-navigation/native';
 import { useCustomersApi } from '@api/api';
+import { useQuery } from '@tanstack/react-query';
 import useFetchData from '@hooks/useFetchData';
 import queryClient from '@api/config.react-query';
-import Loading from '@/screens/(common)/loading/loading.screen';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -16,20 +16,23 @@ const AuthProvider = () => {
   const customersApi = useCustomersApi();
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
-  const [customer, setCustomer] = useState(null);
-  const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
-  const { response, refetch } = useFetchData(() => customersApi.findMe(), ['me']);
+  const { isAuthenticated, loading, error, customer } = useSelector((state) => state.auth);
+  // const { response, refetch } = useFetchData(() => customersApi.findMe(), ['me']);
 
   useEffect(() => {
     queryClient.clear();
-    const { data: {subscription: authListener} } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
         dispatch(loginRequest());
 
+        console.log(session);
+        
+
         try {
           const newToken = session.access_token;
+          console.log("ss", session?.user);
           setToken(newToken);
-          dispatch(loginSuccess(newToken));
+          dispatch(loginSuccess(newToken, session?.user));
 
           const refreshTokenInterval = setInterval(async () => {
             const { error, data } = await supabase.auth.refreshSession();
@@ -37,8 +40,10 @@ const AuthProvider = () => {
               console.error('Error refreshing token', error);
               dispatch(logout());
             } else {
+              console.log("ss", data?.session?.user);
+              
               setToken(data?.session?.access_token);
-              dispatch(loginSuccess(data?.session?.access_token));
+              dispatch(loginSuccess(data?.session?.access_token, data?.session?.user));
             }
           }, (session.expires_in - 60) * 1000);
 
@@ -52,49 +57,29 @@ const AuthProvider = () => {
     });
 
     return () => {
-      if (authListener) authListener.unsubscribe();
+      data.subscription.unsubscribe();
     };
   }, [dispatch]);
 
-  
-  const checkSession = async () => {
-    const { data } = await supabase.auth.getSession();
-
-    if (data?.session) {
-      const newToken = data?.session?.access_token;
-      setToken(newToken);
-      dispatch(loginSuccess(newToken));
-    } else {
-      dispatch(logout());
-    }
-  };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      const handleMe = async () => {
-        if (!token) {
-          checkSession();
-        }
-
-        const result = await refetch();
-        console.log("result", result);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     const handleMe = async () => {
+  //       const result = await customersApi.findMe();
+  //       console.log("sdsd", result?.datas?.me);
         
-        if (result?.data) {
-          setCustomer(result.data.datas.me);
-          dispatch(loginSuccess(token, result.data.datas.me));
-        } else {
-          setCustomer(null);
-          setToken('');
-          dispatch(logout());
-        }
-      };
+  //       if (result) {
+  //         dispatch(loginSuccess(token, result?.data?.datas?.me));
+  //       } else {
+  //         dispatch(logout());
+  //       }
+  //     };
 
-      handleMe();
-    }
-  }, [isAuthenticated, refetch, token, dispatch]);
+  //     handleMe();
+  //   }
+  // }, [isAuthenticated]);
 
   if (loading) {
-    return <Loading/>;
+    return null;
   }
 
   if (error) {
