@@ -5,6 +5,8 @@ interface NotesProps{
     backgroundColor: string;
     color: string;
     ownerId: string;
+    background: string;
+    foreground: string;
     folderId?: string;
     createdAt?: Date;
     updatedAt?: Date;

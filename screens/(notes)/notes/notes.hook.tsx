@@ -1,78 +1,78 @@
 import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { useNotesApi } from '@api/api';
+import { useNotesApi, useNoteFoldersApi } from '@api/api';
 import NotesProps from '@interfaces/notes.interface';
-import useFetchData from '@hooks/useFetchData';
+import NoteFoldersProps from '@interfaces/note-folders.interface';
+import queryClient from '@/api/config.react-query';
 
 const useNotes = () => {
   const notesApi = useNotesApi();
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const noteFoldersApi = useNoteFoldersApi();
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
+  const [breadcrumbs, setBreadcrumbs] = useState<NoteFoldersProps[]>([]);
   const [notesList, setNotesList] = useState<NotesProps[]>([]);
-  const [filteredNotes, setFilteredNotes] = useState<NotesProps[]>([]); 
-  const [tabs, setTabs] = useState([
-    {
-      id: 1,
-      text: "Liste des notes",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
-    },
-    {
-      id: 2,
-      text: "Analyse",
-      foreground: "#35BFFF",
-      background: "#CEF0FF",
-    },
-  ]);
-  const [currentTab, setCurrentTab] = useState(1);
-  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => notesApi.findAllOwner(), ["notes"]);
+  const [noteFoldersList, setNoteFoldersList] = useState<NoteFoldersProps[]>([]);
 
-  const navigation = useNavigation();
+  const fetchNotesAndFolders = async (folderId: string | null) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      queryClient.clear()
+      queryClient.invalidateQueries({queryKey: ["notes"]})
+      let foldersResponse, notesResponse;
+      if (folderId) {
+        foldersResponse = await noteFoldersApi.findAllChildrenByParentId(folderId);
+        notesResponse = await notesApi.findAllOwnerByFolder(folderId);
+      } else {
+        foldersResponse = await noteFoldersApi.findAllOwner();
+        notesResponse = await notesApi.findAllOwner();
+        console.log("notesResponse", notesResponse?.datas?.notes?.notes);
+      }
+      if (foldersResponse?.code === 404) {
+        setNoteFoldersList([]);
+      } else if (foldersResponse?.datas?.noteFolders) {
+        setNoteFoldersList(foldersResponse?.datas?.noteFolders || []);
+      }
 
-  const fields = ['title'];
+      if (notesResponse?.code === 404) {
+        setNotesList([]);
+      } else if (notesResponse?.datas?.notes?.notes) {
+        setNotesList(notesResponse?.datas?.notes?.notes || []);
+      }
 
-  const handleSearch = (filteredData: NotesProps[]) => {
-    setFilteredNotes(filteredData);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (!fetchIsLoading) {
-      if (response?.code === 404) {
-        setError({type: "Not Found", message: "Vous n'avez pas encore de note"});
-        setNotesList([]);
-        setFilteredNotes([]); 
-      } else if (response?.statusCode) {
-        setError({type: "error", message: "Une erreur c'est produite"});
-        setNotesList([]);
-        setFilteredNotes([]); 
-      } else if(response?.datas?.notes?.notes){
-        setNotesList(response?.datas?.notes?.notes); 
-        setFilteredNotes(response?.datas?.notes?.notes); 
-        setError(null);
-      }
-      setIsLoading(false);
-    }
-  }, [fetchIsLoading, response]);
+    fetchNotesAndFolders(currentFolderId);
+  }, [currentFolderId]);
 
-  useEffect(() => {
-    if (fetchError) {
-      setError(fetchError.message);
-      setIsLoading(false);
-    }
-  }, [fetchError]);
+  const navigateToFolder = (folder: NoteFoldersProps) => {
+    setBreadcrumbs([...breadcrumbs, folder]);
+    setCurrentFolderId(folder._id);
+  };
 
-  return { 
-    currentTab, 
-    setCurrentTab, 
-    fields, 
-    filteredNotes, 
-    handleSearch, 
-    error, 
-    isLoading, 
-    notesList, 
-    refetch, 
-    tabs, 
-    setTabs 
+  const navigateBack = () => {
+    const newBreadcrumbs = [...breadcrumbs];
+    newBreadcrumbs.pop();
+    setBreadcrumbs(newBreadcrumbs);
+    setCurrentFolderId(newBreadcrumbs.length ? newBreadcrumbs[newBreadcrumbs.length - 1]._id : null);
+  };
+
+  return {
+    notesList,
+    noteFoldersList,
+    navigateToFolder,
+    navigateBack,
+    breadcrumbs,
+    error,
+    isLoading,
+    currentFolderId
   };
 };
 

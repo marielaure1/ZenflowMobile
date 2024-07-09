@@ -31,6 +31,7 @@ import PlansScreen from '@screens/(account)/plans/plans.screen';
 
 import NotesScreen from '@screens/(notes)/notes/notes';
 import NoteScreen from '@screens/(notes)/note/note';
+import NoteFolderPostScreen from '@screens/(notes)/note-folder-post/note-folder-post';
 
 import { Home2, TaskSquare, NotificationBing, SearchNormal, Profile } from 'iconsax-react-native'
 
@@ -123,6 +124,7 @@ const HomeNavigator = () => {
 
       <Stack.Screen name="Notes" component={NotesScreen} />
       <Stack.Screen name="Note" component={NoteScreen} />
+      <Stack.Screen name="NoteFolderPost" component={NoteFolderPostScreen} />
     </Stack.Navigator>
   );
 };

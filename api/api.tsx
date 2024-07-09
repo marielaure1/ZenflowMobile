@@ -11,7 +11,7 @@ import ClientsReactQuery from '@api/clients/clients';
 import ProspectsReactQuery from '@api/prospects/prospects';
 import CustomFieldsReactQuery from '@api/custom-fields/custom-fields';
 import NotesReactQuery from '@api/notes/notes';
-import NoteFoldersReactQuery from '@api/notes/notes';
+import NoteFoldersReactQuery from '@api/note-folders/note-folders';
 import { InvalidateQueryFilters } from '@tanstack/react-query';
 
 export const getToken = () => {

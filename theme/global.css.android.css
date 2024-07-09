@@ -444,6 +444,10 @@
   background-color: #f4f4f5
 }
 
+.bg-black {
+  background-color: #000
+}
+
 .p-\[10px\] {
   padding: 10px
 }
@@ -473,6 +477,11 @@
   padding-right: 10px
 }
 
+.px-\[20px\] {
+  padding-left: 20px;
+  padding-right: 20px
+}
+
 .py-\[15px\] {
   padding-top: 15px;
   padding-bottom: 15px
@@ -481,6 +490,11 @@
 .py-\[30px\] {
   padding-top: 30px;
   padding-bottom: 30px
+}
+
+.py-\[50px\] {
+  padding-top: 50px;
+  padding-bottom: 50px
 }
 
 .py-\[5px\] {
@@ -520,6 +534,14 @@
   font-family: Poppins600
 }
 
+.font-\[\] {
+  font-family: 
+}
+
+.font-\[Poppins\] {
+  font-family: Poppins
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem
@@ -536,6 +558,16 @@
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem
 }
 
 .text-base-500 {

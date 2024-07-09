@@ -5,48 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ae245b3-765a-4286-b012-b015a2dbe51c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/api.axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api.react-query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.react-query.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/api.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/customers/customers.axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/customers/customers.axios.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/hooks/useRealTimeNotifications.ts" beforeDir="false" afterPath="$PROJECT_DIR$/common/hooks/useRealTimeNotifications.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/providers/auth-provider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/common/providers/auth-provider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/alert/alert.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/alert/alert.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/fabs/fabs-prospect/fabs-prospect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/fabs/fabs-prospect/fabs-prospect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/fields/field-control.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/fields/field-control.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/flag/flag.styles.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/flag/flag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/flag/flag.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/socket-io.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/socket-io.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/note-folders/note-folders.axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/note-folders/note-folders.axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/note-folders/note-folders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/note-folders/note-folders.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/notes/notes.axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/notes/notes.axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/notes/notes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/notes/notes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/interfaces/note-folders.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/common/interfaces/note-folders.interface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/interfaces/notes.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/common/interfaces/notes.interface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/buttons/button-icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/buttons/button-icon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/cards/card-project/card-project.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/cards/card-project/card-project.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/cards/card/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/cards/card/card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/progress-bar/progress-bar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/progress-bar/progress-bar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/navigators/main.navigator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/navigators/main.navigator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(account)/general/general.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(account)/general/general.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(account)/help/plans.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(account)/help/plans.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(account)/notifications/plans.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(account)/notifications/plans.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(account)/payment/payment.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(account)/payment/payment.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(account)/plans/plans.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(account)/plans/plans.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(auth)/auth/auth.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(auth)/auth/auth.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(auth)/register/register.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(auth)/register/register.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(auth)/register/register.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(auth)/register/register.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(clients)/client-post/client-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(clients)/client-post/client-post.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(clients)/client/client.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(clients)/client/client.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(clients)/client/client.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(clients)/client/client.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(clients)/clients/clients.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(clients)/clients/clients.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(clients)/clients/clients.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(clients)/clients/clients.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(common)/custom-field-post/custom-field-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(common)/custom-field-post/custom-field-post.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(common)/custom-field-post/custom-field-post.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(common)/custom-field-post/custom-field-post.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/(notes)/note-folder-post/note-folder-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/note-folder-post/note-folder-post.hook.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/(notes)/note-folder-post/note-folder-post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/note-folder-post/note-folder-post.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/(notes)/note/note.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/note/note.hook.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/(notes)/note/note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/note/note.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(projects)/project-post/project-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(projects)/project-post/project-post.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(projects)/project/project.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(projects)/project/project.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(projects)/project/project.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(projects)/project/project.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(projects)/task-category-post/task-category-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(projects)/task-category-post/task-category-post.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(prospects)/prospect-post/prospect-post.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(prospects)/prospect-post/prospect-post.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(prospects)/prospects/prospects.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(prospects)/prospects/prospects.hook.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(prospects)/prospects/prospects.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(prospects)/prospects/prospects.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/(tabs)/home/home.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(tabs)/home/home.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/(notes)/notes/notes.hook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/notes/notes.hook.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/(notes)/notes/notes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/(notes)/notes/notes.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/theme/global.css.android.css" beforeDir="false" afterPath="$PROJECT_DIR$/theme/global.css.android.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widgets/clients/client-infos/client-infos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/clients/client-infos/client-infos.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widgets/custom-fields/render-item/render-item.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/custom-fields/render-item/render-item.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widgets/plans/card-plans/card-plans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/plans/card-plans/card-plans.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widgets/notes/card-folder/card-folder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/notes/card-folder/card-folder.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widgets/notes/card-note/card-note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/notes/card-note/card-note.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,18 +52,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "FEA/CustomFields",
-    "last_opened_file_path": "C:/Users/edjou/Documents/Developpement/Projet/FULLSTACK/ZenFlow/ZenflowMobile",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;FEA/CustomFields&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/edjou/Documents/Developpement/Projet/FULLSTACK/ZenFlow/ZenflowMobile&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

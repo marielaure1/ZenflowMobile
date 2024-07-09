@@ -4,6 +4,7 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { useNoteFoldersApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import NoteFoldersProps from '@interfaces/note-folders.interface';
+import queryClient from '@/api/config.react-query';
 
 interface UseNoteFolderProps {
   route: any; 
@@ -23,7 +24,8 @@ const useTaskCategorie = ({ route }: UseNoteFolderProps) => {
   } = useForm<NoteFoldersProps>({
     defaultValues: {
       title: route?.params?.name || '',
-      description: route?.params?.description || ''
+      description: route?.params?.description || '',
+      ownerId: me?.customer?._id
     },
   });
 
@@ -35,8 +37,8 @@ const useTaskCategorie = ({ route }: UseNoteFolderProps) => {
   const handleCreate = async (datas: NoteFoldersProps) => {
     try {
       
-      const createdBoteFolder = await noteFoldersApi.create(datas);
-      
+      const createdNoteFolder = await noteFoldersApi.create(datas);
+      queryClient.invalidateQueries({queryKey: ["note-folders"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -46,7 +48,8 @@ const useTaskCategorie = ({ route }: UseNoteFolderProps) => {
 
   const handleUpdate = async (datas: NoteFoldersProps) => {
     try {
-      const updatedBoteFolder = await noteFoldersApi.update(id, datas);
+      const updatedNoteFolder = await noteFoldersApi.update(id, datas);
+      queryClient.invalidateQueries({queryKey: ["note-folders"]})
       navigation.goBack();
     } catch (error) {
       console.log(error);

@@ -13,6 +13,12 @@ class NoteFoldersReactQuery extends ApiReactQuery<NoteFoldersProps> {
     super(invalidateQueryFiltersNoteFolders, path, token);
     this.apiAxios = new NoteFolderAxios(path, token);
   }
+
+  async findAllChildrenByParentId(id: string){
+    const data = await this.apiAxios.findAllChildrenByParentId(id);
+    this.queryClient.setQueryData([`note-folders`], data);
+    return data;
+  }
 }
 
 export default NoteFoldersReactQuery;

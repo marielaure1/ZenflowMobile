@@ -84,6 +84,7 @@ class ApiAxios<DataInterface> {
 
   async findAllOwner(){
     try {
+      console.log("path : ", this.path);
       const response = await this.apiClient.get(`${this.path}/me/all`)
       return response?.data;
     } catch (error) {

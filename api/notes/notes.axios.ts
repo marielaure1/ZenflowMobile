@@ -6,6 +6,14 @@ class NotesAxios extends ApiAxios<NotesProps> {
     super(path, token);
   }
 
+  async findAllOwnerByFolder(id: string){
+    try {
+      const response = await this.apiClient.get(`${this.path}/me/folder/${id}`)
+      return response?.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
+  }
   
 }
 

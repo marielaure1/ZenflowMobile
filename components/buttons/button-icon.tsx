@@ -4,7 +4,7 @@ import buttons from '@theme/theme.buttons';
 import { StyleProp } from 'react-native';
 import { Callback } from '@react-native-async-storage/async-storage/lib/typescript/types';
 import { useNavigation } from '@react-navigation/native';
-import { Add, Back, ChemicalGlass, Magicpen, Trash, TickSquare } from 'iconsax-react-native'
+import { Add, Back, ChemicalGlass, Magicpen, Trash, TickSquare, Brush2 } from 'iconsax-react-native'
 
 interface ButtonIconProps {
     link?: string;
@@ -13,7 +13,7 @@ interface ButtonIconProps {
     icon: string
 }
 
-const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, icon,className = ""}) => {
+const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, icon ,className = ""}) => {
     const navigation = useNavigation();
 
     const changeView = (url: string, params) => {
@@ -48,6 +48,10 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ link, linkParams = {}, action, 
         case "Back":
             iconTag = <Back color={'#344051'} variant="Linear" size={18} />;
             btnStyle = buttons.buttonGrey;
+            break;
+        case "Brush":
+            iconTag = <Brush2 color={'#344051'} variant="Linear" size={18} />;
+            btnStyle = buttons.buttonWhite;
             break;
         default:
             iconTag = icon;

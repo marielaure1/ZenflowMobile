@@ -13,6 +13,12 @@ class NotesReactQuery extends ApiReactQuery<NotesProps> {
     super(invalidateQueryFiltersNotes, path, token);
     this.apiAxios = new NoteAxios(path, token);
   }
+
+  async findAllOwnerByFolder(id: string){
+    const data = await this.apiAxios.findAllOwnerByFolder(id);
+    this.queryClient.setQueryData([`notes`], data);
+    return data;
+  }
 }
 
 export default NotesReactQuery;

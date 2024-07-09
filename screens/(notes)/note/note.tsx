@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -6,16 +6,18 @@ import {
   Platform,
   StyleSheet,
   TextInput,
+  Button,
+  Modal,
 } from 'react-native';
 import { RichText, Toolbar, useEditorBridge } from '@10play/tentap-editor';
 import useNote from './note.hook';
 
 const Basic = ({ route }) => {
-  const { id } = route.params || {};
-  const { title, setTitle, content, setContent, isLoading, error, editor } = useNote({ id });
+  const { title, setTitle, content, setContent, isLoading, error, editor } = useNote({ route });
 
   return (
     <SafeAreaView className="bg-sky-100 pt-[50px] p-[20px]" style={[styles.fullScreen]}>
+
       <TextInput
         placeholder="Titre"
         className="text-2xl mb-5"
@@ -23,9 +25,11 @@ const Basic = ({ route }) => {
         onChangeText={setTitle}
       />
 
+      <View style={{ backgroundColor: "red" }}>
       <RichText
         editor={editor}
       />
+      </View>
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

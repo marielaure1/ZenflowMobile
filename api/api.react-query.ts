@@ -67,6 +67,7 @@ class ApiReactQuery<DataInterface> {
 
   async findAllOwner(){
     try {
+      
       const response = await this.apiAxios.findAllOwner();
       this.queryClient.invalidateQueries({ queryKey: [this.type] });
       return response;
