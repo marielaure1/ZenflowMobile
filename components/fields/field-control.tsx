@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { Controller } from 'react-hook-form';
+import { DatePickerModal } from 'react-native-paper-dates';
+import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
 import styles from '@/components/fields/field.styles';
 import ChipGroup from '@components/chip/chip-group';
 import ChipEditGroup from '@components/chip-edit/chip-edit-group';
-import { DatePickerModal } from 'react-native-paper-dates';
 
 const FieldControl = ({ 
   control, 
@@ -23,6 +24,7 @@ const FieldControl = ({
   ...props 
 }) => {
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
 
   const onConfirm = (params, onChange) => {
     onChange(params.date);
@@ -40,6 +42,7 @@ const FieldControl = ({
         control={control}
         name={name}
         rules={rules}
+        defaultValue=""
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             {type === "input" && (
@@ -47,7 +50,7 @@ const FieldControl = ({
                 className={`${className} bg-base-0 text-zinc-900 rounded-sm px-[10px] py-[15px] `}
                 placeholder={placeholder || label}
                 onBlur={onBlur}
-                onChangeText={onChange}
+                onChangeText={(text) => onChange(text)}
                 value={value}
                 multiline={multiline}
                 {...props}
@@ -59,14 +62,14 @@ const FieldControl = ({
                 defaultSelected={defaultSelected}
                 options={options}
                 multiple={false}
-                onChange={onChange}
+                onChange={(selected) => onChange(selected)}
               />
             )}
 
             {type === "chips-edit" && (
               <ChipEditGroup
                 options={options}
-                onChange={onChange}
+                onChange={(selected) => onChange(selected)}
                 item={item}
               />
             )}
@@ -89,6 +92,22 @@ const FieldControl = ({
                   locale="fr"
                 />
               </>
+            )}
+
+            {type === "select" && (
+              <Select
+                selectedIndex={selectedIndex}
+                value={options[selectedIndex.row]?.label}
+                onSelect={(index) => {
+                  setSelectedIndex(index);
+                  onChange(options[index.row].value);
+                }}
+                style={{ height: 50, width: '100%' }}
+              >
+                {options.map((option, i) => (
+                  <SelectItem key={i} title={option.label} />
+                ))}
+              </Select>
             )}
           </>
         )}

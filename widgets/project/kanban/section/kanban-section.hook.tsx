@@ -3,6 +3,8 @@ import { useTaskCategoriesApi } from '@api/api';
 import useFetchData from '@hooks/useFetchData';
 import TasksProps from '@interfaces/tasks.interface';
 import TaskCategoriesProps from '@interfaces/task-categories.interface';
+import { useNavigation } from '@react-navigation/native';
+import queryClient from '@/api/config.react-query';
 
 export default function KanbanSection({id}) {
   const taskCategoriesApi = useTaskCategoriesApi();
@@ -10,6 +12,7 @@ export default function KanbanSection({id}) {
   const [isLoading, setIsLoading] = useState(true);
   const [taskCategories, setTaskCategories] = useState<TaskCategoriesProps[]>([]);
   const [tasks, setTasks] = useState<TasksProps[]>([]);
+  const navigation = useNavigation();
 
  const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => taskCategoriesApi.findTasks(id), ["tasks-categories", id]);
   useEffect(() => {
@@ -26,6 +29,17 @@ export default function KanbanSection({id}) {
       setIsLoading(false);
     }
   }, [fetchError]);
+
+  const handleDelete = async (id: string) => {
+    try {
+      await taskCategoriesApi.delete(id);
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks-categories"] });
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
-  return { tasks, setTasks, taskCategories };
+  return { handleDelete, tasks, setTasks, taskCategories };
 }

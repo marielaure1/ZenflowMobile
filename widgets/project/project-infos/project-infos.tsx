@@ -16,6 +16,7 @@ interface ProjectInfosProps {
     picture?: string;
     status?: StatusEnum;
     priority?: Priority;
+    clientId?: string;
     ownerId: string;
     teamId?: string;
     customFields?: Map<string, CustomField>;
@@ -61,6 +62,13 @@ const ProjectInfos: React.FC<ProjectInfosProps> = ({ project, customFields }) =>
             <Text className='text-md font-[Poppins400]'>Priorité:</Text>
             {project?.priority && <Flag text={priority[0].text} colors={{"background": priority[0].background, "foreground": priority[0].foreground}}/>}
           </View>
+          {project?.clientId && (
+              <View className='flex-row gap-md justify-between'>
+                <Text className='text-md font-[Poppins400]'>Client:</Text>
+                <Text className='text-md font-[Poppins600]'>{project?.clientId}</Text>
+            </View>
+          )}
+        
 
           {/* <View className='flex-row gap-md justify-between'>
             <Text className='text-md font-[Poppins400]'>Propriétaire:</Text>

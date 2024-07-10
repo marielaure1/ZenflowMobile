@@ -8,7 +8,7 @@ type TemplateProps = {
   onRefresh?: () => Promise<void>
 };
 
-const Template = ({ children, noScroll = false, onRefresh }: TemplateProps) => {
+const Template = ({ children, noScroll = false, onRefresh, style = [] }: TemplateProps) => {
   const styles = useStyles();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -26,6 +26,7 @@ const Template = ({ children, noScroll = false, onRefresh }: TemplateProps) => {
         <ScrollView
           className="bg-background w-screen h-screen p-md"
           contentInsetAdjustmentBehavior="automatic"
+          style={style}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -39,7 +40,7 @@ const Template = ({ children, noScroll = false, onRefresh }: TemplateProps) => {
           <View className="h-[80px]"></View>
         </ScrollView>
       ) : (
-        <View className="bg-background w-screen h-screen p-md">
+        <View className="bg-background w-screen h-screen p-md" style={style}>
           {children}
           <View className="h-[80px]"></View>
         </View>

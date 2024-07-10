@@ -45,9 +45,9 @@ export default function Prospects({navigation}) {
         {currentTab == 2 && filteredProspects?.length > 0 && (
           <View className="flex-col gap-xl w-full">
             <AnalyseNumber title={"Nombre de prospects"} number={prospectsList.length} progress={"-10%"} color={"red"}/>
-            <AnalyseNumber title={"A rappeler"} number={prospectsList?.length} progress={"-10%"} color={"red"}/>
+            {/* <AnalyseNumber title={"A rappeler"} number={prospectsList?.length} progress={"-10%"} color={"red"}/>
             <AnalyseNumber title={"En attente"} number={prospectsList?.length} progress={"-10%"} color={"red"}/>
-            <AnalyseNumber title={"Sans contact depuis 3 mois"} number={prospectsList.length} progress={"-10%"} color={"red"}/>
+            <AnalyseNumber title={"Sans contact depuis 3 mois"} number={prospectsList.length} progress={"-10%"} color={"red"}/> */}
           </View>
         )}
 

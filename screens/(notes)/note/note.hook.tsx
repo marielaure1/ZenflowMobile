@@ -6,11 +6,7 @@ import useFetchData from '@hooks/useFetchData';
 import { useEditorBridge } from '@10play/tentap-editor';
 import { useSelector } from 'react-redux';
 
-interface UseNoteProps {
-  // id?: string; 
-}
-
-const useNote = ({ route }: UseNoteProps) => {
+const useNote = ({ route }) => {
   const { id, folderId } = route.params;
   const notesApi = useNotesApi();
   const [currentId, setCurrentId] = useState(id);
@@ -40,14 +36,10 @@ const useNote = ({ route }: UseNoteProps) => {
 
   const handleCreate = async () => {
     try {
-      console.log(content);
-
-      if(title != "" && content != ""){
-        const createdNote = await notesApi.create({ title, content, ownerId: me?.id, folderId});
-        console.log("createNote", createdNote);
-        setCurrentId(createdNote?.datas?.notes?._id)
-        
-        queryClient.invalidateQueries({ queryKey: ["notes"] });
+      if (title && content) {
+        const createdNote = await notesApi.create({ title, content, ownerId: me?.id, folderId });
+        setCurrentId(createdNote?.datas?.notes?._id);
+        queryClient.invalidateQueries(["notes"]);
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +50,7 @@ const useNote = ({ route }: UseNoteProps) => {
     try {
       if (currentId) {
         await notesApi.update(currentId, { title, content, ownerId: me?.id, folderId });
-        queryClient.invalidateQueries({ queryKey: ["notes"] });
+        queryClient.invalidateQueries(["notes"]);
       }
     } catch (error) {
       console.log(error);

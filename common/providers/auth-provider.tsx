@@ -18,7 +18,6 @@ const AuthProvider = () => {
   const [token, setToken] = useState('');
   const { isAuthenticated, loading, error, customer } = useSelector((state) => state.auth);
   // const { response, refetch } = useFetchData(() => customersApi.findMe(), ['me']);
-
   useEffect(() => {
     queryClient.clear();
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {

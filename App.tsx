@@ -9,6 +9,8 @@ import AuthProvider from '@/common/providers/auth-provider';
 import queryClient from '@api/config.react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 import {
   useFonts,
   Poppins_100Thin,
@@ -23,6 +25,7 @@ import {
 } from '@expo-google-fonts/poppins';
 import "@theme/global.css";
 import { Text } from "react-native";
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const App = () => {
   const colorScheme = useColorScheme();
@@ -61,11 +64,17 @@ const App = () => {
         publishableKey={EXPO_PUBLIC_STRIPE_PUBLIC_KEY}
       >
         <QueryClientProvider client={queryClient}>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+   
+
             <AuthProvider />
           </NavigationContainer>
+          </ApplicationProvider>
         </QueryClientProvider>
       </StripeProvider>
+
     </Provider>
   );
 };

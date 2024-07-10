@@ -7,7 +7,7 @@ import queryClient from '@/api/config.react-query';
 const useNotes = () => {
   const notesApi = useNotesApi();
   const noteFoldersApi = useNoteFoldersApi();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState({type: "", message: ""});
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
   const [breadcrumbs, setBreadcrumbs] = useState<NoteFoldersProps[]>([]);
@@ -27,22 +27,23 @@ const useNotes = () => {
       } else {
         foldersResponse = await noteFoldersApi.findAllOwner();
         notesResponse = await notesApi.findAllOwner();
-        console.log("notesResponse", notesResponse?.datas?.notes?.notes);
       }
       if (foldersResponse?.code === 404) {
         setNoteFoldersList([]);
+        setError({type: "Not Found", message: "Vous n'avez pas encore de note" });
       } else if (foldersResponse?.datas?.noteFolders) {
         setNoteFoldersList(foldersResponse?.datas?.noteFolders || []);
       }
 
       if (notesResponse?.code === 404) {
+        
         setNotesList([]);
       } else if (notesResponse?.datas?.notes?.notes) {
         setNotesList(notesResponse?.datas?.notes?.notes || []);
       }
 
     } catch (err) {
-      setError(err.message);
+      setError({type: "error", message: "Une erreur est survenue" });
     } finally {
       setIsLoading(false);
     }

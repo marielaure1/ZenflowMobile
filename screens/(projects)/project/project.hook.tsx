@@ -36,25 +36,31 @@ const useProject = ({id}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (!fetchIsLoading && response) {
-;
-      setProject(response?.datas["projects/tasks"].data);
-      setTaskCategories(response?.datas["projects/tasks"].taskCategories)
+    
+    if (!fetchIsLoading) {
+
+      if(response?.datas["projects/tasks"].data){
+        setProject(response?.datas["projects/tasks"].data);
+        setTaskCategories(response?.datas["projects/tasks"].taskCategories)
+      }
+     
       setIsLoading(false);
+    } else {
+      if (fetchError) {
+        setError(fetchError.message);
+        setIsLoading(false);
+      }
     }
   }, [fetchIsLoading, response]);
 
-  useEffect(() => {
-    if (fetchError) {
-      setError(fetchError.message);
-      setIsLoading(false);
-    }
-  }, [fetchError]);
+
 
   const handleDelete = async (id) => {
     try {
       await projectsApi.delete(id);
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks-categories"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
     } catch (error) {
       console.error(error);

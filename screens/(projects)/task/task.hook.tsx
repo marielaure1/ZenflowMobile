@@ -42,7 +42,10 @@ const useTask = ({ route }: UseTaskProps) => {
   const handleUpdate = async (data: TasksProps) => {
     try {
       await tasksApi.update(id, data);
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks-categories"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      navigation.goBack();
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +54,9 @@ const useTask = ({ route }: UseTaskProps) => {
   const handleDelete = async (id: string) => {
     try {
       await tasksApi.delete(id);
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      await queryClient.invalidateQueries({ queryKey: ["tasks-categories"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
     } catch (error) {
       console.error(error);

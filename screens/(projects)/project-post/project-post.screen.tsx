@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import useProjectPost from '@screens/(projects)/project-post/project-post.hook';
 import Template from '@components/layout/template/template';
@@ -9,12 +9,13 @@ import FieldControl from '@components/fields/field-control';
 import StatusEnum from '@/common/enums/status.enum';
 import PriorityEnum from '@/common/enums/priority.enum';
 import Loading from '@/screens/(common)/loading/loading.screen';
+import { useCustomersApi } from '@api/api';
 
 const ProjectPostScreen = ({ route, navigation }) => {
-  const {isLoading,  project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProjectPost({ route });
+  const { clients, isLoading, project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit } = useProjectPost({ route });
 
-  if(isLoading){
-    return <Loading/>
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -70,6 +71,22 @@ const ProjectPostScreen = ({ route, navigation }) => {
           ]}
           item={project}
         />
+
+        {/* {clients?.datas?.clients && (
+        <>
+        <FieldControl
+          control={control}
+          name="client"
+          label="Client"
+          error={errors.clientId}
+          type="select"
+          options={clients?.datas?.clients?.map(client => ({ value: client?._id, label: client?.firstName + " " + client?.lastName }))}
+          rules={{ required: 'Ce champ est requis' }}
+        />
+        </>
+        )} */}
+        
+
         <Button text="Valider" type="primary" action={handleSubmit(route?.params?.project ? handleUpdate : handleCreate)} />
       </View>
     </Template>

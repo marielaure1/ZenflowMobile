@@ -10,7 +10,7 @@ import { ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
 
 const Prospect = ({ navigation, route }) => {
   const { id } = route.params;
-  const { prospect, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields } = useProspect({ id });
+  const { handleDelete, handleTransformToClient,  prospect, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields } = useProspect({ id });
 
   if (isLoading || error) {
     return <FetchPending isLoading={isLoading} error={error?.message} type="Not Found" />;
@@ -32,6 +32,14 @@ const Prospect = ({ navigation, route }) => {
         btns={[
           { 
             icon: <Magicpen size="24" color="#FB923C" />,
+            text: 'Convertir en client', 
+            delay: 260, 
+            value: 320, 
+            action: () => handleTransformToClient(prospect?.datas?.prospects?._id), 
+            colors: {background: "#FFEDD5", foreground: "#FB923C"}
+          },
+          { 
+            icon: <Magicpen size="24" color="#FB923C" />,
             text: 'Modifier le prospect', 
             delay: 240, 
             value: 260, 
@@ -43,7 +51,7 @@ const Prospect = ({ navigation, route }) => {
             text: 'Supprimer le prospect', 
             delay: 220, 
             value: 200, 
-            action: () => navigation.navigate("ProspectPost"), 
+            action: () => handleDelete(prospect?.datas?.prospects?._id),  
             colors: {background: "#FFE5E5", foreground: "#FF6666"}
           },
           { 

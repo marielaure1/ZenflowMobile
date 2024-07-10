@@ -26,6 +26,7 @@ const useClients = () => {
   ]);
   const [currentTab, setCurrentTab] = useState(1);
   const { response, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => clientsApi.findAllOwner(), ["clients"]);
+console.log(response);
 
   const navigation = useNavigation();
 
@@ -36,6 +37,9 @@ const useClients = () => {
   };
 
   useEffect(() => {
+
+    console.log(response);
+    
     if (!fetchIsLoading && response) {
       if (response?.code === 404) {
         setError("Vous n'avez pas encore de client");

@@ -35,13 +35,13 @@ export default function AccountScreen() {
 
           <ButtonAccount 
           text="Mon Abonnement" 
-          link="Plans"
+          link="TabSearch"
           icon={<Tag size="18" color="#181818"/>}
           />
           
           <ButtonAccount 
           text="Paramères" 
-          link="Notifications"
+          link="TabSearch"
           icon={<Setting size="18" color="#181818"/>}
           />
         </Card>
@@ -49,19 +49,19 @@ export default function AccountScreen() {
         <Card speed={2}>
           <ButtonAccount 
           text="Aide" 
-          link="Help"
+          link="TabSearch"
           icon={<MessageQuestion size="18" color="#181818"/>}
           />
           
           <ButtonAccount 
           text="A propos" 
-          link="About"
+          link="TabSearch"
           icon={<Smileys size="18" color="#181818"/>}
           />
           
           <ButtonAccount 
           text="Conditions générale" 
-          link="Terms"
+          link="TabSearch"
           icon={<DocumentText size="18" color="#181818"/>}
           />
         </Card>

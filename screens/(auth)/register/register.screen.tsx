@@ -6,6 +6,7 @@ import Button from "@components/buttons/button";
 import FieldControl from "@components/fields/field-control";
 import Regex from "@constants/regex";
 import Template from '@/components/layout/template/template';
+import Banner from '@/components/banner/banner';
 
 
 
@@ -14,8 +15,10 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <Template>
-      <Text style={styles.title}>Inscription</Text>
-      
+
+    <View style={styles.container}>
+    <Banner title={"Inscription"} btnBack/>
+
       <FieldControl 
       control={control} 
       name="lastName" 
@@ -81,7 +84,7 @@ const RegisterScreen = ({ navigation }) => {
       }} />
 
       <Button text="Inscription" type="primary" action={handleSubmit(handleRegister)} />
-      <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgetPassword')}>Mot de passe oublié</Text>
+      </View>
     </Template>
   );
 };

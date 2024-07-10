@@ -1,38 +1,45 @@
-import React from 'react';
-import { View } from 'react-native';
-import useClient from './client.hook';
+import React, { useRef } from 'react';
+import { ScrollView, View, Image, Button, Text } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import useClients from '@screens/(clients)/client/client.hook';
 import Template from '@components/layout/template/template';
 import Banner from '@components/banner/banner';
-import ClientInfos from '@widgets/clients/client-infos/client-infos';
-import FetchPending from '@components/fetch-pending/fetch-pending';
-import Fabs from '@/components/fabs/fabs/fabs-clients';
-import { ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
+import FabsClient from '@/components/fabs/fabs-client/fabs-client';
+import ClientInfos from '@/widgets/clients/client-infos/client-infos';
+import FetchPending from '@/components/fetch-pending/fetch-pending';
+import Fabs from '@components/fabs/fabs';
+import { Add, ChemicalGlass, Magicpen, Trash } from 'iconsax-react-native';
 
-const ClientScreen = ({ route, navigation }) => {
+const Client = ({ navigation, route }) => {
   const { id } = route.params;
-  const { client, control, errors, isLoading, error, editingField, setEditingField, customFields, isLoadingCustomFields, fetchErrorCustomFields, customFieldsAll, handleDelete } = useClient({ id });
-
-  if (isLoading || error) {
-    return <FetchPending isLoading={isLoading} error={error?.message} type="Not Found" />;
+  const { handleDelete, client, isLoading, error, customFields, isLoadingCustomFields, fetchErrorCustomFields, customFieldsAll  } = useClients({ id });
+  
+//  console.log("customFieldsAll", customFieldsAll?.datas?.customfields);
+ 
+  if(isLoading || error){
+    return(
+      <FetchPending isLoading={isLoading} error={error?.message} type="Not Found"/>
+    )
   }
 
+  // TODO: Ajouter les champs personnalisés
+  // TODO: Créer une vue projets
+  // TODO: Créer une vue notes
+
   return (
-    <>
-    <Template>
-      <Banner title={client?.datas?.clients?.society || `${client?.datas?.clients?.firstName} ${client?.datas?.clients?.lastName}`} btnBack />
-      <View>
-        <ClientInfos
-          client={client?.datas?.clients}
-          customFields={customFields?.datas?.customfields}
-          customFieldsAll={customFieldsAll?.datas?.customfields}
-          editingField={editingField}
-          setEditingField={setEditingField}
-          control={control}
-          errors={errors}
-        />
-      </View>
-    </Template>
-    <Fabs
+    <>    
+      <Template>
+        <Banner title={(client?.datas?.clients?.society ? client?.datas?.clients?.society : client?.datas?.clients?.firstName)} btnBack />
+
+        {isLoadingCustomFields || fetchErrorCustomFields && 
+        <FetchPending isLoading={isLoadingCustomFields} error={"Aucun champ personnalisé n'as été trouvé."} type="Not Found"/>
+        }
+
+        {client?.datas?.clients && <ClientInfos client={client?.datas?.clients} customFieldsAll={customFieldsAll?.datas?.customfields ?? []} customFields={customFields?.datas?.customfields ?? []} />}
+
+      </Template>
+
+      <Fabs
       btns={[
         { 
           icon: <Magicpen size="24" color="#FB923C" />,
@@ -59,9 +66,11 @@ const ClientScreen = ({ route, navigation }) => {
           colors: {background: "#EDE9FE", foreground: "#A78BFA"}
         },
       ]}
-    />
+      />
+    
     </>
+
   );
 };
 
-export default ClientScreen;
+export default Client;

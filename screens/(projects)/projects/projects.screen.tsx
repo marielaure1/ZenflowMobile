@@ -31,7 +31,7 @@ export default function Projects({ navigation }) {
     <>
       <Template>
         <Banner title={"Projects"} btnBack={true} />
-        {!error && !isLoading && (
+       {!error && !isLoading && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-[30px]">
             {tabs && tabs.map((tab, key) => (
               <TabsViewBasic key={key} view={currentTab} setView={setCurrentTab} data={tab} colors={{ background: tab?.background, foreground: tab?.foreground }} />
@@ -44,13 +44,13 @@ export default function Projects({ navigation }) {
         {currentTab == 2 && filteredProjects?.length > 0 && (
           <View className="flex-col gap-xl w-full">
             <AnalyseNumber title={"Nombre de projets"} number={projectsList.length} progress={"-10%"} color={"red"} />
-            <AnalyseNumber title={"A rappeler"} number={projectsList?.length} progress={"-10%"} color={"red"} />
+            {/* <AnalyseNumber title={"A rappeler"} number={projectsList?.length} progress={"-10%"} color={"red"} />
             <AnalyseNumber title={"En attente"} number={projectsList?.length} progress={"-10%"} color={"red"} />
-            <AnalyseNumber title={"Sans contact depuis 3 mois"} number={projectsList.length} progress={"-10%"} color={"red"} />
+            <AnalyseNumber title={"Sans contact depuis 3 mois"} number={projectsList.length} progress={"-10%"} color={"red"} /> */}
           </View>
         )}
 
-        {currentTab == 1 && !error && !isLoading && (
+         {currentTab == 1 && !error && !isLoading && (
           <View className="flex-col gap-xl w-full">
             <SearchBar
               data={filteredProjects}

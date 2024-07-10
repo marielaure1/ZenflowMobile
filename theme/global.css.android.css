@@ -539,6 +539,10 @@
   font-size: 14px
 }
 
+.text-\[30px\] {
+  font-size: 30px
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem

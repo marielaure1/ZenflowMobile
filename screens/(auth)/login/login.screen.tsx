@@ -5,6 +5,8 @@ import styles from '@screens/(auth)/login/login.styles';
 import Button from "@/components/buttons/button";
 import Field from "@/components/fields/field";
 import Alert from '@/components/alert/alert';
+import Template from '@/components/layout/template/template';
+import Banner from '@/components/banner/banner';
 
 const LoginScreen = ({navigation}) => {
  
@@ -13,18 +15,22 @@ const LoginScreen = ({navigation}) => {
   } = useLogin();
 
   return (
-    <View style={styles.container}>
-       <Text style={styles.title}>Connexion</Text>
+    <Template>
 
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <Alert error={error} message={"Identifiants incorrects."} />
+      <View style={styles.container}>
+      <Banner title={"Connexion"} btnBack/>
 
-        <Field get={email} set={setEmail} name="Email"/>
-        <Field get={password} set={setPassword} name="Password" secureTextEntry={true}/>
+        {error ? <Alert error={error} message={"Identifiants incorrects."} /> : null}
 
-        <Button text="Connexion" type="primary" action={handleLogin}/>
+        <View className='flex-col gap-md'>
+          <Field get={email} set={setEmail} name="Email"/>
+          <Field get={password} set={setPassword} name="Mot de passe" secureTextEntry={true}/>
+          <Button text="Connexion" type="primary" action={handleLogin}/>
+        </View>
         <Text style={styles.forgotPassword} onPress={() => navigation?.navigate("ForgetPasssword")}>Mot de passe oublié</Text>
-    </View>
+      </View>
+       
+    </Template>
   );
 };
 

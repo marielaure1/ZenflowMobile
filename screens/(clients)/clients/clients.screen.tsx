@@ -45,9 +45,9 @@ export default function Clients({navigation}) {
             {currentTab == 2 && filteredClients?.length > 0 && (
               <View className="flex-col gap-xl w-full">
                 <AnalyseNumber title={"Nombre de clients"} number={clientsList.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"A rappeler"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
+                {/* <AnalyseNumber title={"A rappeler"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
                 <AnalyseNumber title={"En attente"} number={clientsList?.length} progress={"-10%"} color={"red"}/>
-                <AnalyseNumber title={"Sans contact depuis 3 mois"} number={clientsList.length} progress={"-10%"} color={"red"}/>
+                <AnalyseNumber title={"Sans contact depuis 3 mois"} number={clientsList.length} progress={"-10%"} color={"red"}/> */}
               </View>
             )}
 

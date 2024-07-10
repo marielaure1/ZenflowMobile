@@ -12,7 +12,7 @@ const TaskPostScreen = ({ route }) => {
 
   return (
     <Template>
-      <Banner title={title} />
+      <Banner title={title} btnBack/>
       <View className="flex-col gap-md">
         <FieldControl
           control={control}

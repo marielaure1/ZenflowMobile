@@ -1,30 +1,24 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, Platform } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { View, TextInput, Button, Text } from 'react-native';
 import styles from '@screens/(tabs)/home/home.styles';
 import useLoginScreen from '@screens/(tabs)/home/home.hook';
 import { Appbar, Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import React = require('react');
+import Template from '@/components/layout/template/template';
 
-export default function HomeScreen() {
+export default function NotificationScreen() {
 
   // const {
   //   email, setEmail, password, setPassword, error, handleLogout
   // } = useLoginScreen();
   return (
-    <Card>
-    <Card.Title title="Bonjour Marie-Laure" />
-    <Card.Content>
-      <Title>Clients</Title>
-      <Paragraph>Projet en cours: 12 (+18%)</Paragraph>
-      <Paragraph>Projet en cours: 12 (0%)</Paragraph>
-    </Card.Content>
-  </Card>
+   <Template >
+    <View style={[{ width: 350, height: 350, flexDirection: "col", justifyContent: "center", alignItems: "center" }]}>
+      <Text className='text-[30px]'>Coming Soon!</Text>
+    </View>
+      
+   </Template>
     // <View>
     //   <Text>Votre token :</Text>
     //   <Button title="Déconnexion" onPress={handleLogout} />

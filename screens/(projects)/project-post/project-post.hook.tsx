@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
-import { useProjectsApi } from '@api/api';
+import { useClientsApi, useProjectsApi } from '@api/api';
 import { useSelector } from 'react-redux';
 import ProjectsProps from '@interfaces/projects.interface';
 import StatusEnum from '@/common/enums/status.enum';
 import PriorityEnum from '@/common/enums/priority.enum';
 import queryClient from '@/api/config.react-query';
+import useFetchData from '@/common/hooks/useFetchData';
 
 interface UseProjectPostProps {
   route: any; 
@@ -15,10 +16,12 @@ interface UseProjectPostProps {
 const useProjectPost = ({ route }: UseProjectPostProps) => {
   const project = route?.params?.project as ProjectsProps;
   const projectsApi = useProjectsApi();
+  const clientsApi = useClientsApi();
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tabs, setTabs] = useState<string>('Infos');
   const me = useSelector((state: any) => state?.auth?.customer); 
+  const { response: clients, isLoading: fetchIsLoading, error: fetchError, refetch } = useFetchData(() => clientsApi.findAllOwner(), ["clients"]);
 
   const {
     control,
@@ -31,6 +34,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
       status: project ? project.status : StatusEnum.ACTIVE,
       priority: project ? project.priority : PriorityEnum.MEDIUM,
       customFieldValues: project ? project.customFieldValues : [],
+      clientId: project ? project?.clientId : '',
       ownerId: me?.id
     },
   });
@@ -43,7 +47,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
   const handleCreate = async (data: FieldValues) => {
     try {
       const createdProject = await projectsApi.create(data);
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -62,7 +66,7 @@ const useProjectPost = ({ route }: UseProjectPostProps) => {
     }
   };
 
-  return { isLoading, project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
+  return { clients, isLoading, project, control, errors, tabs, setTabs, title, handleCreate, handleUpdate, handleSubmit };
 };
 
 export default useProjectPost;
